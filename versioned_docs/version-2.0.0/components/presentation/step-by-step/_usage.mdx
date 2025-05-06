@@ -1,0 +1,50 @@
+import {
+  CodePreview,
+  CodePreviewGroup,
+  StepByStepComponent,
+} from '@site/src/components';
+
+# Usage guidelines
+
+## Number of steps
+
+Do not use step-by-step when there’s only one step.
+
+<CodePreviewGroup>
+
+  <CodePreview
+    hideCode
+    minHeight="330px"
+    guideline="permitted"
+    code={StepByStepComponent({
+      steps: [
+        {
+          number: '1',
+          title: 'Millest alustada',
+          description: 'Esita taotlus&nbsp;<a href="javascript:void(0);" class="tds-link tds-link--inline">e-teeninduses</a>.',
+        },
+        {
+          number: '2',
+          title: 'Isikutuvastus',
+          description: 'Isiku tuvastamine toimub ID-kaardi, mobiil ID-ga, Smart-ID-ga või EU eID-ga.',
+        },
+      ],
+    })}
+  />
+
+  <CodePreview
+    hideCode
+    guideline="prohibited"
+    minHeight="330px"
+    code={StepByStepComponent({
+      steps: [
+        {
+          number: '1',
+          title: 'Isikutuvastus',
+          description: 'Isiku tuvastamine toimub ID-kaardi, mobiil ID-ga, Smart-ID-ga või EU eID-ga.',
+        },
+      ],
+    })}
+  />
+
+</CodePreviewGroup>

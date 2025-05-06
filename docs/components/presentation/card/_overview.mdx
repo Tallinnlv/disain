@@ -1,0 +1,118 @@
+import { UsageAdvice, CodePreview, CardComponent } from '@site/src/components';
+
+# Overview
+
+<UsageAdvice permitted>
+  * Use content cards to group related information in flexible containers and offer a short entry point that is linked to more detailed content.
+  Content cards work well for news items, blog posts, upcoming events, etc.
+  * Use link cards to create lists of related links with an optional short description for each link.
+</UsageAdvice>
+
+<UsageAdvice permitted={false}>
+  * Don’t use cards when the content doesn't link to a destination or it doesn't contain any actionable elements.
+  * Don’t use cards to inform user about important changes or conditions in the interface. Use Notification component instead.
+  * Don’t use content cards for the sole purpose of styling a single block of content or to contain unrelated information within a single card.
+  * Don’t use link cards to display news items, blog posts, upcoming events, etc.
+</UsageAdvice>
+
+## Content cards
+
+Content card is a flexible container for placing a concise amount of related information and actions together in one object.
+The default design for a content card includes a heading and a short summary text.
+By adding and removing optional content, such as an image, badges, actions etc, the card offers a wide range of design possibilities.
+
+### Variants
+
+__Transparent__ card has a transparent background and no internal padding.
+
+<CodePreview
+  scriptPath="/scripts/components/presentation-card.js"
+  minHeight="450px"
+  code={[
+    {
+      code:
+      CardComponent({
+        title: "Transparent card",
+        description: "Summary text",
+        selected: false,
+        type: 'content',
+        variant: 'transparent',
+        iconLeft: false,
+      })
+    }
+  ]}
+/>
+
+__Outlined__ card has a border, white background and internal padding.
+
+<CodePreview
+  scriptPath="/scripts/components/presentation-card.js"
+  minHeight="350px"
+  code={[
+    {
+      code:
+        CardComponent({
+          title: "Outlined card",
+          description: "Summary text",
+          type: 'content',
+          variant: 'outlined',
+          iconLeft: false,
+        })
+    }
+  ]}
+/>
+
+### Usage examples
+
+<CodePreview
+  hideCode
+  minHeight="450px"
+  svgPath="/img/cardOverview/contentExamples.svg"
+/>
+
+## Link cards
+
+Link cards are used to create lists of related navigation links with an optional short description for each link.
+The use of a title above the list is recommended.
+
+Keep the link titles and descriptions short and clear, preferably 1-3 words for link titles and 1 short sentence for descriptions.
+
+<CodePreview
+  scriptPath="/scripts/components/presentation-card.js"
+  minHeight="232px"
+  code={[
+    {
+      code:
+        CardComponent({
+          title: "Sünnitoetus",
+          description: "Sünnitoetust saad taotleda kohe lapse sünni registreerimise järel kuue kuu jooksul.",
+          iconLeft: true,
+          type: 'link',
+        })
+    }
+  ]}
+/>
+
+Description text may be omitted if the link titles are clear enough or a compact layout is required.
+
+<CodePreview
+  scriptPath="/scripts/components/presentation-card.js"
+  code={[
+    {
+      code:
+        CardComponent({
+          title: "Sünnitoetus",
+          iconLeft: true,
+          type: 'link',
+        })
+    }
+  ]}
+/>
+
+### Usage examples
+
+<CodePreview
+  hideCode
+  minHeight="800px"
+  svgPath="/img/cardOverview/linkExamples.svg"
+/>

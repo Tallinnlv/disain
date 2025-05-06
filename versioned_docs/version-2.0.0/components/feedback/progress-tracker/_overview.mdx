@@ -1,0 +1,190 @@
+import {
+  CodePreview,
+  CodePreviewGroup,
+  ProgressTrackerComponent,
+  UsageAdvice,
+} from '@site/src/components';
+
+# Overview
+
+<UsageAdvice permitted>
+- Requiring a user to complete a linear flow (form, questionnaire, etc) that includes 3 to 5 steps.
+- Providing a user a sense of the overall process complexity while focusing on tasks one at a time.
+</UsageAdvice>
+
+<UsageAdvice permitted={false}>
+- When the flow has fewer than three or more than five steps.
+- When the flow may be completed in any order.
+- When the number of steps may change based on conditional logic.
+
+If the flow needs more than 5 steps, consider how you might simplify it or break it up into multiple tasks.
+</UsageAdvice>
+
+## Principles
+
+Progress trackers help manage user’s expectations when completing a multistep process. They show which step the user is currently on, the total number of steps, and overall progress in completing a task.
+
+Step labels should communicate what the user will accomplish in each step in preferably one or two words.
+
+<CodePreview
+  minHeight="170px"
+  code={ProgressTrackerComponent({
+    steps: [
+      { label: 'Step 1' },
+      { label: 'Step 2' },
+      { label: 'Step 3' }
+    ],
+    activeStep: 1,
+    interactive: false,
+    showBackButton: true,
+    backButtonLabel: 'Go back'
+  })}
+/>
+
+## Help text
+
+Tooltips or popovers can be used to give more context abut the step, if needed.
+
+
+
+<CodePreview
+  minHeight="170px"
+  scriptPaths={[
+    'https://unpkg.com/@popperjs/core@2',
+    '/scripts/components/feedback-tooltip.js',
+  ]}
+  code={ProgressTrackerComponent({
+    steps: [
+      { label: 'Step 1' },
+      { label: 'Step 2', tooltip: 'Tooltip' },
+      { label: 'Step 3' }
+    ],
+    activeStep: 1,
+    interactive: false,
+    showBackButton: true,
+    backButtonLabel: 'Go back',
+    enableTooltips: true
+  })}
+/>
+
+## Interactions
+
+Progress tracker can be configured as interactive or not interactive. Interactive variant allows a user to navigate back to previous completed steps.
+
+<CodePreview
+  minHeight="170px"
+  scriptPaths={[
+    'https://unpkg.com/@popperjs/core@2',
+    '/scripts/components/feedback-tooltip.js',
+  ]}
+  code={ProgressTrackerComponent({
+    steps: [
+      { label: 'Interactive step 1' },
+      { label: 'Interactive step 2' },
+      { label: 'Interactive step 3' }
+    ],
+    activeStep: 2,
+    interactive: true,
+    showBackButton: true,
+    backButtonLabel: 'Go back',
+    enableTooltips: false
+  })}
+/>
+
+<CodePreview
+  minHeight="170px"
+  scriptPaths={[
+    'https://unpkg.com/@popperjs/core@2',
+    '/scripts/components/feedback-tooltip.js',
+  ]}
+  code={ProgressTrackerComponent({
+    steps: [
+      { label: 'Not interactive step 1' },
+      { label: 'Not interactive step 2' },
+      { label: 'Not interactive step 3' }
+    ],
+    activeStep: 2,
+    interactive: false,
+    showBackButton: true,
+    backButtonLabel: 'Go back',
+    enableTooltips: false
+  })}
+/>
+
+## Small screens
+
+On small screens, only the label for the currently active step is displayed. Interactive variant displays the link to the previous step on top of the tracker.
+
+<CodePreview
+  mobilePreview
+  minHeight="170px"
+  scriptPaths={[
+    'https://unpkg.com/@popperjs/core@2',
+    '/scripts/components/feedback-tooltip.js',
+  ]}
+  code={ProgressTrackerComponent({
+    steps: [
+      { label: 'Step 1' },
+      { label: 'Step 2' },
+      { label: 'Step 3' },
+    ],
+    activeStep: 0,
+    interactive: true,
+    showBackButton: true,
+    backButtonLabel: 'Go back',
+    enableTooltips: false
+  })}
+/>
+
+<CodePreview
+  mobilePreview
+  minHeight="170px"
+  scriptPaths={[
+    'https://unpkg.com/@popperjs/core@2',
+    '/scripts/components/feedback-tooltip.js',
+  ]}
+  code={ProgressTrackerComponent({
+    steps: [
+      { label: 'Step 1' },
+      { label: 'Step 2' },
+      { label: 'Step 3' },
+    ],
+    activeStep: 1,
+    interactive: true,
+    showBackButton: true,
+    backButtonLabel: 'Go back',
+    enableTooltips: false
+  })}
+/>
+
+<CodePreview
+  mobilePreview
+  minHeight="170px"
+  scriptPaths={[
+    'https://unpkg.com/@popperjs/core@2',
+    '/scripts/components/feedback-tooltip.js',
+  ]}
+  code={ProgressTrackerComponent({
+    steps: [
+      { label: 'Step 1' },
+      { label: 'Step 2' },
+      { label: 'Step 3' }
+    ],
+    activeStep: 2,
+    interactive: true,
+    showBackButton: true,
+    backButtonLabel: 'Go back',
+    enableTooltips: false
+  })}
+/>
+
+## Placement
+
+The recommended placement of the progress tracker is between the main page title and content.
+
+<CodePreview
+  hideCode
+  setBorderBottom
+  minHeight="430px"
+  svgPath="/img/progressTrackerOverview/progress-tracker.svg"
+/>

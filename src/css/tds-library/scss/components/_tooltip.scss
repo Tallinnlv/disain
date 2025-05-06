@@ -1,0 +1,219 @@
+@use '../helpers' as h;
+@use '../tools' as t;
+
+.container {
+  padding-top: 0.9375rem;
+}
+
+.tds-text {
+  @include h.tds-font(16);
+}
+
+.tds-tooltip {
+  display: block;
+  visibility: hidden;
+  width: max-content;
+  max-width: 15rem;
+  background-color: var(--color-surface-contrast);
+  color: var(--color-content-inverse);
+  cursor: default;
+  padding: 0.75rem 0.5rem;
+  border-radius: 0.25rem;
+  position: absolute;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.2s;
+  box-shadow: 0 0.5rem 1.5rem 0 rgba(0, 0, 0, 0.3);
+  @include h.tds-font(16);
+}
+
+.tds-tooltip--visible {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Tooltip Arrow */
+.tds-tooltip::before {
+  content: '';
+  position: absolute;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: inherit;
+  transform: rotate(45deg);
+}
+
+/* --- LEFT POSITIONS --- */
+
+/* Left-Start */
+[data-popper-placement='left-start']::before {
+  right: -0.125rem;
+  top: 30%; /* Align closer to the start */
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* Left-Center */
+[data-popper-placement='left']::before {
+  right: -0.125rem;
+  top: 50%; /* Perfect center */
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* Left-End */
+[data-popper-placement='left-end']::before {
+  right: -0.125rem;
+  top: 70%; /* Align closer to the end */
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* --- RIGHT POSITIONS --- */
+
+/* Right-Start */
+[data-popper-placement='right-start']::before {
+  left: -0.125rem;
+  top: 30%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* Right-Center */
+[data-popper-placement='right']::before {
+  left: -0.125rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* Right-End */
+[data-popper-placement='right-end']::before {
+  left: -0.125rem;
+  top: 70%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* --- TOP POSITIONS --- */
+
+/* Top-Start */
+[data-popper-placement='top-start']::before {
+  bottom: -0.125rem;
+  left: 30%; /* Start position */
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* Top-Center */
+[data-popper-placement='top']::before {
+  bottom: -0.125rem;
+  left: 50%; /* Center position */
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* Top-End */
+[data-popper-placement='top-end']::before {
+  bottom: -0.125rem;
+  left: 70%; /* End position */
+  transform: translateX(50%) rotate(45deg);
+}
+
+/* --- BOTTOM POSITIONS --- */
+
+/* Bottom-Start */
+[data-popper-placement='bottom-start']::before {
+  top: -0.125rem;
+  left: 30%;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* Bottom-Center */
+[data-popper-placement='bottom']::before {
+  top: -0.125rem;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* Bottom-End */
+[data-popper-placement='bottom-end']::before {
+  top: -0.125rem;
+  left: 70%;
+  transform: translateX(50%) rotate(45deg);
+}
+
+// Grid view for demo
+
+.tooltip-grid-container {
+  display: grid;
+  position: relative;
+  margin-top: 3.125rem;
+  width: 28.125rem;
+  height: 25rem;
+  place-items: center;
+}
+
+/* Tooltip items positioned absolutely */
+.tooltip-item {
+  position: absolute;
+}
+
+/* Top positions */
+.top-start {
+  top: 0.625rem;
+  left: 4.375rem;
+}
+
+.top {
+  top: 0.625rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.top-end {
+  top: 0.625rem;
+  right: 4.375rem;
+}
+
+/* Bottom positions */
+.bottom-start {
+  bottom: 0.625rem;
+  left: 4.375rem;
+}
+
+.bottom-center {
+  bottom: 0.625rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.bottom-end {
+  bottom: 0.625rem;
+  right: 4.375rem;
+}
+
+/* Left positions */
+.left-start {
+  left: 0.625rem;
+  top: 4.375rem;
+}
+
+.left-center {
+  left: 0.625rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.left-end {
+  left: 0.625rem;
+  bottom: 4.375rem;
+}
+
+/* Right positions */
+.right-start {
+  right: 0.625rem;
+  top: 4.375rem;
+}
+
+.right-center {
+  right: 0.625rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.right-end {
+  right: 0.625rem;
+  bottom: 4.375rem;
+}

@@ -1,0 +1,88 @@
+import {
+  CodePreview,
+  CodePreviewGroup,
+  BreadcrumbsComponent,
+} from '@site/src/components';
+
+# Usage guidelines
+
+## Style
+
+Use neutral color for breadcrumbs links.
+
+<CodePreviewGroup>
+<CodePreview
+  hideCode
+  minHeight="50px"
+  guideline='permitted'
+  scriptPath="/scripts/components/forms-select.js"
+  code={BreadcrumbsComponent({
+    breadcrumbsTitles: ['Avaleht', 'Juhtimine', 'Asutused'],
+    link: 'javascript:void(0);',})}
+/>
+<CodePreview
+  hideCode
+  minHeight="50px"
+  guideline='prohibited'
+  scriptPath="/scripts/components/forms-select.js"
+  code={BreadcrumbsComponent({
+   secondaryColor: true,
+   breadcrumbsTitles: ['Avaleht', 'Juhtimine', 'Asutused'],
+    link: 'javascript:void(0);',})}
+/>
+
+</CodePreviewGroup>
+
+## Current page title
+
+Do not include the current page title in the breadcrumbs.
+
+<CodePreviewGroup>
+<CodePreview
+  hideCode
+  minHeight="50px"
+  guideline='permitted'
+  scriptPath="/scripts/components/forms-select.js"
+  code={BreadcrumbsComponent({
+    breadcrumbsTitles: ['Avaleht', 'Juhtimine', 'Asutused'],
+    link: 'javascript:void(0);',})}
+/>
+<CodePreview
+  hideCode
+  minHeight="50px"
+  guideline='prohibited'
+  scriptPath="/scripts/components/forms-select.js"
+  code={BreadcrumbsComponent({
+   breadcrumbsTitles: ['Avaleht', 'Juhtimine', 'Asutused', 'Current page'],
+    link: 'javascript:void(0);',})}
+/>
+
+</CodePreviewGroup>
+
+## Truncation
+
+On smaller screens, use truncation. Try to avoid multi-line breadcrumbs.
+
+<CodePreviewGroup>
+<CodePreview
+  hideCode
+  minHeight="50px"
+  guideline='permitted'
+  scriptPath="/scripts/components/forms-select.js"
+  code={BreadcrumbsComponent({
+    collapseOnMobile: true,
+    breadcrumbsTitles: ['Avaleht', 'Juhtimine', 'Asutused'],
+    link: 'javascript:void(0);',})}
+/>
+<CodePreview
+  hideCode
+  minHeight="50px"
+  width='70%'
+  guideline='prohibited'
+  scriptPath="/scripts/components/forms-select.js"
+  code={BreadcrumbsComponent({
+   breadcrumbsTitles: ['Avaleht', 'Juhtimine', 'Asutused', 'Ametid'],
+    link: 'javascript:void(0);',})}
+/>
+
+</CodePreviewGroup>

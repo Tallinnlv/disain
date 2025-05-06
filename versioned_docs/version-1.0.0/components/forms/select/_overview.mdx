@@ -1,0 +1,163 @@
+import {
+  CodePreview,
+  SelectComponent,
+  CodePreviewGroup,
+  UsageAdvice,
+} from '@site/src/components';
+
+# Overview
+
+<UsageAdvice permitted>
+  Use the select component only when a user needs to choose from 6 or more
+  possible options and you have limited space to display the options.
+</UsageAdvice>
+
+<UsageAdvice permitted={false}>
+  Use radio buttons if the user must select only one option from a list of five
+  or fewer options.
+</UsageAdvice>
+
+## Principles
+
+Selects should always have labels, and in most cases the label should be visible.
+
+Try to avoid dropdown options that span over one line. Aim for short texts for all options.
+
+If you use the component for settings, you can make an option pre-selected by default when users first see it.
+
+If you use the component for questions, you should not pre-select any of the options as this makes it more likely that users will:
+
+- not realise they’ve missed a question
+- submit the wrong answer
+
+## Size
+
+<CodePreview
+  minHeight="400px"
+  scriptPath="/scripts/components/forms-select.js"
+  width="60%"
+  caption="Regular size"
+  code={SelectComponent({
+    title: 'Label',
+    selectOptions: [
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+      { value: 'option3', label: 'Option 3' },
+      { value: 'option4', label: 'Option 4' },
+      { value: 'option5', label: 'Option 5' },
+      { value: 'option6', label: 'Option 6' },
+      { value: 'option7', label: 'Option 7' },
+    ],
+
+})}
+/>
+
+<CodePreview
+  minHeight="400px"
+  scriptPath="/scripts/components/forms-select.js"
+  width="60%"
+  caption="Compact size"
+  code={SelectComponent({
+    title: 'Label',
+    compact: true,
+    selectOptions: [
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+      { value: 'option3', label: 'Option 3' },
+      { value: 'option4', label: 'Option 4' },
+      { value: 'option5', label: 'Option 5' },
+      { value: 'option6', label: 'Option 6' },
+      { value: 'option7', label: 'Option 7' },
+    ],
+  })}
+/>
+
+## Required indicator
+
+<CodePreview
+  minHeight="400px"
+  scriptPath="/scripts/components/forms-select.js"
+  width="60%"
+  caption="Regular size"
+  code={SelectComponent({
+    title: 'Label',
+    titleRequired: true,
+    selectOptions: [
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+      { value: 'option3', label: 'Option 3' },
+      { value: 'option4', label: 'Option 4' },
+      { value: 'option5', label: 'Option 5' },
+      { value: 'option6', label: 'Option 6' },
+      { value: 'option7', label: 'Option 7' },
+    ],
+
+})}
+/>
+
+## Hint text
+
+<CodePreview
+  minHeight="420px"
+  scriptPath="/scripts/components/forms-select.js"
+  width="60%"
+  code={SelectComponent({
+    title: 'Label',
+    hintTitle: 'Hint text',
+    selectOptions: [
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+      { value: 'option3', label: 'Option 3' },
+      { value: 'option4', label: 'Option 4' },
+      { value: 'option5', label: 'Option 5' },
+      { value: 'option6', label: 'Option 6' },
+      { value: 'option7', label: 'Option 7' },
+    ],
+
+})}
+/>
+
+## Error state
+
+<CodePreview
+  minHeight="420px"
+  scriptPath="/scripts/components/forms-select.js"
+  width="60%"
+  code={SelectComponent({
+    title: 'Label',
+    isError: true,
+    selectOptions: [
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+      { value: 'option3', label: 'Option 3' },
+      { value: 'option4', label: 'Option 4' },
+      { value: 'option5', label: 'Option 5' },
+      { value: 'option6', label: 'Option 6' },
+      { value: 'option7', label: 'Option 7' },
+    ],
+
+})}
+/>
+
+## Disabled state
+
+<CodePreview
+  minHeight="420px"
+  scriptPath="/scripts/components/forms-select.js"
+  width="60%"
+  code={SelectComponent({
+    title: 'Label',
+    hintTitle: 'Hint text',
+    isDisabled: true,
+    selectOptions: [
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+      { value: 'option3', label: 'Option 3' },
+      { value: 'option4', label: 'Option 4' },
+      { value: 'option5', label: 'Option 5' },
+      { value: 'option6', label: 'Option 6' },
+      { value: 'option7', label: 'Option 7' },
+    ],
+
+})}
+/>

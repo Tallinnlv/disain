@@ -1,0 +1,81 @@
+.container {
+  display: flex;
+  max-width: 1216px;
+  margin: auto;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-top: 96px;
+  margin-bottom: 192px;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  max-width: 400px;
+  flex: 1 1 30%;
+
+  a {
+    text-decoration: none;
+    color: var(--color-content-default);
+  }
+}
+
+/* Styling for full-width card */
+.fullWidth {
+  min-width: 100%;
+  max-width: 100%;
+  .HeaderCard {
+    flex-direction: row;
+    gap: 64px;
+    align-items: center;
+    margin-top: 64px;
+    @media screen and (max-width: 768px) {
+      flex-wrap: wrap;
+    }
+  }
+}
+
+.HeaderCard {
+  display: flex;
+  flex-direction: column;
+  min-height: 250px;
+  justify-content: space-between;
+
+  @media screen and (max-width: 768px) {
+    padding: 0 8px;
+  }
+
+  h2 {
+    text-decoration: none;
+  }
+}
+
+.svgImage {
+  height: auto;
+}
+
+.textContainer {
+  margin: 32px 0px;
+}
+
+.HeaderCard h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+.HeaderCard p {
+  font-size: 18px;
+  margin: 0;
+}
+
+.arrowIcon {
+  align-self: flex-end;
+  width: 24px;
+  height: 24px;
+  margin-top: 16px;
+}

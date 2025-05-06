@@ -1,0 +1,191 @@
+import { UsageAdvice, CodePreview, DatePickerComponent } from '@site/src/components';
+
+# Overview
+
+:::info
+TDS provides only the HTML and CSS for a date picker.
+:::
+
+<UsageAdvice permitted>
+  * Allow users to choose recent or near future dates.
+  * Limit date options to a specific range of dates.
+  * When it is important for the user to know the day of the week, or the relationship between days. For example: scheduling appointments.
+</UsageAdvice>
+
+<UsageAdvice permitted={false}>
+  When a user needs to input a far distant (e.g. birth date) or a far future (e.g. expiry date of an id card etc), use the date input component instead.
+</UsageAdvice>
+
+## Principles
+
+Datepicker component combines a text field with a calendar dropdown.
+
+The user can either type a date into the text field or choose a day from the calendar dropdown which will populate the text field with the chosen date.
+
+<CodePreview
+  hideCode
+  setBorderBottom
+  minHeight="786px"
+  svgPath="/img/datePickerOverview/principles1.svg"
+/>
+
+## Date input field
+
+### Default field example
+
+<CodePreview
+  scriptPaths={[
+    'https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/datepicker-full.min.js',
+    '/scripts/components/forms-date-picker.js',
+  ]}
+  minHeight="608px"
+  code={[
+    {
+      code:
+      `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/css/datepicker-foundation.min.css">` + "\n" + "\n" +
+        `<div style="display: flex; justify-content: flex-start; gap: 4rem;">` + "\n" + "\n" +
+        DatePickerComponent({
+          title: "Kuupäev",
+          placeholder: "PP.KK.AAAA",
+        }) + "\n" + "\n" +
+        DatePickerComponent({
+          title: "Kuupäev",
+          value: "01.01.2025",
+        }) + "\n" + "\n" +
+        `</div>`
+    }
+  ]}
+/>
+
+{/* prettier-ignore */}
+:::info
+This example uses the [Vanilla JS Datepicker](https://mymth.github.io/vanillajs-datepicker) library
+                                                and [custom JS](/scripts/components/forms-date-picker-example.txt) to configure it.
+  You may use any library, but will have to configure and style it yourself.
+  :::
+{/* prettier-ignore */}
+
+### Help texts
+
+The input field can use either a placeholder text or a hint text to inform a user about the required date format. We recommend to use hint text for public services and placeholder text for internal services.
+
+Recommended date format for public services is DD.MM.YYYY. For internal services various formats can be used, if needed (for example, YYYY-MM-DD).
+
+<CodePreview
+  scriptPaths={[
+  ]}
+  minHeight="208px"
+  code={[
+    {
+      code:
+        `<div style="display: flex; justify-content: flex-start; gap: 4rem;">` + "\n" + "\n" +
+        DatePickerComponent({
+          title: "Hint text example",
+          hint: "PP.KK.AAAA, näiteks 01.01.2025",
+        }) + "\n" + "\n" +
+        DatePickerComponent({
+          title: "Placeholder example",
+          placeholder: "AAAA-KK-PP",
+        }) + "\n" + "\n" +
+        `</div>`
+    }
+  ]}
+/>
+
+### Required field indicator and error state
+
+<CodePreview
+  scriptPaths={[
+  ]}
+  minHeight="208px"
+  code={[
+    {
+      code:
+        `<div style="display: flex; justify-content: flex-start; gap: 4rem;">` + "\n" + "\n" +
+        DatePickerComponent({
+          title: "Kuupäev",
+          placeholder: "PP.KK.AAAA",
+          titleRequired: true,
+        }) + "\n" + "\n" +
+        DatePickerComponent({
+          title: "Kuupäev",
+          value: "01.01.2025",
+          titleRequired: true,
+          errorMessage: 'Sisesta kuupäev',
+          modifiers: ['is-error'],
+        }) + "\n" + "\n" +
+        `</div>`
+    }
+  ]}
+/>
+
+## Calendar Dropdown
+
+### Anatomy
+
+<CodePreview
+  hideCode
+  setBorderBottom
+  minHeight="651px"
+  svgPath="/img/datePickerOverview/principles2.svg"
+/>
+
+### Default calendar example
+
+Clicking on the calendar button inside the text field opens the calendar dropdown below the text field. When a user clicks on a date in the calendar, the dropdown disappears and selected date is displayed in the text field.
+
+If the calendar dropdown is opened after selecting a date, the selected date is highlighted in the dropdown.
+
+<CodePreview
+  hideCode
+  setBorderBottom
+  minHeight="700px"
+  svgPath="/img/datePickerOverview/defaultCalendar.svg"
+/>
+
+### Disabled dates
+
+Specific dates or date ranges can be disabled. For example, weekend days, all dates before or after certain days, etc.
+
+<CodePreview
+  hideCode
+  setBorderBottom
+  minHeight="700px"
+  svgPath="/img/datePickerOverview/disabledCalendar.svg"
+/>
+
+### Month and year selectors
+
+Clicking on the month or year in the header of the dropdown opens a month or year selector respectively and currently selected month/year is highlighted. Navigation buttons can be configured to go through months/years or disabled.
+
+When a user clicks on a month or a year, the dropdown returns to calendar view and the selected month/year is displayed.
+
+<CodePreview
+  hideCode
+  setBorderBottom
+  minHeight="590px"
+  svgPath="/img/datePickerOverview/monthAndYear.svg"
+/>
+
+## Date ranges
+
+Date range input can be accomplished with two datepickers.
+
+<CodePreview
+  minHeight="208px"
+  code={[
+    {
+      code:
+        `<div style="display: flex; justify-content: flex-start; gap: 4rem;">` + "\n" + "\n" +
+        DatePickerComponent({
+          title: "Alates",
+          placeholder: "PP.KK.AAAA",
+        }) + "\n" + "\n" +
+        DatePickerComponent({
+          title: "Kuni",
+          placeholder: "PP.KK.AAAA",
+        }) + "\n" + "\n" +
+        `</div>`
+    }
+  ]}
+/>

@@ -1,0 +1,102 @@
+import {
+  CodePreview,
+  TextareaComponent,
+  CodePreviewGroup,
+  UsageAdvice,
+} from '@site/src/components';
+
+# Overview
+
+<UsageAdvice permitted>
+  Use the textarea component when you need to let users enter an amount of text
+  that’s longer than a single line.
+</UsageAdvice>
+
+<UsageAdvice permitted={false}>
+  Do not use the textarea component if you need to let users enter shorter
+  answers no longer than a single line, such as an email address or a name. In
+  this case, you should use the text input component.
+</UsageAdvice>
+
+## Principles
+
+Textareas should always have labels. Placeholder text is not a suitable substitute for a label, as it disappears when users click inside the textarea.
+
+Make the height of a textarea proportional to the amount of text you expect users to enter.
+
+## Size
+
+Regular size should be used in most cases.
+
+<CodePreview
+  minHeight="300px"
+  caption="Regular size"
+  width="60%"
+  code={TextareaComponent({
+    label: 'Label',
+    error: false,
+    hint: false,
+  })}
+/>
+
+<CodePreview
+  minHeight="300px"
+  caption="Compact size"
+  width="60%"
+  code={TextareaComponent({
+    label: 'Label',
+    compact: true,
+    hint: false,
+  })}
+/>
+
+## Required indicator
+
+<CodePreview
+  minHeight="300px"
+  width="60%"
+  code={TextareaComponent({
+    label: 'Label',
+    error: false,
+    titleRequired: true,
+    hint: false,
+  })}
+/>
+
+## Hint text
+
+<CodePreview
+  minHeight="320px"
+  width="60%"
+  code={TextareaComponent({
+    label: 'Label',
+    error: false,
+    hint: true,
+  })}
+/>
+
+## Error messages
+
+<CodePreview
+  minHeight="380px"
+  width="60%"
+  code={TextareaComponent({
+    label: 'Label',
+    titleRequired: true,
+    error: true,
+    hint: true,
+  })}
+/>
+
+## Disabled state
+
+<CodePreview
+  minHeight="380px"
+  width="60%"
+  code={TextareaComponent({
+    label: 'Label',
+    error: false,
+    hint: true,
+    disabled: true,
+  })}
+/>

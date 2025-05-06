@@ -1,0 +1,23 @@
+@use '../../helpers' as h;
+
+@mixin tds-item-hint {
+  @include h.tds-font(18);
+
+  display: block;
+  width: 100%;
+  color: var(--color-content-subtle);
+  margin-left: 2.75rem;
+  margin-bottom: 0.25rem;
+
+  &[disabled],
+  &.is-disabled {
+    cursor: not-allowed;
+    color: var(--color-surface-subtle);
+  }
+
+  .tds-fieldset--compact & {
+    @include h.tds-font(16);
+
+    margin-left: 2.0625rem;
+  }
+}

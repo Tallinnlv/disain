@@ -1,0 +1,66 @@
+---
+title: For developers
+description: Developers
+hide_table_of_contents: true
+hide_title: true
+---
+
+import { useLatestVersion } from '@site/src/hooks/useLatestVersion';
+import { useDocVersionSuggestions } from '@docusaurus/plugin-content-docs/client';
+
+export const LatestVersion = () => {
+  const latestVersion = useLatestVersion(); // Use the custom hook to fetch the latest version
+
+if (!latestVersion) {
+return <span>No version found</span>; // Handle case where no version is found
+}
+
+return <span>{latestVersion}</span>; // Render the latest version
+};
+
+# Getting started in development
+
+To start using the Tallinn Design System without any build steps, simply add the Tallinn CSS files to your web page.
+
+Create a new HTML file for your project:
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tallinn Design System Demo</title>
+  </head>
+  <body>
+    <h1>Hello, World!</h1>
+  </body>
+</html>
+```
+
+Next, include the Tallinn CSS files. Add the `<link>` tag between the `<head>` tags of your page:
+
+{/* prettier-ignore */}
+:::info
+Our website uses CSS versioning. For the **latest stable version**,
+use <code>tds-<LatestVersion />.min.css</code>, for the **beta version (canary)**,
+use <code>tds-next.min.css</code>. To reference a specific **older version**,
+use <code>tds-X.X.X.min.css</code>.{/* prettier-ignore */}
+:::
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tallinn Design System Demo</title>
+    <link rel="stylesheet" href="https://disain.tallinn.ee/tds-X.X.X.min.css" />
+  </head>
+  <body>
+    <h1>Hello, World!</h1>
+  </body>
+</html>
+```
+
+Open the page in your browser, and you should see that the Tallinn Design System styles have been applied to your page. You can now start building your application or website with the Tallinn Design System.

@@ -1,0 +1,167 @@
+import {
+  CodePreview,
+  CodePreviewGroup,
+  ModalDialog,
+  UsageAdvice,
+} from '@site/src/components';
+
+# Overview
+
+<UsageAdvice permitted>
+Use dialogs to focus user's attention on simple, single-step tasks, questions, or contextual messages.
+
+</UsageAdvice>
+
+<UsageAdvice permitted={false}>
+Don't use dialogs for multi-step flows or if the content is long, complex or is not important enough to interrupt the user's flow.
+
+</UsageAdvice>
+
+## Principles
+
+Dialogs work best when they’re expected and initiated by a user’s action, like clicking a button or link.
+
+When dialogs frequently appear for non-critical information, users may instinctively close them without reading the content. This increases the chance users dismiss important dialogs that appear later without giving them any thought.
+
+When people enter a dialog task, they switch away from their previous context, so it is recommended to set the new context with a heading. Headings are crucial for screen reader users who cannot see the dialog appear on top of the previous context. The dialog’s heading should match or contain similar words to the button label users tapped to open it.
+
+Dialogs shouldn’t contain large amounts of content or complex data. Keep them simple and focused. If the content is too long, it probably should have its own page.
+
+Avoid showing multiple dialogs at the same time.
+
+## Size
+
+TDS has 4 standard widths for dialogs. Custom width may be defined if the content requires it.
+
+- **Small**: 480px
+- **Medium**: 640px
+- **Large**: 800px
+- **Fluid**: 90% width
+
+On mobile, the width of a dialog is defined as 100% with 1-2rem margin on the left and right side.
+
+<CodePreview
+  minHeight="300px"
+  code={ModalDialog({
+    title: 'Small dialog',
+    content:
+      'A dialog displays critical content on top of the page in a separate container and requires user action.',
+    size: 'small',
+  })}
+/>
+
+<CodePreview
+  minHeight="300px"
+  code={ModalDialog({
+    title: 'Medium dialog',
+    content:
+      'A dialog displays critical content on top of the page in a separate container and requires user action.',
+    size: 'medium',
+  })}
+/>
+
+<CodePreview
+  minHeight="300px"
+  code={ModalDialog({
+    title: 'Large dialog',
+    content:
+      'A dialog displays critical content on top of the page in a separate container and requires user action.',
+    size: 'large',
+  })}
+/>
+
+<CodePreview
+  minHeight="300px"
+  code={ModalDialog({
+    title: 'Fluid dialog',
+    content:
+      'A dialog displays critical content on top of the page in a separate container and requires user action.',
+    size: 'fluid',
+  })}
+/>
+
+## Closing
+
+By default, dialogs can be closed by:
+
+- Primary button to submit their changes, e.g., “Save” or “Done”
+- “Cancel” button in the footer
+- ”X” icon on top right corner
+- Pressing ESC on the keyboard
+- Tapping the scrim behind the dialog
+
+If the user is required to take action (for example, after some period of inactivity, continue using the site or log out) in order to dismiss the dialog, the “X” icon should not be visible and pressing ESC or tapping the scrim should not close the dialog.
+
+<CodePreview
+  minHeight="300px"
+  code={ModalDialog({
+    title: 'Informational dialog',
+    content:
+      'This dialog can be closed by clicking the scrim, the “X” icon, or the Close button.',
+    size: 'small',
+    secondaryLabel: 'Close',
+    secondaryButton: false,
+    primaryLabel: 'Close',
+    closeButton: true,
+  })}
+/>
+
+<CodePreview
+  minHeight="300px"
+  code={ModalDialog({
+    title: 'Timeout dialog',
+    content:
+      'It appears you have been inactive for a while. <br> <br> To protect your information, your progress will be saved and you will be signed out in <b>45 seconds.</b>',
+    size: 'small',
+    secondaryLabel: 'Log out',
+    primaryLabel: 'Continue using the site',
+  })}
+/>
+
+## Scrolling
+
+Try to keep the content of the dialog simple and concise. In case it’s not at all possible, the scroll behavior can be set so that scrolling happens inside the dialog body or the whole dialog scrolls within the viewport.
+
+<CodePreview
+  minHeight="500px"
+  code={ModalDialog({
+    title: 'Scroll inside dialog',
+    content:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat. Duis aute irure dolor in reprehenderit in voluptate  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  occaecat cupidatat non proident, sunt in culpa qui officia deserunt  mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem  accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab  illo inventore veritatis et quasi architecto beatae vitae dicta sunt  explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut  odit aut fugit, sed quia consequuntur magni dolores eos qui ratione  voluptatem sequi nesciunt.',
+    size: 'small',
+    secondaryLabel: 'Cancel',
+    primaryLabel: 'Accept',
+    scrollType: 'body',
+    closeButton: true,
+  })}
+/>
+
+<CodePreview
+  minHeight="500px"
+  code={ModalDialog({
+    title: 'Scroll inside viewport',
+    content:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat. Duis aute irure dolor in reprehenderit in voluptate  velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint  occaecat cupidatat non proident, sunt in culpa qui officia deserunt  mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem  accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab  illo inventore veritatis et quasi architecto beatae vitae dicta sunt  explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut  odit aut fugit, sed quia consequuntur magni dolores eos qui ratione  voluptatem sequi nesciunt.',
+    size: 'small',
+    secondaryLabel: 'Cancel',
+    primaryLabel: 'Accept',
+    scrollType: 'viewport',
+    closeButton: true,
+  })}
+/>
+
+## Destructive actions
+
+Dialogs can be used to confirm destructive actions, for example deleting something permanently. In this case a danger button should be used for the destructive action.
+
+<CodePreview
+  minHeight="300px"
+  code={ModalDialog({
+    title: 'Confirm delete',
+    content: 'Everything will be deleted. This action cannot be undone.',
+    size: 'small',
+    dangerButton: true,
+    secondaryLabel: 'Cancel',
+    primaryLabel: 'Delete',
+  })}
+/>

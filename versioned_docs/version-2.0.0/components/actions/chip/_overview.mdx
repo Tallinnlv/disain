@@ -1,0 +1,297 @@
+import { UsageAdvice, CodePreview, ChipComponent } from '@site/src/components';
+
+# Overview
+
+<UsageAdvice permitted>
+  Chips are used to show added items within a form, make selections, or filter content.
+</UsageAdvice>
+
+<UsageAdvice permitted={false}>
+  Don't use chips to display static information, use badges instead.
+</UsageAdvice>
+
+## Variants
+
+### Selection chips
+
+Selection chips can be used to make selections or create filters. Chip can be selected or unselected by clicking on it. The use of an icon is optional.
+
+<CodePreview
+  code={[
+    {
+      code:
+      ChipComponent({
+        content: "Not selected",
+        selected: false,
+        variant: 'selection',
+        iconLeft: false,
+      }) + "\n" + "\n" +
+      ChipComponent({
+        content: "Selected",
+        selected: true,
+        variant: 'selection',
+        iconLeft: false,
+      }) + "\n" + "\n" +
+      ChipComponent({
+        content: "Not selected",
+        selected: false,
+        variant: 'selection',
+        iconLeft: true,
+        customIcon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.16634 9.16658V3.33325H10.833V9.16658H16.6663V10.8333H10.833V16.6666H9.16634V10.8333H3.33301V9.16658H9.16634Z" fill="currentColor"/>
+      </svg>`,
+      }) + "\n" + "\n" +
+      ChipComponent({
+        content: "Selected",
+        selected: true,
+        variant: 'selection',
+        iconLeft: true,
+        customIcon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.16634 9.16658V3.33325H10.833V9.16658H16.6663V10.8333H10.833V16.6666H9.16634V10.8333H3.33301V9.16658H9.16634Z" fill="currentColor"/>
+      </svg>`,
+      })
+    }
+  ]}
+/>
+
+Usage example:
+
+<CodePreview
+  hideCode
+  setBorderBottom
+  minHeight="232px"
+  svgPath="/img/chipOverview/selectionUsage.svg"
+/>
+
+### Input chips
+
+Input chips display the user's choice in a filter, an input field or a select box. An input chip can be removed from a group of chips by clicking on the X icon.
+
+<CodePreview
+  code={[
+    {
+      code:
+        ChipComponent({
+          content: "Input 1",
+          iconLeft: false,
+          variant: 'input',
+        }) + "\n" + "\n" +
+        ChipComponent({
+          content: "Input 2",
+          iconLeft: true,
+          variant: 'input',
+        })
+    }
+  ]}
+/>
+
+Usage examples:
+
+<CodePreview
+  hideCode
+  setBorderBottom
+  minHeight="232px"
+  svgPath="/img/chipOverview/inputUsage1.svg"
+/>
+<CodePreview
+  hideCode
+  setBorderBottom
+  minHeight="232px"
+  svgPath="/img/chipOverview/inputUsage2.svg"
+/>
+
+### Size
+
+Chips come in three different sizes: large, medium and small. Do not use different sizes in a group.
+
+<CodePreview
+  code={[
+    {
+      code:
+        ChipComponent({
+          content: "Large",
+          chipSize: "large",
+          iconLeft: false,
+          variant: 'selection',
+        }) + "\n" + "\n" +
+        ChipComponent({
+          content: "Medium",
+          chipSize: "medium",
+          iconLeft: false,
+          variant: 'selection',
+        }) + "\n" + "\n" +
+        ChipComponent({
+          content: "Small",
+          chipSize: "small",
+          iconLeft: false,
+          variant: 'selection',
+        })
+    }
+  ]}
+/>
+
+### Icons
+
+Icons can be used in large and medium chips.
+
+<CodePreview
+  code={[
+    {
+      code:
+        ChipComponent({
+          content: "Large",
+          chipSize: "large",
+          iconLeft: true,
+          customIcon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.16634 9.16658V3.33325H10.833V9.16658H16.6663V10.8333H10.833V16.6666H9.16634V10.8333H3.33301V9.16658H9.16634Z" fill="currentColor"/>
+      </svg>`,
+          variant: 'selection',
+        }) + "\n" + "\n" +
+        ChipComponent({
+          content: "Large",
+          chipSize: "large",
+          iconLeft: true,
+          variant: 'input',
+          customIcon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.49967 6.25008C7.49967 4.54427 8.70852 3.33341 9.99967 3.33341C11.2908 3.33341 12.4997 4.54427 12.4997 6.25008C12.4997 7.9559 11.2908 9.16675 9.99967 9.16675C8.70852 9.16675 7.49967 7.9559 7.49967 6.25008ZM9.99967 1.66675C7.60893 1.66675 5.83301 3.81376 5.83301 6.25008C5.83301 7.18916 6.09686 8.08525 6.55806 8.83197C4.66063 10.3985 3.33301 13.2086 3.33301 16.6668H4.99967C4.99967 13.5603 6.20858 11.2456 7.68344 10.0652C8.33589 10.5472 9.1268 10.8334 9.99967 10.8334C10.8725 10.8334 11.6635 10.5472 12.3159 10.0652C13.7908 11.2456 14.9997 13.5603 14.9997 16.6668H16.6663C16.6663 13.2086 15.3387 10.3985 13.4413 8.83197C13.9025 8.08524 14.1663 7.18915 14.1663 6.25008C14.1663 3.81376 12.3904 1.66675 9.99967 1.66675Z" fill="currentColor"/>
+      </svg>`,
+        }) + "\n" + "\n" +
+        ChipComponent({
+          content: "Medium",
+          chipSize: "medium",
+          iconLeft: true,
+          variant: 'selection',
+          customIcon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.33366 7.33341V2.66675H8.66699V7.33341H13.3337V8.66675H8.66699V13.3334H7.33366V8.66675H2.66699V7.33341H7.33366Z" fill="currentColor"/>
+      </svg>`,
+        }) + "\n" + "\n" +
+        ChipComponent({
+          content: "Medium",
+          chipSize: "medium",
+          iconLeft: true,
+          variant: 'input',
+          customIcon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M6.00033 4.99992C6.00033 3.63527 6.9674 2.66659 8.00033 2.66659C9.03325 2.66659 10.0003 3.63527 10.0003 4.99992C10.0003 6.36457 9.03325 7.33325 8.00033 7.33325C6.9674 7.33325 6.00033 6.36457 6.00033 4.99992ZM8.00033 1.33325C6.08773 1.33325 4.66699 3.05086 4.66699 4.99992C4.66699 5.75118 4.87807 6.46805 5.24704 7.06543C3.72909 8.31865 2.66699 10.5668 2.66699 13.3333H4.00033C4.00033 10.8481 4.96745 8.99637 6.14734 8.05204C6.6693 8.43763 7.30203 8.66659 8.00033 8.66659C8.69862 8.66659 9.33136 8.43762 9.85332 8.05203C11.0332 8.99636 12.0003 10.8481 12.0003 13.3333H13.3337C13.3337 10.5668 12.2716 8.31864 10.7536 7.06543C11.1226 6.46805 11.3337 5.75118 11.3337 4.99992C11.3337 3.05086 9.91292 1.33325 8.00033 1.33325Z" fill="currentColor"/>
+      </svg>`,
+        })
+    }
+  ]}
+/>
+
+### Labels
+
+Chip titles should describe the chip in a few words and be under 20 characters when possible.
+
+When the chip's title is too long to fit within the available space of the tag container, the title can be truncated with an ellipsis. The full title is disclosed in a tooltip on hover when using a mouse and on focus when using a keyboard.
+
+<CodePreview
+  scriptPaths={[
+    'https://unpkg.com/@popperjs/core@2',
+    '/scripts/components/feedback-tooltip.js'
+  ]}
+  code={[
+    {
+      code:
+        ChipComponent({
+          content: "Short label",
+          chipSize: "large",
+          iconLeft: false,
+          variant: 'selection',
+        }) + "\n" + "\n" +
+        ChipComponent({
+          content: "Long labels are truncated",
+          chipSize: "large",
+          iconLeft: false,
+          variant: 'selection',
+        })
+    }
+  ]}
+/>
+
+### Grouping
+
+A group of chips should flow like words in a paragraph, not a vertical list. This keeps the group compact to improve scannability.
+
+<CodePreview
+  scriptPaths={[
+    'https://unpkg.com/@popperjs/core@2',
+    '/scripts/components/feedback-tooltip.js'
+  ]}
+  minHeight="200px"
+  code={[
+    {
+      code:
+      `<div style="display: flex; width: 640px; align-items: center; align-content: center; gap: 8px; flex-wrap: wrap;">` + "\n" + "\n" +
+        ChipComponent({
+          content: "Arhiiv",
+          chipSize: "large",
+          iconLeft: false,
+          variant: 'selection',
+        }) + "\n" + "\n" +
+        ChipComponent({
+          content: "Avalik kord",
+          chipSize: "large",
+          iconLeft: false,
+          variant: 'selection',
+        }) + "\n" + "\n" +
+        ChipComponent({
+          content: "Ettevõtlus, kaubandus",
+          chipSize: "large",
+          iconLeft: false,
+          variant: 'selection',
+        }) + "\n" + "\n" +
+        ChipComponent({
+          content: "Haridus",
+          chipSize: "large",
+          iconLeft: false,
+          variant: 'selection',
+        }) + "\n" + "\n" +
+        ChipComponent({
+          content: "Heakord ja haljastus",
+          chipSize: "large",
+          iconLeft: false,
+          variant: 'selection',
+        }) + "\n" + "\n" +
+        ChipComponent({
+          content: "Keskkonnakaitse",
+          chipSize: "large",
+          iconLeft: false,
+          variant: 'selection',
+        }) + "\n" + "\n" +
+        ChipComponent({
+          content: "Kultuur",
+          chipSize: "large",
+          iconLeft: false,
+          variant: 'selection',
+        }) + "\n" + "\n" +
+        ChipComponent({
+          content: "Linnajuhtimine",
+          chipSize: "large",
+          iconLeft: false,
+          variant: 'selection',
+        }) + "\n" + "\n" +
+      `</div>`
+    }
+  ]}
+/>
+
+#### Within a select box or input field
+
+There are two ways to display chips within a form field.
+If there are less than 10 options and the text labels are short, the height of the for field can be expanded to fit all the selected options.
+
+<CodePreview
+  hideCode
+  setBorderBottom
+  minHeight="232px"
+  svgPath="/img/chipOverview/grouping1.svg"
+/>
+
+If there are more than 10 options and the text labels are longer, it is recommended to show only first few selections and a text label (e.g. +4) to indicate the amount of hidden chips.
+
+<CodePreview
+  hideCode
+  setBorderBottom
+  minHeight="232px"
+  svgPath="/img/chipOverview/grouping2.svg"
+/>

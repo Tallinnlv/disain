@@ -1,0 +1,91 @@
+@mixin dark-theme {
+  --color-color-canvas-default: var(--color-color-neutral-90);
+  --color-color-canvas-contrast: var(--color-neutral-80);
+  --color-surface-default: var(--color-neutral-90);
+  --color-surface-feedback-info-faint: var(--color-blue-80);
+  --color-surface-feedback-positive-faint: var(--color-green-80);
+  --color-surface-feedback-warning-faint: var(--color-yellow-80);
+  --color-surface-feedback-negative-faint: var(--color-red-80);
+  --color-surface-faint: var(--color-neutral-80);
+  --color-surface-action-color-default: var(--color-blue-40);
+  --color-surface-action-color-hover: var(--color-blue-30);
+  --color-surface-subtle: var(--color-neutral-70);
+  --color-surface-action-disabled: var(--color-neutral-80);
+  --color-surface-action-neutral-hover: var(--color-neutral-30);
+  --color-surface-action-neutral-active: var(--color-neutral-20);
+  --color-surface-action-neutral-subtle-hover: var(--alpha-light-10);
+  --color-surface-action-neutral-subtle-active: var(--alpha-light-20);
+  --color-surface-action-danger-default: var(--color-red-40);
+  --color-surface-action-danger-hover: var(--color-red-30);
+  --color-surface-action-danger-active: var(--color-red-20);
+  --color-surface-highlight-subtle: var(--color-blue-80);
+  --color-surface-focus-default: var(--color-yellow-50);
+  --color-surface-highlight-moderate: var(--color-blue-30);
+  --color-surface-highlight-strong: var(--color-blue-20);
+  --color-surface-contrast: var(--color-neutral-10);
+  --color-surface-action-color-active: var(--color-blue-20);
+  --color-surface-action-color-subtle-hover: var(--color-blue-80);
+  --color-surface-action-color-subtle-active: var(--color-blue-70);
+  --color-surface-brand-strong: var(--color-blue-70);
+  --color-surface-moderate: var(--color-neutral-40);
+  --color-border-subtle: var(--color-neutral-70);
+  --color-border-moderate: var(--color-neutral-50);
+  --color-border-strong: var(--color-neutral-10);
+  --color-border-inverse: var(--color-neutral-90);
+  --color-border-brand: var(--color-blue-50);
+  --color-border-faint: var(--color-neutral-80);
+  --color-border-feedback-info: var(--color-blue-40);
+  --color-border-feedback-positive: var(--color-green-40);
+  --color-border-feedback-warning: var(--color-yellow-50);
+  --color-border-feedback-negative: var(--color-red-40);
+  --color-border-action-color-default: var(--color-blue-40);
+  --color-border-action-neutral-default: var(--color-neutral-50);
+  --color-border-action-neutral-hover: var(--alpha-light-80);
+  --color-border-action-neutral-active: var(--alpha-light-70);
+  --color-border-action-disabled: var(--color-neutral-70);
+  --color-border-highlight-moderate: var(--color-blue-40);
+  --color-border-focus-default: var(--color-neutral-90);
+  --color-border-focus-contrast: var(--color-yellow-50);
+  --color-border-focus-inner: var(--color-neutral-90);
+  --color-border-focus-outer: var(--color-neutral-10);
+  --color-content-default: var(--color-neutral-0);
+  --color-border-action-color-hover: var(--color-blue-30);
+  --color-content-feedback-negative: var(--color-red-40);
+  --color-content-subtle: var(--color-neutral-30);
+  --color-content-static-dark: var(--color-neutral-90);
+  --color-content-static-light: var(--color-neutral-0);
+  --color-border-action-color-active: var(--color-blue-20);
+  --color-content-faint: var(--color-neutral-50);
+  --color-content-inverse: var(--color-neutral-90);
+  --color-content-brand: var(--color-blue-50);
+  --color-content-action-inverse: var(--color-neutral-90);
+  --color-content-action-disabled: var(--color-neutral-50);
+  --color-content-action-color-default: var(--color-blue-30);
+  --color-content-action-color-hover: var(--color-blue-20);
+  --color-content-action-color-active: var(--color-blue-10);
+  --color-content-action-neutral-default: var(--color-neutral-10);
+  --color-content-action-neutral-hover: var(--alpha-light-80);
+  --color-content-action-neutral-active: var(--alpha-light-70);
+  --color-content-highlight-moderate: var(--color-blue-30);
+  --color-content-focus-default: var(--color-neutral-90);
+  --color-surface-transparent: var(--alpha-dark-transparent);
+  --color-surface-overlay-container: var(--color-neutral-90);
+  --color-surface-overlay-scrim: var(--alpha-dark-70);
+  --color-surface-brand: var(--color-blue-50);
+  --color-decorative-blue-primary: var(--color-blue-40);
+  --color-decorative-green-primary: var(--color-green-40);
+  --color-decorative-yellow-primary: var(--color-yellow-50);
+  --color-decorative-red-primary: var(--color-red-40);
+  --color-decorative-neutral-subtle: var(--color-neutral-80);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @include dark-theme;
+  }
+}
+
+html[data-ts-theme='dark'],
+html[data-theme='dark'] {
+  @include dark-theme;
+}

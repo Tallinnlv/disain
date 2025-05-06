@@ -1,0 +1,244 @@
+@use '../helpers' as h;
+@use '../tools' as t;
+@use '../settings' as s;
+@use '../components/button' as b;
+
+$link-font-size: t.tds-px-to-rem(18px);
+$link-border-radius: 4px;
+$link-padding-y: 4px;
+$link-padding-x: 8px;
+$link-icon-size: t.tds-px-to-rem(16px);
+$link-hover-offset: 3px;
+$link-transition-duration: 150ms;
+$link-svgSize: t.tds-px-to-rem(24px);
+$link-svgSize-compact: t.tds-px-to-rem(20px);
+$link-svgSize-compact-m: t.tds-px-to-rem(16px);
+
+// Link Mixins
+
+@mixin link(
+  $color,
+  $bg-color: transparent,
+  $includeBorder: false,
+  $borderColor: null
+) {
+  color: $color;
+  background-color: $bg-color;
+  text-decoration-line: underline;
+  text-decoration-thickness: 0.0625rem;
+  text-underline-offset: 0.25rem;
+
+  @if $includeBorder {
+    border: 2px solid $borderColor;
+  }
+
+  svg {
+    width: $link-svgSize;
+    height: $link-svgSize;
+
+    @include h.tds-media-query($until: tablet) {
+      width: $link-svgSize-compact;
+      height: $link-svgSize-compact;
+    }
+  }
+
+  svg {
+    path {
+      fill: $color;
+    }
+  }
+}
+
+@mixin linkHover(
+  $color,
+  $bg-color: transparent,
+  $underline: true,
+  $borderColor: null
+) {
+  &:hover:not(.is-disabled):not([disabled]):not(.is-loading):not([loading]),
+  &.is-hover:not(.is-disabled):not([disabled]):not(.is-loading):not([loading]) {
+    color: $color;
+    background-color: $bg-color;
+    text-decoration: if($underline, underline, none);
+    text-decoration-line: underline;
+    text-decoration-thickness: 0.125rem;
+    text-underline-offset: 0.25rem;
+
+    @if $borderColor {
+      border-color: $borderColor;
+    }
+
+    svg {
+      path {
+        fill: $color;
+      }
+    }
+  }
+}
+
+@mixin linkActive($color, $bg-color: transparent, $borderColor: null) {
+  &:active {
+    color: $color;
+    background-color: $bg-color;
+    text-decoration-line: underline;
+    text-decoration-thickness: 0.1875rem;
+    text-underline-offset: 0.25rem;
+
+    @if $borderColor {
+      border-color: $borderColor;
+    }
+
+    svg {
+      path {
+        fill: $color;
+      }
+    }
+  }
+}
+
+@mixin linkDisabled($color, $bg-color: transparent) {
+  &[disabled],
+  &.is-disabled {
+    color: $color;
+    background-color: $bg-color;
+    cursor: not-allowed;
+    text-decoration: none;
+
+    svg {
+      path {
+        fill: $color;
+      }
+    }
+  }
+}
+
+@mixin linkFocus(
+  $color,
+  $shadow-color,
+  $bg-color: default,
+  $border-color: var(--color-border-focus-default)
+) {
+  &:focus:not(:active):not(:hover):not(.is-disabled):not([disabled]):not(
+      .is-loading
+    ):not([loading]) {
+    color: $color;
+    background-color: $bg-color;
+    @if $shadow-color == 'none' or $shadow-color == none {
+      // Skip the box-shadow property if 'none' is specified
+    } @else {
+      box-shadow: 0px 0px 0px 3px $shadow-color;
+    }
+
+    svg {
+      path {
+        fill: $color;
+      }
+    }
+  }
+
+  &.tds-link:focus:not(:active):not(:hover):not(.is-disabled):not(
+      [disabled]
+    ):not(.is-loading):not([loading]) {
+    text-decoration: none;
+    box-shadow:
+      0 -3px var(--color-border-focus-contrast),
+      0 3px var(--color-border-focus-default);
+    border: none;
+  }
+}
+
+// Link Component
+
+.tds-link {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  font-size: inherit;
+  cursor: pointer;
+  gap: $link-padding-x;
+  font-family: 'Lab Grotesque', arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+
+  &--inline {
+    @include link(var(--color-content-action-color-default), transparent);
+    @include linkHover(
+      var(--color-content-action-color-hover),
+      transparent,
+      $underline: true
+    );
+    @include linkActive(var(--color-content-action-color-active), transparent);
+    @include linkFocus(
+      var(--color-border-focus-default),
+      transparent,
+      var(--color-surface-focus-default),
+      none
+    );
+    @include linkDisabled(var(--color-content-disabled), transparent);
+  }
+
+  &--inline-neutral {
+    @include link(var(--color-content-action-neutral-default), transparent);
+    @include linkHover(
+      var(--color-content-action-neutral-hover),
+      transparent,
+      $underline: true
+    );
+    @include linkActive(
+      var(--color-content-action-neutral-active),
+      transparent
+    );
+    @include linkFocus(
+      var(--color-border-focus-default),
+      transparent,
+      var(--color-surface-focus-default),
+      none
+    );
+    @include linkDisabled(var(--color-content-disabled), transparent);
+  }
+
+  &--standalone {
+    @extend .tds-link--inline;
+    @include h.tds-font(18, 400);
+
+    padding: 4px 0px;
+
+    &-neutral {
+      @extend .tds-link--inline-neutral;
+      @include h.tds-font(18, 400);
+    }
+
+    &-compact {
+      @extend .tds-link--compact;
+
+      padding: 2px 0px;
+      gap: 4px;
+    }
+  }
+
+  &--cta {
+    @extend .tds-button, .tds-button--primary;
+  }
+
+  &--compact {
+    @include h.tds-font(16, 400);
+
+    gap: 4px;
+
+    svg {
+      width: $link-svgSize-compact;
+      height: $link-svgSize-compact;
+
+      @include h.tds-media-query($until: tablet) {
+        width: $link-svgSize-compact-m;
+        height: $link-svgSize-compact-m;
+      }
+    }
+  }
+}
+
+.tds-link__icon {
+  display: inline-block;
+  width: $link-icon-size;
+  height: $link-icon-size;
+  fill: currentColor;
+}

@@ -1,0 +1,101 @@
+import {
+  CodePreview,
+  TextInputComponent,
+  CodePreviewGroup,
+  UsageAdvice,
+} from '@site/src/components';
+
+# Overview
+
+<UsageAdvice permitted>
+  Use the text input component when you need to let users enter text that’s no
+  longer than a single line, such as their name or email address.
+</UsageAdvice>
+
+<UsageAdvice permitted={false}>
+  Do not use the text input component if you need to let users enter longer
+  answers that might span multiple lines. In this case, you should use
+  the textarea component.
+</UsageAdvice>
+
+## Principles
+
+Text inputs should always have labels, and in most cases the label should be visible.
+
+Do not use placeholder text in place of a label, or for hints or examples, as:
+
+- it vanishes when the user starts typing, which can cause problems for users with memory conditions or when reviewing answers
+- not all screen readers read it out
+- its browser default styles often do not meet minimum contrast requirements
+
+Help users understand what they should enter by making text inputs the right size for the content they’re intended for.
+
+## Size
+
+Regular size should be used in most cases. Compact size can be used in very dense interfaces or large data tables.
+
+<CodePreview
+  caption="Regular size"
+  minHeight="220px"
+  width="60%"
+  code={TextInputComponent({
+    title: 'Label',
+  })}
+/>
+
+<CodePreview
+  caption="Compact size"
+  minHeight="180px"
+  width="60%"
+  code={TextInputComponent({
+    title: 'Label',
+    compact: true,
+  })}
+/>
+
+## Required indicator
+
+<CodePreview
+  minHeight="220px"
+  width="60%"
+  code={TextInputComponent({
+    title: 'Label',
+    titleRequired: true,
+  })}
+/>
+
+## Hint text
+
+<CodePreview
+  minHeight="220px"
+  width="60%"
+  code={TextInputComponent({
+    title: 'Label',
+    hint: 'Hint text',
+  })}
+/>
+
+## Error message
+
+<CodePreview
+  minHeight="220px"
+  width="60%"
+  code={TextInputComponent({
+    title: 'Label',
+    titleRequired: true,
+    errorMessage: 'Error message',
+    modifiers: ['is-error'],
+  })}
+/>
+
+## Disabled state
+
+<CodePreview
+  minHeight="220px"
+  width="60%"
+  code={TextInputComponent({
+    title: 'Label',
+    hint: 'Hint text',
+    disabled: true,
+  })}
+/>

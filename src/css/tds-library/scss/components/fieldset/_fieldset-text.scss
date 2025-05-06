@@ -1,0 +1,29 @@
+@use '../../helpers' as h;
+
+@mixin tds-fieldset__text {
+  @include h.tds-font(18);
+
+  display: block;
+  padding: 0;
+  margin-bottom: 1rem;
+
+  .tds-fieldset--compact & {
+    @include h.tds-font(16);
+
+    margin-bottom: 0.75rem;
+  }
+
+  &--hint {
+    @include h.tds-font(18);
+
+    display: block;
+    color: var(--color-content-subtle);
+    margin: 0 0 1rem;
+
+    .tds-fieldset--compact & {
+      @include h.tds-font(16);
+
+      margin: 0.75rem 0;
+    }
+  }
+}

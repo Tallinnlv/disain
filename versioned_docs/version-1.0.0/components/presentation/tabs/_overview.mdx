@@ -1,0 +1,216 @@
+import {
+  CodePreview,
+  CodePreviewGroup,
+  TabsComponent,
+  UsageAdvice,
+} from '@site/src/components';
+
+# Overview
+
+<UsageAdvice permitted>
+  Use tabs to group related information into different categories, helping to
+  reduce cognitive load.
+</UsageAdvice>
+
+{/* prettier-ignore */}
+<UsageAdvice permitted={false}>
+  - Don’t use tabs to create primary navigation that links to other pages.
+  - Don’t use tabs for content that is not related.
+</UsageAdvice>
+{/* prettier-ignore */}
+
+## Principles
+
+Tabs are always used in a tab group. Since they are used to switch between multiple contexts, tabs cannot be used standalone (minimum 2 tabs required) and only one tab can be selected at a time.
+
+Do not hide important information inside tabs, and keep the number of tabs low wherever possible.
+
+Use short tab labels that are clear and specific. Labels should be 1-2 words and should clearly communicate the view users will see and the content contained in the view.
+
+It is recommended that the maximum amount of tabs in a single tab list is 7.
+
+## Size
+
+### Regular
+
+Regular size should be the preferred option in most cases.
+
+<CodePreview
+  minHeight="300px"
+  width="80%"
+  code={TabsComponent({
+    scrollable: false,
+    sections: [
+      {
+        heading: 'Regular tab 1',
+        content:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      },
+      {
+        heading: 'Tab 2',
+        content:
+          'Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+      },
+      {
+        heading: 'Tab 3',
+        content: 'Content 3',
+      },
+      {
+        heading: 'Tab 4',
+        content: 'Content 4',
+      },
+      {
+        heading: 'Tab 5',
+        content: 'Content 5',
+      },
+      {
+        heading: 'Tab 6',
+        content: 'Content 6',
+      },
+    ],
+  })}
+  scriptPath="/scripts/components/presentation-tabs.js"
+/>
+
+### Compact
+
+Compact size has reduced font size and spacing. It may be used in dense and data-heavy layouts.
+
+<CodePreview
+  minHeight="220px"
+  width="80%"
+  code={TabsComponent({
+    scrollable: false,
+    content: true,
+    compact: true,
+    sections: [
+      {
+        heading: 'Compact tab 1',
+        content:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+      },
+      {
+        heading: 'Tab 2',
+        content:
+          'Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+      },
+      {
+        heading: 'Tab 3',
+        content: 'Content 3',
+      },
+      {
+        heading: 'Tab 4',
+        content: 'Content 4',
+      },
+      {
+        heading: 'Tab 5',
+        content: 'Content 5',
+      },
+      {
+        heading: 'Tab 6',
+        content: 'Content 6',
+      },
+    ],
+  })}
+  scriptPath="/scripts/components/presentation-tabs.js"
+/>
+
+## Divider
+
+The bottom divider line should extend to the width of the content area.
+
+<CodePreview
+  minHeight="200px"
+  code={TabsComponent({
+    scrollable: false,
+    sections: [
+      {
+        heading: 'Tab 1',
+        content: 'Content 1',
+      },
+      {
+        heading: 'Tab 2',
+        content: 'Content 2',
+      },
+      {
+        heading: 'Tab 3',
+        content: 'Content 3',
+      },
+      {
+        heading: 'Tab 4',
+        content: 'Content 4',
+      },
+    ],
+  })}
+  scriptPath="/scripts/components/presentation-tabs.js"
+/>
+
+If the tab group and tab content are placed on a different background, then the divider line may be removed to reduce visual noise.
+
+<CodePreview
+  minHeight="200px"
+  code={TabsComponent({
+    scrollable: false,
+    borderless: true,
+    sections: [
+      {
+        heading: 'Tab 1',
+        content: 'Content 1',
+      },
+      {
+        heading: 'Tab 2',
+        content: 'Content 2',
+      },
+      {
+        heading: 'Tab 3',
+        content: 'Content 3',
+      },
+      {
+        heading: 'Tab 4',
+        content: 'Content 4',
+      },
+    ],
+  })}
+  scriptPath="/scripts/components/presentation-tabs.js"
+/>
+
+## Overflow
+
+When a tab group's container does not have enough space to display all of the tabs, this tab group becomes scrollable by dragging the tab bar or by clicking on the arrow buttons.
+
+Try to use this behavior only on smaller screens (tablets and phones). Overflowing tab group on a larger screen (1280px and up) is usually a sign of excessive complexity and you may want to reduce this complexity by splitting your content into multiple sections or by using other components to display the content (for example accordions).
+
+<CodePreview
+  minHeight="200px"
+  width="50%"
+  code={TabsComponent({
+    scrollable: true,
+    sections: [
+      {
+        heading: 'Regular tab 1',
+        content: 'Content 1',
+      },
+      {
+        heading: 'Tab 2',
+        content: 'Content 2',
+      },
+      {
+        heading: 'Tab 3',
+        content: 'Content 3',
+      },
+      {
+        heading: 'Tab 4',
+        content: 'Content 4',
+      },
+      {
+        heading: 'Tab 5',
+        content: 'Content 5',
+      },
+      {
+        heading: 'Tab 6',
+        content: 'Content 6',
+      },
+    ],
+  })}
+  scriptPath="/scripts/components/presentation-tabs.js"
+/>

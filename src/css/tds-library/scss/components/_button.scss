@@ -1,0 +1,754 @@
+@use '../helpers' as h;
+@use '../tools' as t;
+@use '../settings' as s;
+
+$component-button-contained-regular-min-height: 3rem;
+$component-button-contained-regular-padding-y: 0.5rem;
+$component-button-contained-regular-padding-x: 1.5rem;
+$component-button-contained-regular-padding-icon-x: 1.25rem;
+$component-button-contained-compact-padding-icon-x: 0.5rem;
+$component-button-contained-border-radius: 0.25rem;
+$component-button-contained-regular-icon-label-gap: 0.5rem;
+$button-font-size-compact: t.tds-px-to-rem(16px);
+$svgSize: t.tds-px-to-rem(24px);
+$svgSize-compact: t.tds-px-to-rem(20px);
+$svgSize-compact-m: t.tds-px-to-rem(16px);
+$button-height-compact: 2.25rem;
+$button-height-s: 2.5rem;
+$button-height-xs: 1.875rem;
+$button-padding: 1.5rem;
+$button-padding-compact: 0.75rem;
+$button-padding-s: 0.5625rem;
+$button-padding-xs: 0.25rem;
+$button-border-radius: 0.25rem;
+$button-hover-offset: 0.3125rem;
+$button-icon-padding: 0.5rem;
+
+// Mixins
+
+@mixin button($color, $bg-color, $includeBorder: false, $borderColor: null) {
+  color: $color;
+  background-color: $bg-color;
+
+  @if $includeBorder {
+    border: 0.125rem solid $borderColor;
+  }
+
+  svg {
+    path {
+      fill: $color;
+    }
+  }
+}
+
+@mixin buttonSize($padding, $height, $svgSize: $svgSize) {
+  padding-top: $padding - 1rem;
+  padding-bottom: $padding - 1rem;
+  min-height: $height;
+
+  @include h.tds-media-query($until: desktop) {
+    $localHeight: $height - 0.5rem;
+
+    min-height: $localHeight;
+  }
+
+  svg {
+    width: $svgSize;
+    height: $svgSize;
+
+    @include h.tds-media-query($until: desktop) {
+      width: $svgSize-compact;
+      height: $svgSize-compact;
+    }
+  }
+}
+
+@mixin buttonSizeCompact($padding, $height, $svgSize: $svgSize) {
+  padding-top: $padding - 1rem;
+  padding-bottom: $padding - 1rem;
+  min-height: $height;
+
+  @include h.tds-media-query($until: desktop) {
+    $localHeight: $height - 0.25rem;
+
+    min-height: $localHeight;
+  }
+
+  svg {
+    width: $svgSize;
+    height: $svgSize;
+
+    @include h.tds-media-query($until: desktop) {
+      width: $svgSize-compact-m;
+      height: $svgSize-compact-m;
+    }
+  }
+}
+
+@mixin buttonHover(
+  $color,
+  $bg-color,
+  $text-decoration-thickness: 0.1875rem,
+  $includeBorder: false,
+  $borderColor: var(--color-border-action-color-default)
+) {
+  &:hover:not(.is-disabled):not([disabled]):not(.is-loading):not([loading]),
+  &.is-hover:not(.is-disabled):not([disabled]):not(.is-loading):not([loading]) {
+    color: $color;
+    background-color: $bg-color;
+    text-decoration-thickness: $text-decoration-thickness;
+
+    @if $includeBorder {
+      border: 0.125rem solid $borderColor;
+    }
+
+    svg {
+      path {
+        fill: $color;
+      }
+    }
+  }
+}
+
+@mixin buttonActive(
+  $color,
+  $bg-color,
+  $includeBorder: false,
+  $borderColor: var(--color-border-action-color-default)
+) {
+  &:active:not(.is-disabled):not([disabled]):not(.is-loading):not([loading]),
+  &.is-active:not(.is-disabled):not([disabled]):not(.is-loading):not(
+      [loading]
+    ) {
+    color: $color;
+    background-color: $bg-color;
+
+    @if $includeBorder {
+      border: 0.125rem solid $borderColor;
+    }
+
+    svg {
+      path {
+        fill: $color;
+      }
+    }
+  }
+}
+
+@mixin buttonDisabled($color, $bg-color, $border-color: transparent) {
+  &[disabled],
+  &.is-disabled {
+    color: $color;
+    border: 0.125rem solid $border-color;
+    background-color: $bg-color;
+    cursor: not-allowed;
+
+    svg {
+      path {
+        fill: $color;
+      }
+    }
+
+    &.tds-button--tertiary {
+      text-decoration: none;
+    }
+  }
+}
+
+@mixin buttonFocus(
+  $color,
+  $shadow-color,
+  $bg-color: transparent,
+  $border-color: var(--color-border-focus-default)
+) {
+  &:focus:not(:active):not(:hover):not(.is-disabled):not([disabled]):not(
+      .is-loading
+    ):not([loading]) {
+    color: $color;
+    background-color: $bg-color;
+    box-shadow: 0 0 0 0.1875rem $shadow-color;
+    border: 0.1875rem solid var(--color-border-focus-default, $border-color);
+
+    svg {
+      path {
+        fill: $color;
+      }
+    }
+  }
+
+  &.tds-button--tertiary:focus:not(:active):not(:hover):not(.is-disabled):not(
+      [disabled]
+    ):not(.is-loading):not([loading]) {
+    text-decoration: none;
+    box-shadow:
+      0 -0.1875rem var(--color-surface-focus-default),
+      0 0.1875rem var(--color-border-focus-default);
+    border: none;
+  }
+}
+
+@mixin buttonFocusSecondary(
+  $color,
+  $shadow-color,
+  $bg-color: transparent,
+  $border-color: var(--color-border-focus-default)
+) {
+  &:focus:not(:active):not(:hover):not(.is-disabled):not([disabled]):not(
+      .is-loading
+    ):not([loading]) {
+    color: $color;
+    background-color: $bg-color;
+    box-shadow:
+      0 0 0 0.1875rem $shadow-color,
+      0 0 0 0.0625rem var(--color-border-focus-default, #131416) inset;
+    border: 0.125rem solid var(--color-border-focus-default, $border-color);
+
+    svg {
+      path {
+        fill: $color;
+      }
+    }
+  }
+
+  &.tds-button--tertiary:focus:not(:active):not(:hover):not(.is-disabled):not(
+      [disabled]
+    ):not(.is-loading):not([loading]) {
+    text-decoration: none;
+    box-shadow:
+      0 -0.1875rem var(--color-surface-focus-default),
+      0 0.1875rem var(--color-border-focus-default);
+    border: none;
+  }
+}
+
+// Loading spinner
+
+@keyframes button-loading-spinner {
+  from {
+    transform: rotate(0turn);
+  }
+
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@mixin button-loading(
+  $bg-color: transparent,
+  $spinner-color: white,
+  $size: 1.335em,
+  $border-color: transparent
+) {
+  &[loading],
+  &.is-loading {
+    background-color: transparent;
+    cursor: default;
+    border: 0.125rem solid $border-color;
+    color: transparent;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: transparent;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: $bg-color;
+      z-index: 1;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: $size;
+      height: $size;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      border: 0.125rem solid transparent;
+      border-top-color: $spinner-color;
+      border-radius: 50%;
+      animation: button-loading-spinner 1s ease infinite;
+      z-index: 2;
+    }
+  }
+}
+
+.tds-button {
+  border: 0.1875rem solid transparent;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  text-decoration: none;
+  padding-left: $component-button-contained-regular-padding-x;
+  padding-right: $component-button-contained-regular-padding-x;
+  border-radius: $button-border-radius;
+  font-weight: s.$tds-font-weight-bold;
+  outline: none;
+  cursor: pointer;
+  vertical-align: top;
+  transition: padding 100ms ease;
+  gap: $component-button-contained-regular-icon-label-gap;
+
+  @include h.tds-media-query($until: desktop) {
+    padding-right: $component-button-contained-regular-padding-icon-x;
+    padding-left: $component-button-contained-regular-padding-icon-x;
+  }
+
+  &--icon-left {
+    padding-left: $component-button-contained-regular-padding-icon-x;
+
+    @include h.tds-media-query($until: desktop) {
+      padding-left: $component-button-contained-regular-padding-icon-x - 0.25rem;
+    }
+  }
+
+  &--icon-right {
+    padding-right: $component-button-contained-regular-padding-icon-x;
+
+    @include h.tds-media-query($until: desktop) {
+      padding-right: $component-button-contained-regular-padding-icon-x -
+        0.25rem;
+    }
+  }
+
+  &--icon {
+    padding: 0;
+    border: 0.1875rem solid transparent;
+    position: relative;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    width: 3rem;
+    height: 3rem;
+    outline: none;
+
+    @include button(var(--color-surface-action-color-default), transparent);
+
+    @include buttonHover(
+      var(--color-surface-action-color-hover),
+      var(--color-surface-action-color-subtle-hover)
+    );
+
+    @include buttonActive(
+      var(--color-surface-action-color-active),
+      var(--color-surface-action-color-subtle-active)
+    );
+
+    @include buttonFocus(
+      var(--color-content-focus-default),
+      var(--color-border-focus-contrast),
+      var(--color-border-focus-contrast),
+      var(--color-border-focus-default)
+    );
+
+    @include buttonDisabled(var(--color-content-action-disabled), transparent);
+
+    &[loading],
+    &.is-loading {
+      @include button-loading(
+        transparent,
+        var(--color-border-action-neutral-default)
+      );
+
+      svg {
+        display: none;
+      }
+    }
+
+    @include h.tds-media-query($until: desktop) {
+      width: var(--component-button-icon-compact-box-size, 2.5rem);
+      height: var(--component-button-icon-compact-box-size, 2.5rem);
+    }
+
+    &-neutral {
+      @extend .tds-button--icon;
+      @include button(var(--color-content-action-neutral-default), transparent);
+
+      @include buttonHover(
+        var(--color-content-action-neutral-default),
+        var(--color-surface-action-neutral-subtle-hover)
+      );
+
+      @include buttonActive(
+        var(--color-content-action-neutral-default),
+        var(--color-surface-action-neutral-subtle-active)
+      );
+
+      @include buttonFocus(
+        var(--color-content-focus-default),
+        var(--color-border-focus-contrast),
+        var(--color-border-focus-contrast),
+        var(--color-border-focus-default)
+      );
+
+      @include buttonDisabled(
+        var(--color-content-action-disabled),
+        transparent
+      );
+    }
+
+    &--compact {
+      width: var(--component-button-icon-compact-box-size, 2.25rem);
+      height: var(--component-button-icon-compact-box-size, 2.25rem);
+
+      @include h.tds-media-query($until: desktop) {
+        width: var(--component-button-icon-compact-box-size, 2rem);
+        height: var(--component-button-icon-compact-box-size, 2rem);
+      }
+
+      svg {
+        width: 1.25rem;
+        height: 1.25rem;
+
+        @include h.tds-media-query($until: desktop) {
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+
+      .tds-icon svg {
+        width: 1.25rem;
+        height: 1.25rem;
+
+        @include h.tds-media-query($until: desktop) {
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+    }
+  }
+
+  @include button(
+    var(--color-content-action-inverse),
+    var(--color-surface-action-color-default)
+  );
+
+  &--primary {
+    @include h.tds-font(18, 700);
+    @include buttonSize(
+      $component-button-contained-regular-padding-x,
+      $component-button-contained-regular-min-height
+    );
+    @include buttonHover(
+      var(--color-content-action-inverse),
+      var(--color-surface-action-color-hover)
+    );
+    @include buttonActive(
+      var(--color-content-action-inverse),
+      var(--color-surface-action-color-active)
+    );
+    @include buttonDisabled(
+      var(--color-content-action-disabled),
+      var(--color-surface-action-disabled)
+    );
+    @include buttonFocus(
+      var(--color-content-focus-default),
+      var(--color-border-focus-contrast),
+      var(--color-border-focus-contrast),
+      var(--color-border-focus-default)
+    );
+
+    &[loading],
+    &.is-loading {
+      @include button-loading(
+        $bg-color: var(--color-surface-action-disabled),
+        $spinner-color: var(--color-border-strong),
+        $border-color: var(--color-surface-action-disabled)
+      );
+    }
+  }
+
+  &--secondary {
+    @include h.tds-font(18, 700);
+    @include buttonSize(
+      $component-button-contained-regular-padding-x,
+      $component-button-contained-regular-min-height
+    );
+    @include button(
+      var(--color-content-action-color-default),
+      var(--color-surface-transparent),
+      $includeBorder: true,
+      $borderColor: var(--color-border-action-color-default)
+    );
+    @include buttonHover(
+      var(--color-content-action-inverse),
+      var(--color-surface-action-color-hover),
+      $includeBorder: true,
+      $borderColor: var(--color-surface-action-color-hover)
+    );
+    @include buttonActive(
+      var(--color-content-action-inverse),
+      var(--color-surface-action-color-active),
+      $includeBorder: true,
+      $borderColor: var(--color-surface-action-color-active)
+    );
+
+    @include buttonFocusSecondary(
+      var(--color-content-focus-default),
+      var(--color-border-focus-contrast),
+      var(--color-border-focus-contrast),
+      var(--color-border-focus-default)
+    );
+    @include buttonDisabled(
+      var(--color-content-action-disabled),
+      var(--color-surface-action-disabled),
+      $border-color: var(--color-surface-action-disabled)
+    );
+
+    &[loading],
+    &.is-loading {
+      @include button-loading(
+        transparent,
+        var(--color-border-action-neutral-default),
+        $border-color: var(--color-border-action-neutral-default)
+      );
+    }
+  }
+
+  &--secondary-neutral {
+    @include h.tds-font(18, 700);
+    @include buttonSize(
+      $component-button-contained-regular-padding-x,
+      $component-button-contained-regular-min-height
+    );
+    @include button(
+      var(--color-content-action-neutral-default),
+      var(--color-surface-transparent),
+      $includeBorder: true,
+      $borderColor: var(--color-border-action-neutral-default)
+    );
+    @include buttonHover(
+      var(--color-content-action-inverse),
+      var(--color-surface-action-neutral-hover),
+      $includeBorder: true,
+      $borderColor: var(--color-surface-action-neutral-hover)
+    );
+    @include buttonActive(
+      var(--color-content-action-inverse),
+      var(--color-surface-action-neutral-active),
+      $includeBorder: true,
+      $borderColor: var(--color-surface-action-neutral-active)
+    );
+    @include buttonFocusSecondary(
+      var(--color-content-focus-default),
+      var(--color-border-focus-contrast),
+      var(--color-border-focus-contrast),
+      var(--color-border-focus-default)
+    );
+
+    @include buttonDisabled(
+      var(--color-content-action-disabled),
+      var(--color-surface-action-disabled),
+      $border-color: var(--color-surface-action-disabled)
+    );
+
+    &[loading],
+    &.is-loading {
+      @include button-loading(
+        transparent,
+        var(--color-border-action-neutral-default),
+        $border-color: var(--color-border-action-disabled)
+      );
+    }
+  }
+
+  &--danger {
+    @include h.tds-font(18, 700);
+    @include buttonSize(
+      $component-button-contained-regular-padding-x,
+      $component-button-contained-regular-min-height
+    );
+    @include button(
+      var(--color-content-action-inverse),
+      var(--color-surface-action-danger-default)
+    );
+    @include buttonHover(
+      var(--color-content-action-inverse),
+      var(--color-surface-action-danger-hover)
+    );
+    @include buttonActive(
+      var(--color-content-action-inverse),
+      var(--color-surface-action-danger-active)
+    );
+    @include buttonFocus(
+      var(--color-content-focus-default),
+      var(--color-border-focus-contrast),
+      var(--color-border-focus-contrast),
+      var(--color-border-focus-default)
+    );
+    @include buttonDisabled(
+      var(--color-content-action-disabled),
+      var(--color-surface-action-disabled)
+    );
+
+    &[loading],
+    &.is-loading {
+      @include button-loading(
+        var(--color-surface-action-disabled),
+        var(--color-border-action-neutral-default),
+        $border-color: var(--color-surface-action-disabled)
+      );
+    }
+  }
+
+  &--tertiary {
+    @include h.tds-font(18, 700);
+    border-radius: 0;
+    border: none;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    text-decoration: underline;
+    text-decoration-thickness: 0.0938rem;
+    text-underline-offset: 0.2813rem;
+
+    svg {
+      width: $svgSize;
+      height: $svgSize;
+
+      @include h.tds-media-query($until: desktop) {
+        width: $svgSize-compact;
+        height: $svgSize-compact;
+      }
+    }
+
+    @include button(var(--color-content-action-color-default), transparent);
+    @include buttonHover(var(--color-content-action-color-hover), transparent);
+    @include buttonActive(
+      var(--color-content-action-color-active),
+      transparent
+    );
+    @include buttonFocus(
+      var(--color-border-focus-default),
+      transparent,
+      var(--color-surface-focus-default),
+      none
+    );
+    @include buttonDisabled(var(--color-content-action-disabled), transparent);
+
+    &:hover:not(.is-disabled):not([disabled]) {
+      text-decoration-thickness: 0.125rem;
+    }
+
+    &:hover:not(.is-disabled):not([disabled]),
+    &:active:not(.is-disabled):not([disabled]) {
+      text-underline-offset: 0.3125rem;
+    }
+
+    &:active:not(.is-disabled):not([disabled]) {
+      text-decoration-thickness: 0.1875rem;
+    }
+
+    &:focus:not(.is-disabled):not([disabled]) {
+      border: none;
+    }
+
+    &[loading],
+    &.is-loading {
+      @include button-loading(
+        transparent,
+        var(--color-border-action-neutral-default)
+      );
+    }
+  }
+
+  &--tertiary-neutral {
+    @extend .tds-button--tertiary;
+    @include button(var(--color-content-action-neutral-default), transparent);
+    @include buttonHover(
+      var(--color-content-action-neutral-hover),
+      transparent
+    );
+    @include buttonActive(
+      var(--color-content-action-neutral-active),
+      transparent
+    );
+    @include buttonFocus(
+      var(--color-border-focus-default),
+      transparent,
+      var(--color-surface-focus-default),
+      none
+    );
+    @include buttonDisabled(var(--color-content-action-disabled), transparent);
+
+    &[loading],
+    &.is-loading {
+      @include button-loading(
+        transparent,
+        var(--color-border-action-neutral-default)
+      );
+    }
+  }
+
+  &--compact {
+    @include h.tds-font(16, 700);
+
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    gap: 0.25rem;
+
+    &.tds-button--icon-left {
+      padding-left: $component-button-contained-compact-padding-icon-x;
+    }
+    &.tds-button--icon-right {
+      padding-right: $component-button-contained-compact-padding-icon-x;
+    }
+
+    @include buttonSizeCompact(
+      $button-padding-compact + 0.5rem,
+      $button-height-compact,
+      $svgSize-compact
+    );
+  }
+
+  &--compact-m {
+    @include h.tds-font(16, 700);
+
+    padding-top: 0.125rem;
+    padding-bottom: 0.125rem;
+    gap: 0.25rem;
+
+    svg {
+      width: $svgSize-compact;
+      height: $svgSize-compact;
+
+      @include h.tds-media-query($until: desktop) {
+        width: $svgSize-compact-m;
+        height: $svgSize-compact-m;
+      }
+    }
+  }
+
+  @include button-loading(inherit);
+}
+
+.tds-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: normal;
+  fill: currentColor;
+
+  svg path {
+    fill: currentColor;
+  }
+}
+
+.tds-button__icon {
+  line-height: normal;
+  fill: currentColor;
+
+  &--center {
+    text-align: center;
+  }
+}

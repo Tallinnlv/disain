@@ -1,0 +1,62 @@
+.toggleContainer {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 50px;
+  padding: 5px;
+  height: 40px;
+  position: relative;
+  gap: 8px;
+  justify-content: space-between;
+  transition: background-color 0.3s;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s;
+  svg {
+    width: 100%;
+    height: 100%;
+
+    path {
+      fill: var(--color-content-action-neutral-default);
+    }
+  }
+}
+
+.toggleSwitch {
+  position: relative;
+  background-color: var(--color-surface-moderate);
+  width: 50px;
+  height: 30px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s;
+
+  &.active {
+    background-color: var(--color-surface-highlight-moderate);
+  }
+}
+
+.toggleCircle {
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-surface-default);
+  border-radius: 50%;
+  position: absolute;
+  left: 5px;
+  transition: left 0.3s;
+
+  .toggleSwitch.active & {
+    left: calc(100% - 25px);
+  }
+}

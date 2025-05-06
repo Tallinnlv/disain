@@ -1,0 +1,24 @@
+@mixin tds-fieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+
+  &:is(.tds-fieldset--compact.tds-fieldset--error) {
+    padding-left: 1rem;
+  }
+
+  &.tds-fieldset--compact {
+    .tds-fieldset__text + .tds-fieldset__text--hint {
+      margin: -0.5rem 0 1rem;
+    }
+
+    .tds-fieldset__text + .tds-fieldset__notice {
+      margin: -0.75rem 0 0.75rem;
+    }
+
+    .tds-fieldset__text + .tds-fieldset__text--hint + .tds-fieldset__notice {
+      margin: -0.75rem 0 0.75rem;
+    }
+  }
+}

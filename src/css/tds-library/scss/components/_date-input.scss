@@ -1,0 +1,44 @@
+@use '../helpers/' as h;
+@use '../tools/' as t;
+
+.tds-date-input {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+
+  &__title,
+  &__hint,
+  &__label {
+    color: var(--color-content-default);
+    @include h.tds-font(18);
+
+    line-height: var(--line-height-md);
+    padding-bottom: .25rem;
+  }
+
+  &__title {
+    @include h.tds-typography-weight-bold;
+  }
+
+  &__hint {
+    color: var(--color-content-subtle);
+  }
+
+  &__fields {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    width: t.tds-px-to-rem(80px);
+    height: t.tds-px-to-rem(80px);
+
+    &.year {
+      width: t.tds-px-to-rem(120px);
+    }
+  }
+
+}

@@ -1,0 +1,141 @@
+import {
+  CodePreview,
+  CodePreviewGroup,
+  NotificationComponent,
+  UsageAdvice,
+} from '@site/src/components';
+
+# Overview
+
+{/* prettier-ignore */}
+<UsageAdvice permitted>
+  - Advise the user that they should be aware of, or address something related to their current context.
+  - Reaffirm to the user that a prior action, likely in a different location or context, has been successful.
+</UsageAdvice>
+{/* prettier-ignore */}
+
+<UsageAdvice permitted={false}>
+ - Do not use notification component to highlight general content or as a banner.
+
+</UsageAdvice>
+
+## Principles
+
+Notifications relevant to an entire page should be placed at the top of that page, below the page header. Notifications related to a section of a page, should be placed inside that section, below any section heading.
+
+Use notifications thoughtfully and sparingly for only the most important information and keep the messaging concise and actionable (if needed). A user should be able to quickly scan the notification, be apprised of the situation, and know what to do next.
+
+The width of notifications varies based on content and layout. They can expand to the fill the container or content area they relate to. Their height is based on the content length, which should not exceed 100 characters.
+
+If a notification requires a message longer than 100 characters, use an actionable notification and include a short message with a “View more” link that takes the user to the full message. This can be either a full page with more details or a modal.
+
+## Variants
+
+### Neutral
+
+Use for:
+
+- information the user should know, but is not critical
+- tips or information which the user can benefit from
+- messages which don't require too much attention or action.
+
+<CodePreview
+  minHeight="170px"
+  width="100%"
+  code={NotificationComponent({
+    title: 'Neutral notification',
+    modifiers: ['tds-notification--neutral'],
+    iconNeutral: true,
+  })}
+/>
+
+### Success
+
+Use for:
+
+- notifying the user that a task has been completed successfully.
+
+<CodePreview
+  width="100%"
+  minHeight="170px"
+  code={NotificationComponent({
+    modifiers: ['tds-notification--success'],
+    title: 'Success notification',
+    iconSuccess: true,
+  })}
+/>
+
+### Critical
+
+Use for:
+
+- notifying when something goes wrong or the user is denied completing their task. Explain why and what to do.
+
+<CodePreview
+  width="100%"
+  minHeight="170px"
+  code={NotificationComponent({
+    modifiers: ['tds-notification--danger'],
+    title: 'Critical notification',
+    iconDanger: true,
+  })}
+/>
+
+## Options
+
+### Actionable
+
+Contains 1-2 buttons or links that allows users to address the notification or navigates them to a page with further details.
+
+<CodePreview
+  width="100%"
+  minHeight="200px"
+  code={NotificationComponent({
+    modifiers: ['tds-notification--neutral tds-notification--with-buttons'],
+    title: 'Neutral notification',
+    iconNeutral: true,
+    buttons: [
+      {
+        text: 'Action',
+        link: 'javascript:void(0);',
+      },
+    ],
+  })}
+/>
+
+<CodePreview
+  width="100%"
+  minHeight="200px"
+  code={NotificationComponent({
+    modifiers: ['tds-notification--neutral tds-notification--with-buttons'],
+    title: 'Neutral notification',
+    iconNeutral: true,
+    buttons: [
+      {
+        text: 'Action 1',
+        link: 'javascript:void(0);',
+      },
+      {
+        text: 'Action 2',
+        link: 'javascript:void(0);',
+      },
+    ],
+  })}
+/>
+
+### Dismissible
+
+Notifications do not dismiss automatically. They persist on the page until the user dismisses them or takes action that resolves the notification.
+
+A small “x” in the top right corner is used to dismiss inline notifications. Including the close button is optional and should not be included if it is critical for a user to read or interact with the notification.
+
+<CodePreview
+  width="100%"
+  minHeight="170px"
+  code={NotificationComponent({
+    title: 'Neutral notification',
+    modifiers: ['tds-notification--neutral'],
+    iconNeutral: true,
+    dismissible: true,
+  })}
+/>

@@ -1,0 +1,272 @@
+@use '../helpers' as h;
+@use '../tools/' as t;
+@use './fieldset/fieldset' as fieldsetDefault;
+@use './fieldset/fieldset-common-styles' as fieldsetCommonStyles;
+@use './item-hint' as itemHint;
+@use './label' as label;
+@use './form' as form;
+
+// Variables
+$check-background: var(--color-surface-default);
+$check-border: 2px solid var(--color-border-strong);
+$check-size: 32px;
+
+// Mixins
+@mixin checkFocus(
+  $color,
+  $shadow-color,
+  $bg-color: inherit,
+  $border-color: var(--color-border-focus-contrast)
+) {
+  &:focus:not(.is-disabled):not([disabled]) {
+    color: $color;
+    background-color: $bg-color;
+    box-shadow:
+      0 0 0 3px $shadow-color,
+      0 0 0 1px var(--color-border-focus-default) inset;
+    border: 2px solid var(--color-border-focus-default, $border-color);
+  }
+}
+
+@mixin checkDisabled($color, $bg-color) {
+  &[disabled],
+  &.is-disabled {
+    color: $color;
+    background-color: $bg-color;
+    border-color: var(--color-border-moderate);
+    cursor: not-allowed;
+
+    &::before,
+    &::after {
+      border-color: var(--color-content-faint);
+    }
+  }
+}
+
+.tds-form-group--error {
+  @include form.tds-form-group--error;
+}
+
+.tds-label {
+  @include label.tds-label;
+}
+
+// Fieldset styles
+.tds-fieldset {
+  @include fieldsetDefault.tds-fieldset;
+  @include fieldsetCommonStyles.fieldset-common-styles;
+
+  &--compact {
+    .tds-checkboxes__item {
+      @include h.tds-font(16);
+    }
+
+    .tds-checkboxes {
+      gap: 12px;
+    }
+
+    .tds-checkboxes__input {
+      width: 24px;
+      height: 24px;
+    }
+
+    .tds-checkboxes__label {
+      @include h.tds-font(16);
+
+      padding: 2px 0 2px 8px;
+
+      @include h.tds-media-query($until: desktop) {
+        padding: 4px 0 4px 8px;
+      }
+    }
+
+    .tds-checkboxes__input:checked::before {
+      height: .4375rem;
+      width: .875rem;
+      border-bottom: 3px solid var(--color-border-strong);
+      border-left: 3px solid var(--color-border-strong);
+    }
+
+    .tds-checkboxes__input--minus:checked::before {
+      width: .875rem;
+      height: 0;
+      border-top: .1875rem solid var(--color-border-strong);
+      border-bottom: none;
+      background: var(--color-border-strong);
+    }
+  }
+}
+
+// Checkbox styles
+.tds-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &[disabled],
+  &.is-disabled {
+    cursor: not-allowed;
+    color: var(--color-surface-subtle);
+  }
+
+  &--inline {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 32px;
+  }
+
+  &--compact {
+    @extend .tds-fieldset--compact;
+
+    gap: 12px;
+  }
+
+  &__sub-category-wrapper {
+    display: flex;
+    padding: 0 0 0 44px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--component-checkbox-group-regular-gap-items, 16px);
+    align-self: stretch;
+  }
+
+  &__input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    width: $check-size;
+    height: $check-size;
+    border-radius: 4px;
+    background: $check-background;
+    border: $check-border;
+    top: 0;
+    left: 0;
+    margin: 0;
+    flex-shrink: 0;
+
+    &:checked {
+      position: relative;
+      background: var(--color-surface-default);
+
+      &::before {
+        display: block;
+        margin-top: -2px;
+        content: "";
+        height: .625rem;
+        width: 1.125rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate3d(-50%, -50%, 0) rotate(-45deg);
+        transform: translate3d(-50%, -50%, 0) rotate(-45deg);
+        border-bottom: 4px solid var(--color-border-strong);
+        border-left: 4px solid var(--color-border-strong);
+      }
+    }
+
+    &--minus:checked {
+      position: relative;
+      background: var(--color-surface-default);
+
+      &::before {
+        margin-top: 0;
+        display: block;
+        content: "";
+        height: 0;
+        width: 1.125rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate3d(-50%, -50%, 0);
+        transform: translate3d(-50%, -50%, 0);
+        border: 2px solid var(--color-border-strong);
+      }
+    }
+
+    @include checkFocus(
+      var(--color-border-focus-default),
+      var(--color-border-focus-contrast),
+      inherit,
+      var(--color-border-focus-contrast)
+    );
+    @include checkDisabled(
+      var(--color-surface-subtle),
+      var(--color-surface-subtle)
+    );
+  }
+
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    position: relative;
+
+    &--compact {
+      @extend .tds-fieldset--compact;
+    }
+
+    &--error {
+      @extend .tds-fieldset--error;
+
+      border-color: var(--color-border-feedback-negative);
+
+      .tds-checkboxes__input {
+        border-color: var(--color-border-feedback-negative);
+      }
+    }
+
+    &:is(.tds-checkboxes__item--compact.tds-checkboxes__item--error) {
+      padding-left: 16px;
+    }
+  }
+
+  &__label {
+    max-width: calc(100% - 32px);
+    padding: 4px 0 4px 12px;
+    cursor: pointer;
+    touch-action: manipulation;
+    color: var(--color-content-default);
+
+    [disabled] &,
+    .is-disabled & {
+      cursor: not-allowed;
+      color: var(--color-content-default);
+    }
+
+    @include h.tds-media-query($until: desktop) {
+      padding: 6px 0 6px 12px;
+    }
+  }
+}
+
+.tds-item-hint {
+  @include itemHint.tds-item-hint;
+}
+
+// Check Column
+.check__column {
+  display: flex;
+  flex-direction: column;
+}
+
+.tds-fieldset__text {
+  color: var(--color-content-default);
+}
+
+.tds-fieldset__text--hint {
+  color: var(--color-content-subtle);
+}
+
+.tds-fieldset__text,
+.tds-fieldset__text--hint,
+.tds-checkboxes__label,
+.tds-checkboxes__item {
+  @include h.tds-font(18);
+}
+
+input[type='checkbox']:focus-visible {
+  outline: none;
+  outline-offset: 0;
+}

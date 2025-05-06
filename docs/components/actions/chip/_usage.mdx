@@ -1,0 +1,184 @@
+import { CodePreview, CodePreviewGroup, ChipComponent } from '@site/src/components';
+
+# Usage guidelines
+
+## Labels
+
+Truncate labels that are longer than 20 characters and do not wrap text on multiple lines.
+
+<CodePreviewGroup>
+  <CodePreview
+    scriptPaths={[
+      'https://unpkg.com/@popperjs/core@2',
+      '/scripts/components/feedback-tooltip.js'
+    ]}
+    hideCode
+    minHeight="192px"
+    guideline='permitted'
+    code={ChipComponent({
+      content: 'Ettevõtlus, kaubandus',
+      variant: 'selection',
+    })}
+  />
+  <CodePreview
+    hideCode
+    minHeight="192px"
+    guideline='prohibited'
+    code={[
+      {
+        code:
+          `<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;">` +
+          ChipComponent({
+            content: 'Ettevõtlus, kaubandus ja reklaam',
+            truncate: false,
+            customTextStyle: 'min-width: 260px;',
+            variant: 'selection',
+          }) +
+          ChipComponent({
+            content: 'Ettevõtlus, kaubandus ja reklaam',
+            truncate: false,
+            customTextStyle: 'display: flex; max-width: 176px; height: 48px; align-items: center;',
+            variant: 'selection',
+          }) +
+          `</div>`
+      },
+  ]}/>
+</CodePreviewGroup>
+
+## Size
+
+Do not use different sizes in a group.
+
+<CodePreviewGroup>
+  <CodePreview
+    scriptPaths={[
+      'https://unpkg.com/@popperjs/core@2',
+      '/scripts/components/feedback-tooltip.js'
+    ]}
+    hideCode
+    minHeight="192px"
+    guideline='permitted'
+    code={[
+      {
+        code:
+          `<div style="display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap;">` +
+          ChipComponent({
+            content: 'Arhiiv',
+            variant: 'selection',
+          }) +
+          ChipComponent({
+            content: 'Avalik kord',
+            variant: 'selection',
+          }) +
+          ChipComponent({
+            content: 'Ettevõtlus, kaubandus ja reklaam',
+            variant: 'selection',
+          }) +
+          `</div>`
+      },
+    ]}/>
+  <CodePreview
+    hideCode
+    minHeight="192px"
+    guideline='prohibited'
+    code={[
+      {
+        code:
+          `<div style="display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap;">` +
+          ChipComponent({
+            content: 'Arhiiv',
+            variant: 'selection',
+            chipSize: 'large',
+          }) +
+          ChipComponent({
+            content: 'Avalik kord',
+            variant: 'selection',
+            chipSize: 'medium',
+          }) +
+          ChipComponent({
+            content: 'Ettevõtlus, kaubandus ja reklaam',
+            variant: 'selection',
+            chipSize: 'small',
+          }) +
+          `</div>`
+      },
+    ]}/>
+</CodePreviewGroup>
+
+The chip will automatically size itself to fit the content. Do not change the width of the chip.
+
+<CodePreviewGroup>
+  <CodePreview
+    hideCode
+    minHeight="192px"
+    guideline='permitted'
+    code={[
+      {
+        code:
+          `<div style="display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap;">` +
+          ChipComponent({
+            content: 'Avalik kord',
+            variant: 'selection',
+          }) +
+          `</div>`
+      },
+    ]}/>
+  <CodePreview
+    hideCode
+    minHeight="192px"
+    guideline='prohibited'
+    code={[
+      {
+        code:
+          `<div style="display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap;">` +
+          ChipComponent({
+            content: 'Avalik kord',
+            variant: 'selection',
+            chipSize: 'large',
+            customTextStyle: 'width: 168px;',
+          }) +
+          `</div>`
+      },
+    ]}/>
+</CodePreviewGroup>
+
+## Icons
+
+Do not use icons without a label.
+
+<CodePreviewGroup>
+  <CodePreview
+    hideCode
+    minHeight="192px"
+    guideline='permitted'
+    code={[
+      {
+        code:
+          ChipComponent({
+            content: 'Label',
+            variant: 'selection',
+            iconLeft: true,
+            customIcon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.16634 9.16658V3.33325H10.833V9.16658H16.6663V10.8333H10.833V16.6666H9.16634V10.8333H3.33301V9.16658H9.16634Z" fill="currentColor"/>
+                        </svg>`,
+          })
+      },
+    ]}/>
+  <CodePreview
+    hideCode
+    minHeight="192px"
+    guideline='prohibited'
+    code={[
+      {
+        code:
+          ChipComponent({
+            content: '',
+            variant: 'selection',
+            iconLeft: true,
+            customIcon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.16634 9.16658V3.33325H10.833V9.16658H16.6663V10.8333H10.833V16.6666H9.16634V10.8333H3.33301V9.16658H9.16634Z" fill="currentColor"/>
+                        </svg>`,
+          })
+      },
+    ]}/>
+</CodePreviewGroup>

@@ -1,0 +1,69 @@
+import { CodePreview, CodePreviewGroup } from '@site/src/components';
+
+## Usage guidelines
+
+### Short content
+
+Don’t use a popover for simple labeling, i.e. providing a label for the icon button. Use a tooltip instead.
+
+<CodePreviewGroup>
+
+<CodePreview
+  hideCode
+  guideline="permitted"
+  minHeight="230px"
+  svgPath="/img/popoverUsage/shortContentDo.svg"
+/>
+
+<CodePreview
+  hideCode
+  guideline="prohibited"
+  minHeight="230px"
+  svgPath="/img/popoverUsage/shortContentDont.svg"
+/>
+
+</CodePreviewGroup>
+
+### Position
+
+Make sure that the popover is always fully visible inside the viewport.
+
+<CodePreviewGroup>
+
+  <CodePreview
+    hideCode
+    guideline="permitted"
+    minHeight="360px"
+    svgPath="/img/popoverUsage/positionDo.svg"
+  />
+
+  <CodePreview
+    hideCode
+    guideline="prohibited"
+    minHeight="360px"
+    svgPath="/img/popoverUsage/positionDont.svg"
+  />
+
+</CodePreviewGroup>
+
+### Size
+
+Keep the width of the popover below 600px. Do not stretch it to 100% of viewport width (except on mobile screens).
+
+<CodePreviewGroup>
+
+<CodePreview
+  hideCode
+  guideline="permitted"
+  minHeight="360px"
+  svgPath="/img/popoverUsage/sizeDo.svg"
+/>
+
+<CodePreview
+  hideCode
+  guideline="prohibited"
+  minHeight="360px"
+  svgPath="/img/popoverUsage/sizeDont.svg"
+/>
+
+</CodePreviewGroup>

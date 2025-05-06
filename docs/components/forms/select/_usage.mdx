@@ -1,0 +1,92 @@
+import {
+  CodePreview,
+  CodePreviewGroup,
+  SelectComponent,
+} from '@site/src/components';
+
+# Usage guidelines
+
+## Alignment
+
+Align label with the field box.
+
+<CodePreviewGroup>
+<CodePreview
+  hideCode
+  minHeight="300px"
+  guideline='permitted'
+  width='80%'
+  scriptPath="/scripts/components/forms-select.js"
+  code={SelectComponent({
+    title: 'Label',
+      selectOptions: [
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+      { value: 'option3', label: 'Option 3' },
+      { value: 'option4', label: 'Option 4' },
+      // Add more options here...
+    ],
+  })}
+/>
+<CodePreview
+  hideCode
+  minHeight="300px"
+  guideline='prohibited'
+  width='80%'
+  scriptPath="/scripts/components/forms-select.js"
+ code={SelectComponent({
+    title: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Label',
+      selectOptions: [
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+      { value: 'option3', label: 'Option 3' },
+      { value: 'option4', label: 'Option 4' },
+      // Add more options here...
+    ],
+  })}
+/>
+
+</CodePreviewGroup>
+
+## Labels
+
+Do not use the default option as a label.
+
+<CodePreviewGroup>
+<CodePreview
+  hideCode
+  minHeight="300px"
+  guideline='permitted'
+  scriptPath="/scripts/components/forms-select.js"
+  width="80%"
+  code={SelectComponent({
+    title: 'Maakond',
+    selectCustomText: 'Vali maakond',
+      selectOptions: [
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+      { value: 'option3', label: 'Option 3' },
+      { value: 'option4', label: 'Option 4' },
+      // Add more options here...
+    ],
+  })}
+/>
+<CodePreview
+  hideCode
+  minHeight="300px"
+  guideline='prohibited'
+  width='80%'
+  scriptPath="/scripts/components/forms-select.js"
+ code={SelectComponent({
+    selectCustomText: 'Maakond',
+      selectOptions: [
+      { value: 'option1', label: 'Option 1' },
+      { value: 'option2', label: 'Option 2' },
+      { value: 'option3', label: 'Option 3' },
+      { value: 'option4', label: 'Option 4' },
+      // Add more options here...
+    ],
+  })}
+/>
+
+</CodePreviewGroup>

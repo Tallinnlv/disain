@@ -1,0 +1,152 @@
+@use '../helpers/' as h;
+@use '../tools/' as t;
+
+@mixin chipSize($height, $padding, $textSize, $textPadding) {
+  min-height: $height;
+  padding: $padding;
+
+  .tds-chip--text {
+    @include h.tds-font($textSize, 400);
+
+    padding: $textPadding;
+  }
+}
+
+.tds-chip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px;
+  border: 2px solid var(--color-border-subtle);
+  background: var(--color-surface-default);
+  color: var(--color-content-default);
+
+  &--selected {
+    background: var(--color-surface-contrast);
+    color: var(--color-content-inverse);
+    border-radius: 40px;
+    border: 2px solid var(--color-border-subtle);
+
+    svg {
+      fill: var(--color-content-inverse);
+    }
+
+  }
+
+  &--selection {
+    &-large {
+      @include chipSize(40px, 0 12px, 18, 0 8px);
+    }
+
+    &-medium {
+      @include chipSize(32px, 0 10px, 16, 0 6px);
+    }
+
+    &-small {
+      @include chipSize(24px, 0 8px, 13, 0 4px);
+    }
+
+    &:hover {
+      background: var(--color-surface-faint);
+      color: var(--color-content-default);
+      border-radius: 40px;
+      border: 2px solid var(--color-border-subtle);
+      cursor: pointer;
+    }
+
+    &:active {
+      background: var(--color-surface-subtle);
+      color: var(--color-content-default);
+    }
+
+    &:focus:not(:active):not(:hover) {
+      border-radius: 40px;
+      border: 2px solid var(--color-border-focus-default);
+      box-shadow: 0 0 0 3px var(--color-border-focus-contrast),
+                  0 0 0 1px var(--color-border-focus-default) inset;
+    }
+
+    &:focus-visible {
+      outline: none;
+      border-radius: 24px;
+    }
+  }
+
+  &--input {
+    &-large {
+      @include chipSize(40px, 0 8px 0 12px, 18, 0 6px 0 8px);
+
+      .tds-chip--input__button:focus:not(:active):not(:hover) {
+        box-shadow: 0 0 0 3px var(--color-border-focus-default),
+                    0 0 0 6px var(--color-border-focus-contrast);
+      }
+    }
+
+    &-medium {
+      @include chipSize(32px, 0 6px 0 10px, 16, 0 6px);
+
+      .tds-chip--input__button:focus:not(:active):not(:hover) {
+        box-shadow: 0 0 0 3px var(--color-border-focus-default),
+                    0 0 0 6px var(--color-border-focus-contrast);
+      }
+    }
+
+    &-small {
+      @include chipSize(24px, 0 4px 0 8px, 13, 0 2px 0 4px);
+
+      .tds-chip--input__button:focus:not(:active):not(:hover) {
+        box-shadow: 0 0 0 2px var(--color-border-focus-default),
+        0 0 0 2px var(--color-border-focus-contrast) inset;
+      }
+    }
+
+    &__button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: t.tds-px-to-rem(22px);
+      height: t.tds-px-to-rem(22px);
+      padding: 2px;
+      background: var(--color-surface-default);
+      box-shadow: none;
+      border: none;
+      border-radius: 24px;
+
+      &:hover {
+        background: var(--color-surface-subtle);
+        color: var(--color-content-default);
+        border-radius: 24px;
+        cursor: pointer;
+        box-shadow: none;
+      }
+
+      &:active {
+        border-radius: 24px;
+        background: var(--color-surface-faint);
+        box-shadow: none;
+
+        svg > path {
+          border-radius: 24px;
+          fill: var(--color-content-faint);
+          box-shadow: none;
+        }
+      }
+
+      &:focus-visible {
+        outline: none;
+        border-radius: 24px;
+        border: none;
+        box-shadow: none;
+      }
+    }
+
+    &__icon {
+      width: t.tds-px-to-rem(20px);
+      height: t.tds-px-to-rem(20px);
+
+      path {
+        fill: var(--color-content-default);
+      }
+    }
+  }
+}

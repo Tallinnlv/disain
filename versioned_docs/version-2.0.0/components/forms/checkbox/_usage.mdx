@@ -1,0 +1,235 @@
+import {
+  CodePreview,
+  CodePreviewGroup,
+  CheckboxComponent,
+} from '@site/src/components';
+
+# Usage guidelines
+
+### Label text
+
+Provide a simple and clear text label.
+
+Avoid truncating the labels. If the text is long and horizontal space is limited, either wrap the label text to multiple lines or consider placing the key text in the label and have the additional information as the hint text. The latter makes it easier to quickly scan the options.
+
+<CodePreviewGroup>
+<CodePreview
+  hideCode
+  minHeight="300px"
+  guideline='permitted'
+  code={CheckboxComponent({
+    title: 'Märksõnad',
+    checkboxes: [
+      [
+        { label: 'Andmekaitse ja infoturve', checked: false },
+        { label: 'Ettevõtluskeskkond', checked: false, hint: 'sh reklaam, turism ja tarbijakaitse'},
+        { label: 'Linnaosad', checked: false, hint: 'näiteks linnaosa ja linnaosa valitsuse põhimäärus'},
+        // ...
+      ],
+    ],
+  })}
+/>
+<CodePreview
+  hideCode
+  minHeight="300px"
+  guideline='permitted'
+  code={CheckboxComponent({
+    title: 'Märksõnad',
+    checkboxes: [
+      [
+        { label: 'Andmekaitse ja infoturve', checked: false },
+        { label: 'Ettevõtluskeskkond, sh reklaam, turism ja tarbijakaitse', checked: false},
+        { label: 'Linnaosad (näiteks linnaosa ja linnaosa valitsuse põhimäärus)', checked: false},
+        // ...
+      ],
+    ],
+  })}
+/>
+
+</CodePreviewGroup>
+
+<CodePreview
+  hideCode
+  minHeight="300px"
+  guideline="prohibited"
+  width="40%"
+  code={CheckboxComponent({
+    title: 'Märksõnad',
+    checkboxes: [
+      [
+        { label: 'Andmekaitse ja infoturve', checked: false },
+        {
+          label: 'Ettevõtluskeskkond, sh reklaam, ...',
+          checked: false,
+        },
+        {
+          label: 'Linnaosad (näiteks linnaosa ja ...',
+          checked: false,
+        },
+        // ...
+      ],
+    ],
+  })}
+/>
+
+### Links in labels
+
+Do not link the entire checkbox label as this could cause issues with the selection.
+
+<CodePreviewGroup>
+  <CodePreview
+    minHeight="100px"
+    showToggle={false}
+    guideline="permitted"
+    hideCode
+    code={CheckboxComponent({
+      checkboxes: [
+        [
+          {
+            label:
+              'Olen lugenud ja nõustun <a class="tds-link tds-link--inline" href="javascript:void(0);">kasutustingimustega</a>',
+            checked: false,
+          },
+          // ...
+        ],
+      ],
+    })}
+  />
+  <CodePreview
+    minHeight="100px"
+    showToggle={false}
+    guideline="prohibited"
+    hideCode
+    code={CheckboxComponent({
+      checkboxes: [
+        [
+          {
+            label:
+              '<a class="tds-link tds-link--inline" href="javascript:void(0);">Olen lugenud ja nõustun kasutustingimustega</a>',
+            checked: false,
+          },
+          // ...
+        ],
+      ],
+    })}
+  />
+</CodePreviewGroup>
+
+### Indeterminate state
+
+Use the indeterminate checkbox when there is a long list of sub-checkboxes to select. Align these sub-checkboxes with the label of the parent checkbox.
+
+<CodePreviewGroup>
+  <CodePreview
+    minHeight="350px"
+    hideCode
+    guideline="permitted"
+    showToggle={false}
+    code={CheckboxComponent({
+      title: '<b>Märksõnad</b>',
+      checkboxes: [[{ label: 'Vali kõik', checked: false }]],
+      subCheckboxes: [
+        [
+          { label: 'Andmekaitse ja infoturve', checked: false },
+          {
+            label: 'Ettevõtluskeskkond',
+            checked: false,
+            hint: 'sh reklaam, turism ja tarbijakaitse',
+          },
+          {
+            label: 'Linnaosad',
+            checked: false,
+            hint: 'näiteks linnaosa ja linnaosa valitsuse põhimäärus',
+          },
+        ],
+      ],
+    })}
+  />
+  <CodePreview
+    minHeight="350px"
+    hideCode
+    guideline="prohibited"
+    showToggle={false}
+    code={CheckboxComponent({
+      title: '<b>Märksõnad</b>',
+      checkboxes: [
+        [
+          { label: 'Vali kõik', checked: false },
+          // ...
+          { label: 'Andmekaitse ja infoturve', checked: false },
+          {
+            label: 'Ettevõtluskeskkond',
+            checked: false,
+            hint: 'sh reklaam, turism ja tarbijakaitse',
+          },
+          {
+            label: 'Linnaosad',
+            checked: false,
+            hint: 'näiteks linnaosa ja linnaosa valitsuse põhimäärus',
+          },
+        ],
+      ],
+    })}
+  />
+</CodePreviewGroup>
+
+### Inline checkboxes
+
+Inline stacking may be used for maximum of two options with short labels. If you have more that two options and/or longer labels, use vertical stacking instead.
+
+<CodePreviewGroup>
+  <CodePreview
+    minHeight="350px"
+    hideCode
+    guideline="permitted"
+    showToggle={false}
+    code={CheckboxComponent({
+      inline: true,
+      checkboxes: [
+        [
+          { label: 'Option 1', checked: false },
+          // ...
+          { label: 'Option 2', checked: false },
+        ],
+      ],
+    })}
+  />
+  <CodePreview
+    minHeight="350px"
+    hideCode
+    guideline="permitted"
+    showToggle={false}
+    code={CheckboxComponent({
+      checkboxes: [
+        [
+          { label: 'Option 1', checked: false },
+          // ...
+          { label: 'Option 2', checked: false },
+          { label: 'Option 3 with long label', checked: false },
+          { label: 'Option 4', checked: false },
+          { label: 'Option 5 with even longer label', checked: false },
+        ],
+      ],
+    })}
+  />
+</CodePreviewGroup>
+
+<CodePreview
+  minHeight="180px"
+  hideCode
+  guideline="prohibited"
+  showToggle={false}
+  code={CheckboxComponent({
+    inline: true,
+    checkboxes: [
+      [
+        { label: 'Option 1', checked: false },
+        // ...
+        { label: 'Option 2', checked: false },
+        { label: 'Option 3 with long label', checked: false },
+        { label: 'Option 4', checked: false },
+        { label: 'Option 5 with even longer label', checked: false },
+      ],
+    ],
+  })}
+/>

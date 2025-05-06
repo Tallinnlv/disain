@@ -1,0 +1,48 @@
+import {
+  CodePreview,
+  CodePreviewGroup,
+  BreadcrumbsComponent,
+  UsageAdvice,
+} from '@site/src/components';
+
+# Overview
+
+<UsageAdvice permitted>
+  Use the breadcrumbs component when you need to help users understand and move
+  between the multiple levels of a website.
+</UsageAdvice>
+
+<UsageAdvice permitted={false}>
+  Do not use the breadcrumbs component on websites with a flat structure, or to
+  show progress through a linear journey or transaction.
+
+If you’re using other navigational elements on the page, such as a sidebar, consider whether your users need the additional support of breadcrumbs.
+
+</UsageAdvice>
+
+## Principles
+
+Breadcrumbs are placed in the top left portion of the page. They sit underneath the header and navigation, but above the page title.
+
+The breadcrumbs should start with your ‘home’ page and end with the parent section of the current page.
+
+<CodePreview
+  code={BreadcrumbsComponent({
+    breadcrumbsTitles: ['Avaleht', 'Juhtimine', 'Asutused', 'Ametid'],
+    link: 'javascript:void(0);',
+  })}
+/>
+
+On mobile devices breadcrumbs may be configured to only show the first and last items.
+
+To do this, add a <b>tds-breadcrumbs--collapse-on-mobile</b> class to the outer `<div>` element of the component source.
+
+<CodePreview
+  mobilePreview={true}
+  showToggle={true}
+  code={BreadcrumbsComponent({
+    collapseOnMobile: true,
+    breadcrumbsTitles: ['Avaleht', 'Juhtimine', 'Asutused', 'Ametid'],
+    link: 'javascript:void(0);',
+  })}
+/>

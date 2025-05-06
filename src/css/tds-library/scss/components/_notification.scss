@@ -1,0 +1,126 @@
+@use '../helpers' as h;
+
+$notice-icon-width: 85px;
+$default-gap: 24px;
+$mobile-gap: 12px;
+$default-padding: 24px;
+$mobile-padding: 16px;
+
+@mixin notice-variant($background-color, $icon-color: $background-color) {
+  background: $background-color;
+
+  .tds-notification-icon {
+    color: $icon-color;
+  }
+}
+
+.tds-notification {
+  display: flex;
+  align-items: flex-start;
+  padding: $default-padding;
+  gap: $default-gap;
+  border-radius: 8px;
+
+  @include notice-variant(var(--color-surface-feedback-info-faint));
+
+  &--danger {
+    @include notice-variant(var(--color-surface-feedback-negative-faint));
+
+    .tds-notification-icon {
+      svg {
+        path:nth-of-type(1) {
+          fill: var(--color-border-feedback-negative);
+        }
+
+        path:nth-of-type(2) {
+          fill: var(--color-content-inverse);
+        }
+
+        path:nth-of-type(3) {
+          fill: var(--color-content-inverse);
+        }
+      }
+    }
+  }
+
+  &--success {
+    @include notice-variant(var(--color-surface-feedback-positive-faint));
+
+    .tds-notification-icon {
+      svg {
+        circle {
+          fill: var(--color-border-feedback-positive);
+        }
+
+        path {
+          fill: var(--color-content-inverse);
+        }
+      }
+    }
+  }
+
+  @include h.tds-media-query($until: desktop) {
+    align-items: flex-start;
+    padding: $mobile-padding;
+    gap: $mobile-gap;
+  }
+
+  &--neutral {
+    .tds-notification-icon {
+      svg {
+        circle {
+          fill: var(--color-border-feedback-info);
+        }
+
+        path {
+          fill: var(--color-content-inverse);
+        }
+      }
+    }
+  }
+}
+
+.tds-notification-title {
+  color: var(--color-content-default);
+  padding: 2.5px 0;
+
+  @include h.tds-media-query($until: desktop) {
+    padding: 4px 0;
+  }
+}
+
+.tds-notification-title,
+.tds-notification-buttons {
+  @include h.tds-font(17);
+
+  margin: 0;
+}
+
+.tds-notification-buttons {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-top: 8px;
+}
+
+.tds-notification-icon {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  justify-content: center;
+  align-items: center;
+
+  @include h.tds-media-query($until: desktop) {
+    svg {
+      width: $mobile-gap + 12px;
+    }
+  }
+}
+
+.tds-notification-close {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: normal;
+  margin-left: auto;
+}

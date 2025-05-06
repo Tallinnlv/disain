@@ -1,0 +1,14 @@
+@use '../../tools/' as t;
+@use '../../helpers/' as h;
+
+@mixin tds-fieldset__required {
+  font-size: t.tds-px-to-rem(24px);
+  font-weight: 700;
+  margin-left: 0.25rem;
+  color: var(--color-content-highlight-moderate);
+  line-height: 0;
+
+  @include h.tds-media-query($until: desktop) {
+    font-size: t.tds-px-to-rem(20px);
+  }
+}

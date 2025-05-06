@@ -1,0 +1,63 @@
+import {
+  CodePreview,
+  TextInputComponent,
+  CodePreviewGroup,
+} from '@site/src/components';
+
+# Usage guidelines
+
+## Alignment
+
+Align label with the field box.
+
+<CodePreviewGroup>
+<CodePreview
+  hideCode
+  minHeight="300px"
+  guideline='permitted'
+  width='80%'
+  code={TextInputComponent({
+    title: 'Label',
+    filledArea: 'Content',
+  })}
+/>
+<CodePreview
+  hideCode
+  minHeight="300px"
+  guideline='prohibited'
+  width='80%'
+ code={TextInputComponent({
+    title: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Label',
+    filledArea: 'Content',
+  })}
+/>
+
+</CodePreviewGroup>
+
+## Labels
+
+Do not use placeholder text as a label.
+
+<CodePreviewGroup>
+<CodePreview
+  hideCode
+  minHeight="300px"
+  guideline='permitted'
+  scriptPath="/scripts/components/forms-text-input.js"
+  width="80%"
+  code={TextInputComponent({
+    title: 'Label',
+    filledArea: 'Content',
+  })}
+/>
+<CodePreview
+  hideCode
+  minHeight="300px"
+  guideline='prohibited'
+  width='80%'
+ code={TextInputComponent({
+    placeholder: 'Label',
+  })}
+/>
+
+</CodePreviewGroup>

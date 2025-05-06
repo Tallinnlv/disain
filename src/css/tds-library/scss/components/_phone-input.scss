@@ -1,0 +1,327 @@
+@use '../settings' as s;
+@use '../helpers' as h;
+@use '../tools' as t;
+
+.tds-phone-form {
+  display: flex;
+  border-radius: 0.25rem;
+  height: t.tds-px-to-rem(52px);
+  border: 0.125rem solid var(--color-border-strong);
+  background: var(--color-surface-default);
+  position: relative;
+
+  @include h.tds-media-query($until: desktop) {
+    height: t.tds-px-to-rem(44px);
+  }
+
+  .tds-select-phone {
+    &:focus-within {
+      + .tds-phone-field {
+        &::before,
+        &::after {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &.is-disabled {
+    border: 0.125rem solid var(--color-border-subtle);
+    cursor: not-allowed;
+
+    .tds-phone-field {
+      &::before,
+      &::after {
+        background: var(--color-border-subtle);
+      }
+    }
+  }
+}
+
+.tds-input--error {
+  .tds-phone-field {
+    &::before,
+    &::after {
+      background: var(--color-border-feedback-negative);
+    }
+  }
+}
+
+.tds-phone-control {
+  @include h.tds-font($size: 20);
+
+  display: flex;
+  align-items: center;
+  border: 0;
+  height: 100%;
+  gap: 0.5rem;
+  outline: none;
+  min-width: 4em;
+  padding: 0 0.75rem 0 1rem;
+  background: var(--color-surface-transparent);
+
+  @include h.tds-media-query($until: desktop) {
+    padding: 0 0.5rem 0 0.75rem;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    color: inherit;
+    cursor: not-allowed;
+  }
+}
+
+.tds-phone-control__placeholder {
+  display: flex;
+  box-shadow: 0 0 0 1px var(--color-border-moderate);
+  border-radius: 2px;
+}
+
+.tds-phone-input {
+  @include h.tds-font($size: 18);
+
+  border: 0;
+  padding: 0.3125rem 1rem 0.3125rem 0.5rem;
+  width: 100%;
+  height: 100%;
+  background: var(--color-surface-default);
+  color: var(--color-content-default);
+  cursor: inherit;
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-within {
+    box-shadow:
+      0 -0.1875rem 0 var(--color-border-focus-default) inset,
+      0 0.1875rem 0 var(--color-border-focus-default) inset,
+      -0.1875rem 0 0 var(--color-border-focus-default) inset;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+    outline: none;
+  }
+
+  @include h.tds-media-query($until: desktop) {
+    padding: 0.3125rem 0.75rem 0.3125rem 0.5rem;
+  }
+}
+
+.tds-phone-form > .tds-phone-field:only-child {
+  &::before,
+  &::after {
+    content: none;
+  }
+}
+
+.tds-phone-field {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0.125rem;
+    background: var(--color-border-strong);
+  }
+
+  &::before {
+    top: 0;
+    bottom: 50%;
+    left: 0;
+  }
+
+  &::after {
+    top: 50%;
+    bottom: 0;
+    left: 0;
+  }
+
+  &:focus-within {
+    border: transparent;
+    border-color: var(--color-border-focus-default);
+    border-radius: 0.25rem;
+    box-shadow:
+      0 0 0 0.1875rem var(--color-border-focus-contrast),
+      0 0 0 0.1875rem var(--color-border-focus-default) inset;
+
+    &::before,
+    &::after {
+      display: none;
+    }
+
+    z-index: 99;
+  }
+
+  &--error {
+    &:focus-within {
+      border: transparent;
+      border-color: var(--color-border-focus-default);
+      border-radius: 0.25rem;
+      box-shadow:
+        0 0 0 0.1875rem var(--color-border-focus-contrast),
+        0 0 0 0.1875rem var(--color-border-feedback-negative) inset;
+
+      &::before,
+      &::after {
+        display: none;
+      }
+
+      z-index: 99;
+    }
+
+    .tds-phone-input {
+      &:focus-within {
+        box-shadow:
+          0 -0.1875rem 0 var(--color-border-feedback-negative) inset,
+          0 0.1875rem 0 var(--color-border-feedback-negative) inset,
+          -0.1875rem 0 0 var(--color-border-feedback-negative) inset;
+        border-top-right-radius: 0.25rem;
+        border-bottom-right-radius: 0.25rem;
+        outline: none;
+      }
+    }
+  }
+}
+
+.tds-phone-field__prefix {
+  @include h.tds-font($size: 18);
+
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  color: var(--color-content-subtle);
+  align-self: center;
+  height: 100%;
+
+  @include h.tds-media-query($until: desktop) {
+    margin-top: 1px;
+    padding-left: 0.75rem;
+  }
+}
+
+.tds-select-phone {
+  border: 0.1875rem solid var(--color-surface-transparent);
+
+  &:focus-within {
+    border-color: var(--color-border-focus-default);
+    border-radius: 0.25rem;
+    background: var(--color-surface-focus-default);
+    box-shadow: 0 0 0 0.1875rem var(--color-border-focus-contrast);
+
+    .tds-select__icon {
+      svg {
+        path {
+          fill: var(--color-content-focus-default);
+        }
+      }
+    }
+  }
+}
+
+.tds-select-phone--expand {
+  .tds-select__icon {
+    transform: rotateX(180deg);
+  }
+}
+
+.tds-select__icon {
+  svg {
+    path {
+      fill: var(--color-content-default);
+    }
+  }
+}
+
+.tds-select-phone--error {
+  border-color: var(--color-border-feedback-negative);
+}
+
+.tds-dropdown-phone {
+  @include h.tds-font($size: 20);
+
+  position: absolute;
+  z-index: 10;
+  width: calc(100% + 4px);
+  margin-left: -2px;
+  margin-top: 0.1875rem;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  max-height: 15rem;
+  border-radius: 0.25rem;
+  border: 0.125rem solid var(--color-border-strong);
+  background: var(--color-surface-default);
+  box-shadow: 0 1.5rem 3rem -1rem rgba(0, 0, 0, 0.2);
+  list-style: none;
+  padding: 0;
+
+  &__option {
+    display: flex;
+    cursor: pointer;
+    padding: 12px 24px 12px 16px;
+    justify-content: space-between;
+
+    &:hover {
+      color: var(--color-content-inverse);
+      background: var(--color-surface-highlight-moderate);
+
+      .tds-dropdown-phone__country,
+      .tds-dropdown-phone__country-code {
+        color: var(--color-content-inverse);
+      }
+    }
+
+    &:focus {
+      background: var(--color-surface-highlight-moderate);
+      color: var(--color-content-inverse);
+
+      .tds-dropdown-phone__country,
+      .tds-dropdown-phone__country-code {
+        color: var(--color-content-inverse);
+      }
+    }
+  }
+
+  &__country {
+    display: flex;
+    align-items: center;
+    color: var(--color-content-default);
+    gap: 12px;
+
+    svg {
+      box-shadow: 0 0 0 1px var(--color-border-moderate);
+      border-radius: 2px;
+    }
+
+    &-code {
+      color: var(--color-content-faint);
+    }
+  }
+
+  .tds-dropdown-phone__option--separator {
+    border-bottom: 2px solid var(--color-border-moderate);
+    margin: 0.5rem 1.5rem 0.5rem 0.75rem;
+  }
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 128px;
+    position: absolute;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--color-surface-default);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-content-faint);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--color-content-subtle);
+  }
+}

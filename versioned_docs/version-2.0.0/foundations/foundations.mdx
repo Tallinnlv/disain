@@ -1,0 +1,58 @@
+---
+title: Overview
+description: Breadcrumbs are used to help users understand and move between the multiple levels of a website.
+hide_title: true
+---
+
+import { OverviewTemplate } from '@site/src/components';
+import DocCardList from '@site/src/theme/DocCardList';
+import { useCurrentVersion } from '@site/src/hooks/useCurrentVersion';
+import { useLatestVersion } from '@site/src/hooks/useLatestVersion';
+
+export default function FoundationsOverview() {
+  const currentVersion = useCurrentVersion();
+  const latestVersion = useLatestVersion();
+
+const resolveLink = (href) => {
+if (currentVersion === latestVersion) {
+return `/docs${href}`;
+}
+const version = currentVersion === 'Canary 🚧' ? 'next' : currentVersion;
+return `/docs/${version}${href}`;
+};
+return (
+
+<>
+<OverviewTemplate
+        title="Foundations"
+        description="This section contains a collection of foundational elements of the Tallinn Design System."
+      />
+
+      <DocCardList
+        items={[
+          {
+            type: 'link',
+            label: 'Color',
+            href: resolveLink('/foundations/color'),
+          },
+          {
+            type: 'link',
+            label: 'Typography',
+            href: resolveLink('/foundations/typography'),
+          },
+          {
+            type: 'link',
+            label: 'Spacing',
+            href: resolveLink('/foundations/spacing/spacing-overview/'),
+          },
+          {
+            type: 'link',
+            label: 'Breakpoints',
+            href: resolveLink('/foundations/breakpoints/breakpoints-overview/'),
+          },
+        ]}
+      />
+    </>
+
+);
+}

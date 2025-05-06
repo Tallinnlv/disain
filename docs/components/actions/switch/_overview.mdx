@@ -1,0 +1,237 @@
+import { CodePreview, UsageAdvice, SwitchComponent } from '@site/src/components';
+
+# Overview
+
+<UsageAdvice permitted>
+  - Use a switch when your intent is to turn something on or off instantly.
+</UsageAdvice>
+
+<UsageAdvice permitted={false}>
+  - Switches should never require users to click a button to apply or save the setting.
+  - When the two states are not opposites or where the alternate setting is not intuitively obvious.
+</UsageAdvice>
+
+## Variants
+
+Switch has two alignment variants. If you are creating a group of switches or have multiple groups close to each other on a page then stick to one variant for all switches.
+
+### Left aligned
+
+Switch left, label right. Recommended for short labels (5 words or less).
+
+<CodePreview
+  minHeight="100px"
+  code={SwitchComponent({
+    label: 'This is a switch',
+    align: 'left',
+  })}
+/>
+
+### Right aligned
+
+Label left, switch right. Recommended for longer labels (more than 5 words) or in case there are multiple switches with short and long labels in a group.
+
+<CodePreview
+  minHeight="100px"
+  width="50%"
+  code={SwitchComponent({
+    label: 'This is a switch with a longer label',
+    align: 'right',
+  })}
+/>
+
+This variant should always stretch to the content area width.
+
+<CodePreview
+  minHeight="450px"
+  hideCode
+  setBorderBottom
+  svgPath="/img/switchOverview/content-area.svg"
+/>
+
+## Labels and hints
+
+Make sure that the label is clear and concise. A good label describes the effect that will happen when the switch is set to “On” position. For example, use the label “Allow notifications” instead of “Do you want to receive notifications?”.
+
+  <CodePreview
+    minHeight="100px"
+    code={SwitchComponent({
+      label: 'Allow notifications',
+      align: 'left',
+    })}
+  />
+
+Hint text can be used to give more context to the label. Try to keep the hints as short and concise as possible.
+
+  <CodePreview
+    minHeight="100px"
+    code={SwitchComponent({
+      label: 'Allow notifications',
+      hint: 'This is a hint',
+      align: 'left',
+    })}
+  />
+
+
+
+  <CodePreview
+    minHeight="160px"
+    width="40%"
+    code={SwitchComponent({
+      label: 'Allow more notifications',
+      hint: 'This is a bit longer hint that wraps to the second line.',
+      align: 'right',
+    })}
+  />
+
+## Grouping
+
+When creating groups of switches, use only one variant in a group. 
+
+  <CodePreview
+    minHeight="270px"
+    code={`
+      <div class="example-section">
+        ${SwitchComponent({
+          label: 'Push notifications',
+          align: 'left',
+          checked: true,
+        })}
+        ${SwitchComponent({
+          label: 'Email notifications',
+          align: 'left',
+          checked: true,
+        })}
+        ${SwitchComponent({
+          label: 'SMS notifications',
+          align: 'left',
+        })}
+      </div>
+    `}
+  />
+
+When using right aligned switches, it is recommended to have divider lines between them to help users to make a connection between the label and the switch.
+
+   <CodePreview
+    minHeight="270px"
+    width='50%'
+    code={`
+      <div class="example-section">
+        ${SwitchComponent({
+          label: 'Push notifications',
+          align: 'right',
+          checked: true,
+          withDivider: true,
+        })}
+        ${SwitchComponent({
+          label: 'Email notifications',
+          align: 'right',
+          checked: true,
+          withDivider: true,
+        })}
+        ${SwitchComponent({
+          label: 'SMS notifications',
+          align: 'right',
+          withDivider: true,
+        })}
+      </div>
+    `}
+  />
+
+## Nesting
+
+In a nested group, one master switch enables or disables a group of related switches. Use right aligned switches for nested groups.
+
+<CodePreview
+  minHeight="330px"
+  width='50%'
+  scriptPath='/scripts/components/actions-switch.js'
+  code={`
+    <div class="example-section">
+      <div class="example-section__master">
+      ${SwitchComponent({
+        label: 'Allow notifications',
+        align: 'right',
+        isMaster: true,
+        checked: true,
+        withDivider: true,
+      })}
+      </div>
+      <div class="tds-switch-nested">
+        ${SwitchComponent({
+          label: 'Push notifications',
+          align: 'right',
+          isNested: true,
+          checked: true,
+          withDivider: true,
+        })}
+        ${SwitchComponent({
+          label: 'Email notifications',
+          align: 'right',
+          isNested: true,
+          checked: true,
+          withDivider: true,
+        })}
+        ${SwitchComponent({
+          label: 'SMS notifications',
+          align: 'right',
+          isNested: true,
+          withDivider: true,
+        })}
+      </div>
+    </div>
+  `}
+/>
+
+Sub switches are displayed in a disabled state when the master switch is off.
+
+<CodePreview
+  minHeight="330px"
+  width='50%'
+  scriptPath='/scripts/components/actions-switch.js'
+  code={`
+    <div class="example-section">
+    <div class="example-section__master">
+      ${SwitchComponent({
+        label: 'Allow notifications',
+        align: 'right',
+        isMaster: true,
+        checked: false,
+        withDivider: true,
+      })}
+      </div>
+      <div class="tds-switch-nested">
+        ${SwitchComponent({
+          label: 'Push notifications',
+          align: 'right',
+          isNested: true,
+          checked: true,
+          disabled: true,
+          withDivider: true,
+        })}
+        ${SwitchComponent({
+          label: 'Email notifications',
+          align: 'right',
+          isNested: true,
+          disabled: true,
+          checked: true,
+          withDivider: true,
+        })}
+        ${SwitchComponent({
+          label: 'SMS notifications',
+          align: 'right',
+          isNested: true,
+          disabled: true,
+          withDivider: true,
+        })}
+      </div>
+    </div>
+  `}
+/>
+
+{/* prettier-ignore */}
+:::info
+This example uses JavaScript.
+Source code can be found [here](/scripts/components/actions-switch.js).
+:::
+{/* prettier-ignore */}

@@ -1,0 +1,66 @@
+import {
+  CodePreview,
+  CodePreviewGroup,
+  TabsComponent,
+  UsageAdvice,
+} from '@site/src/components';
+
+# Usage guidelines
+
+## No single tabs
+
+Do not show a single tab. Use heading instead.
+
+<CodePreviewGroup>
+<CodePreview
+  hideCode
+  guideline="permitted"
+  minHeight="260px"
+  svgPath="/img/tabsUsage/content.svg"
+/>
+
+<CodePreview
+  hideCode
+  guideline="prohibited"
+  minHeight="260px"
+  svgPath="/img/tabsUsage/content-tabs.svg"
+/>
+</CodePreviewGroup>
+
+## Overflow
+
+Avoid multiple rows of tabs. Use scrolling instead.
+
+<CodePreviewGroup>
+<CodePreview
+  hideCode
+  guideline="permitted"
+  minHeight="200px"
+  svgPath="/img/tabsUsage/overflow-scrolling.svg"
+/>
+
+<CodePreview
+  hideCode
+  guideline="prohibited"
+  minHeight="200px"
+  svgPath="/img/tabsUsage/scrolling-not-allowed.svg"
+/>
+</CodePreviewGroup>
+
+## Labels
+
+Use as few words as possible to describe each tab label.
+
+<CodePreview
+  hideCode
+  guideline="permitted"
+  minHeight="174px"
+  svgPath="/img/tabsUsage/labels-do.svg"
+/>
+
+<CodePreview
+  hideCode
+  guideline="prohibited"
+  minHeight="174px"
+  svgPath="/img/tabsUsage/labels-dont.svg"
+/>

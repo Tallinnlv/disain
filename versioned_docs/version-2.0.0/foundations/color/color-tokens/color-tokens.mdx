@@ -1,0 +1,653 @@
+---
+title: Tokens
+description: Color is a powerful tool for creating visual hierarchy, grouping related elements, and guiding users through a design.
+hide_table_of_contents: true
+---
+
+import CoreTokens from '@site/static/img/colorTokens/color-tokens.svg';
+import SemanticTokens from '@site/static/img/colorTokens/semantic-tokens.svg';
+import UsageTokens from '@site/static/img/colorTokens/usage-tokens.svg';
+import { CodePreview, TableComponent } from '@site/src/components';
+
+# Colour tokens
+
+Color tokens are the single source of truth for all colors used in TDS. They give designers or developers an understanding of how or when to apply our palette and what options are available.
+
+Color tokens ensure that colors remain consistent across various components, screens, and platforms. They also provide a scalable solution, enabling easy maintenance and expansion of color palettes.
+
+## Types of colour tokens
+
+TDS uses two tiers of tokens to manage color. In most cases, you should only use semantic tokens instead of applying core tokens directly.
+
+<div style={{ display: 'flex', gap: '12px' }}>
+  <div style={{ flex: 1 }}>
+    <CoreTokens key="decorative" style={{ width: '100%', height: 'auto' }} />
+    <p style={{ fontSize: '20px', fontWeight: '700' }}>Core tokens</p>
+    <p>
+      Core colour tokens are primitive values that do not have any associated
+      explicit meaning or intent, and are only used to be referenced by semantic
+      tokens.
+    </p>
+  </div>
+  <div style={{ flex: 1 }}>
+    <SemanticTokens key="semantic" style={{ width: '100%', height: 'auto' }} />
+    <p style={{ fontSize: '20px', fontWeight: '700' }}>Semantic tokens</p>
+    <p>
+      Semantic tokens are context-specific and reference core color tokens. They
+      use semantic names that help provide an understanding on how or when the
+      token should be used.
+    </p>
+  </div>
+</div>
+
+## Usage
+
+Semantic tokens fall into four categories: canvas, surface, border and content
+
+<UsageTokens style={{ width: '100%', height: 'auto' }} />
+
+<br />
+<br />
+<div>
+  <span style={{ display: 'flex', gap: '8px' }}>
+    <span className="circle">
+      <span className="circle-number">1</span>
+    </span>
+    <b>Canvas</b> colours are used for page <code>&lt;body&gt;</code>{' '}
+    backgrounds. There can be only one canvas per screen.{' '}
+  </span>
+  <span style={{ display: 'flex', gap: '8px' }}>
+    <span className="circle">
+      <span className="circle-number">2</span>
+    </span>
+    <b>Surfaces</b> sit on top of the canvas. You can have multiple surfaces on
+    a single canvas.
+  </span>
+    <span style={{ display: 'flex', gap: '8px' }}>
+    <span className="circle">
+      <span className="circle-number">3</span>
+    </span>
+    <b>Borders</b> can be drawn around surfaces.
+  </span>
+      <span style={{ display: 'flex', gap: '8px' }}>
+    <span className="circle">
+      <span className="circle-number">4</span>
+    </span>
+      <b>Content</b> colours are used for text and icons. 
+  </span>
+
+</div>
+
+## Semantic tokens
+
+CSS variable prefix: <b>tds-color-</b>
+
+Figma collection: <b>Theme / Semantic</b>
+
+### Canvas
+
+Canvas colors are used for page `(<body>)` backgrounds. There can be only one canvas per screen.
+
+<CodePreview
+  hideCode
+  noPaddingInBody
+  borderNone
+  displayBlock
+  minHeight="200px"
+  code={TableComponent({
+    compact: false,
+    sortable: false,
+    multiSelect: false,
+    alignRight: false,
+    columns: [
+      { key: 'token', label: 'Token' },
+      { key: 'lightMode', label: 'Light mode' },
+      { key: 'darkMode', label: 'Dark mode' },
+    ],
+    data: [
+      {
+        token: 'canvas-default',
+        lightMode: 'neutral-0',
+        darkMode: 'neutral-90',
+      },
+      {
+        token: 'canvas-contrast',
+        lightMode: 'neutral-10',
+        darkMode: 'neutral-80',
+      },
+    ],
+    colors: [
+      { light: 'var(--color-neutral-0)', dark: 'var(--color-neutral-90)' }, // Dynamic CSS variables
+      { light: 'var(--color-neutral-10)', dark: 'var(--color-neutral-80)' }, // Dynamic CSS variables
+    ],
+  })}
+/>
+
+## Surface
+
+Surfaces sit on the top of the canvas. You can have multiple surfaces on a single canvas.
+
+<CodePreview
+  hideCode
+  noPaddingInBody
+  borderNone
+  displayBlock
+  minHeight="2000px"
+  code={TableComponent({
+    compact: false,
+    sortable: false,
+    multiSelect: false,
+    alignRight: false,
+    columns: [
+      { key: 'token', label: 'Token' },
+      { key: 'lightMode', label: 'Light mode' },
+      { key: 'darkMode', label: 'Dark mode' },
+    ],
+    data: [
+      {
+        token: 'surface-default',
+        lightMode: 'neutral-0',
+        darkMode: 'neutral-90',
+      },
+      {
+        token: 'surface-faint',
+        lightMode: 'neutral-10',
+        darkMode: 'neutral-80',
+      },
+      {
+        token: 'surface-subtle',
+        lightMode: 'neutral-20',
+        darkMode: 'neutral-70',
+      },
+      {
+        token: 'surface-moderate',
+        lightMode: 'neutral-50',
+        darkMode: 'neutral-40',
+      },
+      {
+        token: 'surface-contrast',
+        lightMode: 'neutral-90',
+        darkMode: 'neutral-10',
+      },
+      {
+        token: 'surface-static-dark',
+        lightMode: 'neutral-90',
+        darkMode: 'neutral-90',
+      },
+      {
+        token: 'surface-static-light',
+        lightMode: 'neutral-0',
+        darkMode: 'neutral-0',
+      },
+      {
+        token: 'surface-transparent',
+        lightMode: 'alpha-light-transparent',
+        darkMode: 'alpha-dark-transparent',
+      },
+      {
+        token: 'surface-brand',
+        lightMode: 'blue-50',
+        darkMode: 'blue-50',
+      },
+      {
+        token: 'surface-brand-strong',
+        lightMode: 'blue-80',
+        darkMode: 'blue-70',
+      },
+      {
+        token: 'surface-overlay-scrim',
+        lightMode: 'alpha-dark-90',
+        darkMode: 'alpha-dark-70',
+      },
+      {
+        token: 'surface-overlay-container',
+        lightMode: 'neutral-0',
+        darkMode: 'neutral-90',
+      },
+      {
+        token: 'surface-feedback-info-faint',
+        lightMode: 'blue-10',
+        darkMode: 'blue-80',
+      },
+      {
+        token: 'surface-feedback-positive-faint',
+        lightMode: 'green-10',
+        darkMode: 'green-80',
+      },
+      {
+        token: 'surface-feedback-warning-faint',
+        lightMode: 'yellow-20',
+        darkMode: 'yellow-80',
+      },
+      {
+        token: 'surface-feedback-negative-faint',
+        lightMode: 'red-10',
+        darkMode: 'red-80',
+      },
+      {
+        token: 'surface-action-color-default',
+        lightMode: 'blue-60',
+        darkMode: 'blue-40',
+      },
+      {
+        token: 'surface-action-color-hover',
+        lightMode: 'blue-70',
+        darkMode: 'blue-30',
+      },
+      {
+        token: 'surface-action-color-active',
+        lightMode: 'blue-80',
+        darkMode: 'blue-20',
+      },
+      {
+        token: 'surface-action-color-subtle-hover',
+        lightMode: 'blue-10',
+        darkMode: 'blue-80',
+      },
+      {
+        token: 'surface-action-color-subtle-active',
+        lightMode: 'blue-20',
+        darkMode: 'blue-70',
+      },
+      {
+        token: 'surface-action-neutral-hover',
+        lightMode: 'neutral-70',
+        darkMode: 'neutral-30',
+      },
+      {
+        token: 'surface-action-neutral-active',
+        lightMode: 'neutral-60',
+        darkMode: 'neutral-20',
+      },
+      {
+        token: 'surface-action-neutral-subtle-hover',
+        lightMode: 'alpha-dark-10',
+        darkMode: 'alpha-light-10',
+      },
+      {
+        token: 'surface-action-neutral-subtle-active',
+        lightMode: 'alpha-dark-20',
+        darkMode: 'alpha-light-20',
+      },
+      {
+        token: 'surface-action-danger-default',
+        lightMode: 'red-50',
+        darkMode: 'red-40',
+      },
+      {
+        token: 'surface-action-danger-hover',
+        lightMode: 'red-60',
+        darkMode: 'red-30',
+      },
+      {
+        token: 'surface-action-danger-active',
+        lightMode: 'red-70',
+        darkMode: 'red-20',
+      },
+      {
+        token: 'surface-action-disabled',
+        lightMode: 'neutral-20',
+        darkMode: 'neutral-80',
+      },
+      {
+        token: 'surface-highlight-subtle',
+        lightMode: 'blue-10',
+        darkMode: 'blue-80',
+      },
+      {
+        token: 'surface-highlight-moderate',
+        lightMode: 'blue-50',
+        darkMode: 'blue-30',
+      },
+      {
+        token: 'surface-highlight-moderate',
+        lightMode: 'blue-50',
+        darkMode: 'blue-40',
+      },
+      {
+        token: 'surface-highlight-strong',
+        lightMode: 'blue-80',
+        darkMode: 'blue-20',
+      },
+      {
+        token: 'surface-focus-default',
+        lightMode: 'yellow-50',
+        darkMode: 'yellow-50',
+      },
+    ],
+    colors: [
+      { light: 'var(--color-neutral-0)', dark: 'var(--color-neutral-90)' }, // surface-default
+      { light: 'var(--color-neutral-10)', dark: 'var(--color-neutral-80)' }, // surface-faint
+      { light: 'var(--color-neutral-20)', dark: 'var(--color-neutral-70)' }, // surface-subtle
+      { light: 'var(--color-neutral-50)', dark: 'var(--color-neutral-40)' }, // surface-moderate
+      { light: 'var(--color-neutral-90)', dark: 'var(--color-neutral-10)' }, // surface-contrast
+      { light: 'var(--color-neutral-90)', dark: 'var(--color-neutral-90)' }, // surface-static-dark
+      { light: 'var(--color-neutral-0)', dark: 'var(--color-neutral-0)' }, // surface-static-light
+      {
+        light: 'var(--alpha-light-transparent)',
+        dark: 'var(--alpha-dark-transparent)',
+      }, // surface-transparent
+      { light: 'var(--color-blue-50)', dark: 'var(--color-blue-50)' }, // surface-brand
+      { light: 'var(--color-blue-80)', dark: 'var(--color-blue-70)' }, // surface-brand-strong
+      { light: 'var(--alpha-dark-90)', dark: 'var(--alpha-dark-70)' }, // surface-overlay-scrim
+      { light: 'var(--color-neutral-0)', dark: 'var(--color-neutral-90)' }, // surface-overlay-container
+      { light: 'var(--color-blue-10)', dark: 'var(--color-blue-80)' }, // surface-feedback-info-faint
+      { light: 'var(--color-green-10)', dark: 'var(--color-green-80)' }, // surface-feedback-positive-faint
+      { light: 'var(--color-yellow-20)', dark: 'var(--color-yellow-80)' }, // surface-feedback-warning-faint
+      { light: 'var(--color-red-10)', dark: 'var(--color-red-80)' }, // surface-feedback-negative-faint
+      { light: 'var(--color-blue-60)', dark: 'var(--color-blue-40)' }, // surface-action-color-default
+      { light: 'var(--color-blue-70)', dark: 'var(--color-blue-30)' }, // surface-action-color-hover
+      { light: 'var(--color-blue-80)', dark: 'var(--color-blue-20)' }, // surface-action-color-active
+      { light: 'var(--color-blue-10)', dark: 'var(--color-blue-80)' }, // surface-action-color-subtle-hover
+      { light: 'var(--color-blue-20)', dark: 'var(--color-blue-70)' }, // surface-action-color-subtle-active
+      { light: 'var(--color-neutral-70)', dark: 'var(--color-neutral-30)' }, // surface-action-neutral-hover
+      { light: 'var(--color-neutral-60)', dark: 'var(--color-neutral-20)' }, // surface-action-neutral-active
+      { light: 'var(--alpha-dark-10)', dark: 'var(--alpha-light-10)' }, // surface-action-neutral-subtle-hover
+      { light: 'var(--alpha-dark-20)', dark: 'var(--alpha-light-20)' }, // surface-action-neutral-subtle-active
+      { light: 'var(--color-red-50)', dark: 'var(--color-red-40)' }, // surface-action-danger-default
+      { light: 'var(--color-red-60)', dark: 'var(--color-red-30)' }, // surface-action-danger-hover
+      { light: 'var(--color-red-70)', dark: 'var(--color-red-20)' }, // surface-action-danger-active
+      { light: 'var(--color-neutral-20)', dark: 'var(--color-neutral-80)' }, // surface-action-disabled
+      { light: 'var(--color-blue-10)', dark: 'var(--color-blue-80)' }, // surface-highlight-subtle
+      { light: 'var(--color-blue-50)', dark: 'var(--color-blue-30)' }, // surface-highlight-subtle
+      { light: 'var(--color-blue-50)', dark: 'var(--color-blue-40)' }, // surface-highlight-moderate
+      { light: 'var(--color-blue-80)', dark: 'var(--color-blue-20)' }, // surface-highlight-strong
+      { light: 'var(--color-yellow-50)', dark: 'var(--color-yellow-50)' }, // surface-focus-default
+    ],
+  })}
+/>
+
+## Border
+
+Borders can be drawn around surfaces.
+
+<CodePreview
+  hideCode
+  noPaddingInBody
+  borderNone
+  displayBlock
+  minHeight="1330px"
+  code={TableComponent({
+    compact: false,
+    sortable: false,
+    multiSelect: false,
+    alignRight: false,
+    columns: [
+      { key: 'token', label: 'Token' },
+      { key: 'lightMode', label: 'Light mode' },
+      { key: 'darkMode', label: 'Dark mode' },
+    ],
+    data: [
+      {
+        token: 'border-faint',
+        lightMode: 'neutral-10',
+        darkMode: 'neutral-80',
+      },
+      {
+        token: 'border-subtle',
+        lightMode: 'neutral-20',
+        darkMode: 'neutral-70',
+      },
+      {
+        token: 'border-moderate',
+        lightMode: 'neutral-40',
+        darkMode: 'neutral-50',
+      },
+      {
+        token: 'border-strong',
+        lightMode: 'neutral-90',
+        darkMode: 'neutral-10',
+      },
+      {
+        token: 'border-inverse',
+        lightMode: 'neutral-0',
+        darkMode: 'neutral-90',
+      },
+      {
+        token: 'border-brand',
+        lightMode: 'blue-50',
+        darkMode: 'blue-50',
+      },
+      {
+        token: 'border-feedback-info',
+        lightMode: 'blue-50',
+        darkMode: 'blue-40',
+      },
+      {
+        token: 'border-feedback-positive',
+        lightMode: 'green-50',
+        darkMode: 'green-40',
+      },
+      {
+        token: 'border-feedback-warning',
+        lightMode: 'yellow-60',
+        darkMode: 'yellow-50',
+      },
+      {
+        token: 'border-feedback-negative',
+        lightMode: 'red-50',
+        darkMode: 'red-40',
+      },
+      {
+        token: 'border-action-color-default',
+        lightMode: 'blue-60',
+        darkMode: 'blue-40',
+      },
+      {
+        token: 'border-action-color-hover',
+        lightMode: 'blue-70',
+        darkMode: 'blue-30',
+      },
+      {
+        token: 'border-action-color-active',
+        lightMode: 'blue-80',
+        darkMode: 'blue-20',
+      },
+      {
+        token: 'border-action-neutral-default',
+        lightMode: 'neutral-40',
+        darkMode: 'neutral-50',
+      },
+      {
+        token: 'border-action-neutral-hover',
+        lightMode: 'neutral-70',
+        darkMode: 'alpha-light-80',
+      },
+      {
+        token: 'border-action-neutral-active',
+        lightMode: 'neutral-60',
+        darkMode: 'alpha-light-70',
+      },
+      {
+        token: 'border-action-disabled',
+        lightMode: 'neutral-30',
+        darkMode: 'neutral-70',
+      },
+      {
+        token: 'border-highlight-moderate',
+        lightMode: 'blue-50',
+        darkMode: 'blue-40',
+      },
+      {
+        token: 'border-focus-default',
+        lightMode: 'neutral-90',
+        darkMode: 'neutral-90',
+      },
+      {
+        token: 'border-focus-contrast',
+        lightMode: 'yellow-50',
+        darkMode: 'yellow-50',
+      },
+      {
+        token: 'border-focus-inner',
+        lightMode: 'neutral-0',
+        darkMode: 'neutral-90',
+      },
+      {
+        token: 'border-focus-outer',
+        lightMode: 'neutral-90',
+        darkMode: 'neutral-10',
+      },
+    ],
+    colors: [
+      { light: 'var(--color-neutral-10)', dark: 'var(--color-neutral-80)' }, // border-faint
+      { light: 'var(--color-neutral-20)', dark: 'var(--color-neutral-70)' }, // border-subtle
+      { light: 'var(--color-neutral-40)', dark: 'var(--color-neutral-50)' }, // border-moderate
+      { light: 'var(--color-neutral-90)', dark: 'var(--color-neutral-10)' }, // border-strong
+      { light: 'var(--color-neutral-0)', dark: 'var(--color-neutral-90)' }, // border-inverse
+      { light: 'var(--color-blue-50)', dark: 'var(--color-blue-50)' }, // border-brand
+      { light: 'var(--color-blue-50)', dark: 'var(--color-blue-40)' }, // border-feedback-info
+      { light: 'var(--color-green-50)', dark: 'var(--color-green-40)' }, // border-feedback-positive
+      { light: 'var(--color-yellow-60)', dark: 'var(--color-yellow-50)' }, // border-feedback-warning
+      { light: 'var(--color-red-50)', dark: 'var(--color-red-40)' }, // border-feedback-negative
+      { light: 'var(--color-blue-60)', dark: 'var(--color-blue-40)' }, // border-action-color-default
+      { light: 'var(--color-blue-70)', dark: 'var(--color-blue-30)' }, // border-action-color-hover
+      { light: 'var(--color-blue-80)', dark: 'var(--color-blue-20)' }, // border-action-color-active
+      { light: 'var(--color-neutral-40)', dark: 'var(--color-neutral-50)' }, // border-action-neutral-default
+      { light: 'var(--color-neutral-70)', dark: 'var(--alpha-light-80)' }, // border-action-neutral-hover
+      { light: 'var(--color-neutral-60)', dark: 'var(--alpha-light-70)' }, // border-action-neutral-active
+      { light: 'var(--color-neutral-30)', dark: 'var(--color-neutral-70)' }, // border-action-disabled
+      { light: 'var(--color-blue-50)', dark: 'var(--color-blue-40)' }, // border-highlight-moderate
+      { light: 'var(--color-neutral-90)', dark: 'var(--color-neutral-90)' }, // border-focus-default
+      { light: 'var(--color-yellow-50)', dark: 'var(--color-yellow-50)' }, // border-focus-contrast
+      { light: 'var(--color-neutral-0)', dark: 'var(--color-neutral-90)' }, // border-focus-inner
+      { light: 'var(--color-neutral-90)', dark: 'var(--color-neutral-10)' }, // border-focus-outer
+    ],
+    borderIcons: true, // Add this flag to indicate that we're styling borders
+  })}
+/>
+
+## Content
+
+Content colors are used for text and icons.
+
+<CodePreview
+  hideCode
+  noPaddingInBody
+  borderNone
+  displayBlock
+  minHeight="1100px"
+  code={TableComponent({
+    compact: false,
+    sortable: false,
+    multiSelect: false,
+    alignRight: false,
+    columns: [
+      { key: 'token', label: 'Token' },
+      { key: 'lightMode', label: 'Light mode' },
+      { key: 'darkMode', label: 'Dark mode' },
+    ],
+    data: [
+      {
+        token: 'content-default',
+        lightMode: 'neutral-90',
+        darkMode: 'neutral-0',
+      },
+      {
+        token: 'content-subtle',
+        lightMode: 'neutral-60',
+        darkMode: 'neutral-30',
+      },
+      {
+        token: 'content-faint',
+        lightMode: 'neutral-50',
+        darkMode: 'neutral-50',
+      },
+      {
+        token: 'content-inverse',
+        lightMode: 'neutral-0',
+        darkMode: 'neutral-90',
+      },
+      {
+        token: 'content-static-dark',
+        lightMode: 'neutral-90',
+        darkMode: 'neutral-90',
+      },
+      {
+        token: 'content-static-light',
+        lightMode: 'neutral-0',
+        darkMode: 'neutral-0',
+      },
+      {
+        token: 'content-brand',
+        lightMode: 'blue-50',
+        darkMode: 'blue-50',
+      },
+      {
+        token: 'content-feedback-negative',
+        lightMode: 'red-50',
+        darkMode: 'red-40',
+      },
+      {
+        token: 'content-action-color-default',
+        lightMode: 'blue-60',
+        darkMode: 'blue-30',
+      },
+      {
+        token: 'content-action-color-hover',
+        lightMode: 'blue-70',
+        darkMode: 'blue-20',
+      },
+      {
+        token: 'content-action-color-active',
+        lightMode: 'blue-80',
+        darkMode: 'blue-10',
+      },
+      {
+        token: 'content-action-neutral-default',
+        lightMode: 'neutral-90',
+        darkMode: 'neutral-10',
+      },
+      {
+        token: 'content-action-neutral-hover',
+        lightMode: 'neutral-70',
+        darkMode: 'alpha-light-80',
+      },
+      {
+        token: 'content-action-neutral-active',
+        lightMode: 'neutral-60',
+        darkMode: 'alpha-light-70',
+      },
+      {
+        token: 'content-action-inverse',
+        lightMode: 'neutral-0',
+        darkMode: 'neutral-90',
+      },
+      {
+        token: 'content-action-disabled',
+        lightMode: 'neutral-50',
+        darkMode: 'neutral-50',
+      },
+      {
+        token: 'content-highlight-moderate',
+        lightMode: 'blue-50',
+        darkMode: 'blue-30',
+      },
+      {
+        token: 'content-focus-default',
+        lightMode: 'neutral-90',
+        darkMode: 'neutral-90',
+      },
+    ],
+    colors: [
+      { light: 'var(--color-neutral-90)', dark: 'var(--color-neutral-0)' }, // content-default
+      { light: 'var(--color-neutral-60)', dark: 'var(--color-neutral-30)' }, // content-subtle
+      { light: 'var(--color-neutral-50)', dark: 'var(--color-neutral-50)' }, // content-faint
+      { light: 'var(--color-neutral-0)', dark: 'var(--color-neutral-90)' }, // content-inverse
+      { light: 'var(--color-neutral-90)', dark: 'var(--color-neutral-90)' }, // content-static-dark
+      { light: 'var(--color-neutral-0)', dark: 'var(--color-neutral-0)' }, // content-static-light
+      { light: 'var(--color-blue-50)', dark: 'var(--color-blue-50)' }, // content-brand
+      { light: 'var(--color-red-50)', dark: 'var(--color-red-40)' }, // content-feedback-negative
+      { light: 'var(--color-blue-60)', dark: 'var(--color-blue-30)' }, // content-action-color-default
+      { light: 'var(--color-blue-70)', dark: 'var(--color-blue-20)' }, // content-action-color-hover
+      { light: 'var(--color-blue-80)', dark: 'var(--color-blue-10)' }, // content-action-color-active
+      { light: 'var(--color-neutral-90)', dark: 'var(--color-neutral-10)' }, // content-action-neutral-default
+      { light: 'var(--color-neutral-70)', dark: 'var(--alpha-light-80)' }, // content-action-neutral-hover
+      { light: 'var(--color-neutral-60)', dark: 'var(--alpha-light-70)' }, // content-action-neutral-active
+      { light: 'var(--color-neutral-0)', dark: 'var(--color-neutral-90)' }, // content-action-inverse
+      { light: 'var(--color-neutral-50)', dark: 'var(--color-neutral-50)' }, // content-action-disabled
+      { light: 'var(--color-blue-50)', dark: 'var(--color-blue-30)' }, // content-highlight-moderate
+      { light: 'var(--color-neutral-90)', dark: 'var(--color-neutral-90)' }, // content-focus-default
+    ],
+  })}
+/>

@@ -1,0 +1,30 @@
+@use '../../css/tds-library/scss/base/color-variables';
+@use '../../css/tds-library/scss/base/color-variables-dark';
+@use '../../css/tds-library/scss/components/button';
+@use '../../css/tds-library/scss/components/link';
+
+.alertContainer {
+  background-color: var(--color-surface-subtle);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 48px;
+  font-size: 16px;
+  font-family: 'Lab Grotesque', arial, sans-serif;
+}
+
+.alertContent {
+  display: flex;
+  align-items: center;
+}
+
+.alertIcon {
+  margin-right: 15px;
+}
+
+.alertText {
+  font-size: 16px;
+  margin: 0;
+  color: var(--color-content-default);
+  max-width: 800px;
+}

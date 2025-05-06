@@ -1,0 +1,39 @@
+@use '../../helpers/' as h;
+@use '../../tools/' as t;
+
+@mixin tds-input {
+  @include h.tds-font($size: 18);
+
+  box-sizing: border-box;
+  width: 100%;
+  height: t.tds-px-to-rem(48px);
+  padding: 0 1rem;
+  color: var(--color-content-default);
+  border-radius: 0.25rem;
+  border: 0.125rem solid var(--color-border-strong, #131416);
+  background: var(--color-surface-default, #fff);
+  -webkit-appearance: none;
+  appearance: none;
+
+  &:focus {
+    // color: var(--color-border-focus-default);
+    // border: 2px solid var(--color-border-focus-default);
+    border: .125rem solid var(--color-border-focus-default);
+    z-index: 1;
+    outline: 0.1875rem solid var(--color-border-focus-contrast);
+    outline-offset: 0;
+    border-radius: 0.25rem;
+    box-shadow: 0 0 0 0.0625rem var(--color-border-focus-default) inset;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    color: inherit;
+    background-color: transparent;
+    cursor: not-allowed;
+  }
+
+  @include h.tds-media-query($until: desktop) {
+    height: t.tds-px-to-rem(40px);
+  }
+}

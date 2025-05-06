@@ -1,0 +1,478 @@
+@use './tds-library/scss/components/link' as l;
+@use './tds-library/scss/base/color-variables';
+@use './tds-library/scss/base/color-variables-dark';
+@use './tds-library/scss/docs/styles/color-basics';
+
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #0072ce;
+  --ifm-color-primary-dark: #0254a1;
+  --ifm-color-primary-darker: #277148;
+  --ifm-color-primary-darkest: #002652;
+  --ifm-color-primary-light: #3e8fe0;
+  --ifm-color-primary-lighter: #a7d1f1;
+  --ifm-color-primary-lightest: #e9f4fb;
+  --color-blue-60: #0060ad;
+  --color-blue-70: #05417f;
+  --ifm-code-font-size: 95%;
+  --ifm-color-green-50: #017e31;
+  --ifm-color-green-40: #6dba77;
+  --ifm-color-red-50: #cc1925;
+  --ifm-color-red-40: #f97a76;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --doc-sidebar-width: 368px !important;
+  --ifm-navbar-height: 112px;
+  --ifm-container-width-xl: 1024px;
+  --ifm-font-family-base: 'Lab Grotesque';
+  --color-content-brand: var(--ifm-color-primary);
+  --color-border-brand: var(--ifm-color-primary);
+  --color-border-feedback-positive: var(--ifm-color-green-50);
+  --color-content-feedback-negative: var(--ifm-color-red-50);
+  --color-border-feedback-negative: var(--ifm-color-red-50);
+  --color-content-action-color-default: var(--color-blue-60);
+  --color-content-action-color-hover: var(--color-blue-70);
+  --color-content-default: var(--color-neutral-90);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: var(--color-content-brand);
+  --ifm-color-primary-dark: var(--color-content-brand);
+  --ifm-color-primary-darker: var(--color-content-brand);
+  --ifm-color-primary-darkest: var(--color-content-brand);
+  --ifm-color-primary-light: var(--color-content-brand);
+  --color-blue-20: #c6e4fb;
+  --ifm-color-primary-lighter: var(--color-content-brand);
+  --ifm-color-primary-lightest: var(--color-content-brand);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --color-content-brand: #0072ce;
+  --color-border-brand: #0072ce;
+  --color-border-feedback-positive: var(--ifm-color-green-40);
+  --color-content-feedback-negative: var(--ifm-color-red-40);
+  --color-border-feedback-negative: var(--ifm-color-red-40);
+  --color-content-action-color-hover: var(--color-blue-20);
+  --color-content-default: var(--color-neutral-10);
+}
+
+@font-face {
+  font-family: 'Lab Grotesque';
+  src:
+    url('/fonts/LabGrotesqueRegularWeb/LabGrotesque-Regular.eot') format('eot'),
+    url('/fonts/LabGrotesqueRegularWeb/LabGrotesque-Regular.woff')
+      format('woff');
+}
+
+.tabItem:nth-of-type(0) pre[class*='language-html'] {
+  .button {
+    background-color: violet;
+  }
+}
+
+.markdown h1:first-child {
+  color: var(--color-content-default);
+  font-size: 2.5rem;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.tds-button:hover {
+  text-decoration: none;
+}
+
+.navbar {
+  padding: 0px 64px 0px 16px;
+  align-items: center;
+  border-bottom: 1px solid var(--general-border-neutral-subtle, #c4c7ca);
+}
+
+.navbar__logo {
+  height: auto;
+
+  &-with-badge {
+    @media screen and (max-width: 768px) {
+      width: 250px;
+    }
+  }
+}
+
+.navbar__brand {
+  align-items: normal;
+}
+
+.navbar__link {
+  font-family: 'Lab Grotesque';
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 27px;
+  color: var(--color-content-action-neutral-default);
+
+  &:hover {
+    color: var(--color-content-action-neutral-hover);
+  }
+  &--active {
+    &:hover {
+      color: var(--color-content-highlight-moderate);
+    }
+  }
+}
+
+nav .theme-doc-sidebar-item-link-level-1 a:first-child {
+  display: none;
+}
+
+header h1 {
+  color: var(--color-content-default);
+}
+
+.theme-doc-markdown.markdown h1 {
+  color: var(--color-content-default);
+}
+
+.padding-top--md {
+  padding-top: 2.5rem !important;
+}
+
+.tds-custom-image p img {
+  width: 100%;
+}
+
+.tds-background-white p img {
+  background-color: white;
+  border-radius: 8px;
+  width: 100%;
+}
+
+.tds-background-white--not-rounded p img {
+  background-color: white;
+  width: 100%;
+}
+
+.tds-background-white--not-rounded p img:nth-of-type(1n) {
+  margin-top: -9px;
+}
+
+.navbar__link--active {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  color: var(--color-content-highlight-moderate);
+  border-bottom-color: var(--color-border-highlight-moderate);
+  border-bottom-width: 4px;
+  border-bottom-style: solid;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  font-weight: 700;
+}
+
+.navbar__items {
+  gap: var(--dimensions-button-height-medium, 48px);
+  height: 112px;
+
+  @media screen and (max-width: 768px) {
+    gap: 8px;
+  }
+}
+
+.navbar__item {
+  padding: 0;
+}
+
+.navbar__inner .navbar__items.navbar__items--right {
+  @media screen and (max-width: 996px) {
+    display: none;
+  }
+}
+
+.theme-doc-sidebar-menu {
+  display: flex;
+  padding: var(--padding-button-medium, 32px);
+  flex-direction: column;
+  gap: 16px;
+  align-self: stretch;
+}
+
+.theme-doc-sidebar-item-category-level-1 {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.menu__link--sublist {
+  color: var(--color-content-subtle);
+
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+
+  background: none !important;
+}
+
+.menu__list-item-collapsible {
+  background: none;
+  border: none;
+
+  &:hover {
+    background: none;
+  }
+}
+
+.menu__link.menu__link--sublist.menu__link--active {
+  border: none;
+}
+
+.menu__link.menu__link--sublist:hover {
+  border: none;
+}
+
+.theme-doc-sidebar-item-link-level-2 .menu__link {
+  color: var(--color-content-default);
+
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.menu__link {
+  background: none !important;
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+
+  &.menu__link--active,
+  &:hover {
+    border-left: 4px solid var(--color-border-highlight-moderate);
+    color: var(--color-content-highlight-moderate);
+  }
+}
+
+.menu__caret {
+  display: none;
+}
+
+nav.menu.thin-scrollbar {
+  scrollbar-width: auto;
+}
+
+main .container {
+  margin: 0 80px 192px 80px;
+
+  @media screen and (max-width: 768px) {
+    margin: 16px 6px 82px 6px;
+  }
+}
+
+/* Footer */
+
+.footer {
+  align-items: flex-start;
+  background-color: var(--color-surface-faint);
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 64px;
+
+  @media screen and (max-width: 768px) {
+    padding: 16px 6px 16px 6px;
+  }
+}
+
+footer .container.container-fluid {
+  margin: 0;
+}
+
+.footer__title {
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
+}
+
+.footer__items {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--padding-button-medium, 32px);
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 120%;
+}
+
+.footer__link-item {
+  color: var(--color-content-default);
+}
+
+.footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0px;
+}
+
+.tabs {
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  color: var(--color-content-default);
+}
+
+.tabs__item--active {
+  font-weight: 700;
+  color: var(--color-content-highlight-moderate);
+  border-bottom: 4px solid var(--color-border-highlight-moderate);
+}
+
+.theme-doc-markdown header h2 {
+  font-size: 18px;
+  line-height: 27px;
+  color: var(--color-content-subtle);
+}
+
+main {
+  position: relative;
+}
+
+.margin-top--md {
+  margin-top: 64px !important;
+}
+
+.margin-top--md h2 {
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
+  /* 35.2px */
+  margin-top: 64px;
+  margin-bottom: 24px;
+}
+
+.margin-top--md h3 {
+  margin-bottom: 24px;
+  font-weight: 700;
+}
+
+.margin-top--md h4 {
+  margin-bottom: 24px;
+}
+
+.theme-doc-markdown.markdown p {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  margin-bottom: 24px;
+}
+
+.code-preview {
+  margin-bottom: 20px !important;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px 12px;
+  border-left-width: 1px;
+  border-right-width: 1px;
+}
+
+.code-block {
+  margin-bottom: 0px !important;
+  font-size: 16px;
+}
+
+.margin-top--md ul li {
+  font-size: 18px;
+}
+
+code {
+  line-height: 150%;
+  @media screen and (max-width: 768px) {
+    max-width: 310px;
+  }
+}
+
+.theme-doc-version-banner .margin-top--md {
+  margin-top: 10px !important;
+}
+
+header h2 {
+  margin-top: 10px;
+}
+
+.theme-doc-version-badge {
+  margin-bottom: 15px;
+}
+
+span.badge.badge--secondary {
+  color: var(--color-content-default);
+  // background-color: transparent;
+  background-color: var(--color-surface-faint);
+  border: transparent;
+  padding: 8px 8px;
+}
+
+.dropdown__link--active {
+  color: var(--color-content-highlight-moderate);
+
+  &:hover {
+    color: var(--color-content-highlight-moderate);
+  }
+}
+
+.hash-link {
+  color: var(--color-content-highlight-moderate);
+
+  &:hover {
+    color: var(--color-content-highlight-moderate);
+  }
+}
+
+.table-of-contents__link--active {
+  color: var(--color-content-highlight-moderate);
+}
+
+.table-of-contents__link {
+  &:hover {
+    color: var(--color-content-highlight-moderate);
+  }
+}
+
+.theme-admonition-info {
+  background: var(--color-surface-feedback-info-faint);
+  border: none;
+  padding: 24px;
+  margin-bottom: 4rem !important;
+  border-radius: 0.5rem;
+
+  div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 24px;
+    align-items: flex-start;
+    align-self: stretch;
+
+    span {
+      height: 2rem;
+      width: 2rem;
+      svg {
+        display: inline-block;
+        height: 2rem;
+        width: 2rem;
+        fill: var(--ifm-alert-foreground-color);
+      }
+    }
+    p {
+      margin-bottom: 0 !important;
+      font-size: 18px;
+      line-height: 150%;
+      color: var(--color-content-default);
+    }
+  }
+}

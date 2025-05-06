@@ -1,0 +1,56 @@
+@use '../helpers' as h;
+@use './input/' as input;
+
+.tds-input__wrapper {
+  display: flex;
+  position: relative;
+
+  @include h.tds-media-query($until: desktop) {
+    .tds-password-input__wrapper {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+
+  &.tds-text-input {
+    flex: 0 1 auto;
+  }
+}
+
+.tds-input {
+  @include input.tds-input;
+
+  .tds-form-group--compact & {
+    padding: 0 0.5rem;
+    height: 32px;
+  }
+
+  &[disabled] {
+    background: var(--color-surface-faint);
+    color: var(--color-content-faint);
+    border-color: var(--color-border-subtle);
+    cursor: not-allowed;
+  }
+}
+
+.tds-input--error {
+  border-color: var(--color-border-feedback-negative);
+
+  &:focus {
+    border: .125rem solid var(--color-border-feedback-negative);
+    box-shadow:  0 0 0 .0625rem var(--color-border-feedback-negative) inset;
+  }
+}
+
+.search-toggle-icon-wrapper {
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  font-size: 16px;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-left: 1rem;
+  z-index: 2;
+}

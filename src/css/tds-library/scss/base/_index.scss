@@ -1,0 +1,13 @@
+@forward 'color-variables';
+@forward 'color-variables-dark';
+@forward 'typo';
+@forward 'reset';
+@forward 'typography-variables';
+@forward 'breakpoints-core-values';
+@forward 'spacing-variables';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}

@@ -1,0 +1,169 @@
+import {
+  CodePreview,
+  CodePreviewGroup,
+  AccordionComponent,
+} from '@site/src/components';
+
+# Usage guidelines
+
+## Expand icon
+
+Use the ‘chevron-down’ icon when the accordion is collapsed and the ‘chevron-up’ icon when it's expanded. Do not switch the icons and do not replace them with other icons.
+
+<CodePreview
+  hideCode
+  minHeight="420px"
+  width="80%"
+  guideline="permitted"
+  code={AccordionComponent({
+    sections: [
+      {
+        heading: 'Accordion title',
+        expanded: true,
+        content:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat. Duis aute irure dolor in reprehenderit in voluptate  velit esse cillum dolore eu fugiat nulla pariatur.',
+      },
+      {
+        heading: 'Accordion tittle',
+        content:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat. Duis aute irure dolor in reprehenderit in voluptate  velit esse cillum dolore eu fugiat nulla pariatur.',
+      },
+    ],
+  })}
+  scriptPath="/scripts/components/presentation-accordion.js"
+/>
+
+<CodePreviewGroup>
+
+<CodePreview
+  hideCode
+  guideline="prohibited"
+  minHeight="277px"
+  width="80%"
+  svgPath="/img/accordionUsage/expand-1-dont.svg"
+/>
+
+<CodePreview
+  hideCode
+  guideline="prohibited"
+  minHeight="277px"
+  width="80%"
+  svgPath="/img/accordionUsage/expand-2-dont.svg"
+/>
+
+</CodePreviewGroup>
+
+## Nesting
+
+Do not nest accordions within accordions, as it will make content difficult to find.
+
+<CodePreview
+  hideCode
+  guideline="prohibited"
+  minHeight="700px"
+  width="80%"
+  svgPath="/img/accordionUsage/nesting-dont-1.svg"
+/>
+
+## Titles
+
+The title should be as brief as possible while still being clear and descriptive.
+
+<CodePreviewGroup>
+  <CodePreview
+    hideCode
+    minHeight="304px"
+    guideline="permitted"
+    code={AccordionComponent({
+      sections: [
+        {
+          heading: 'Koosseis',
+          content:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat. Duis aute irure dolor in reprehenderit in voluptate  velit esse cillum dolore eu fugiat nulla pariatur.',
+        },
+        {
+          heading: 'Eelnõud, määrused ja otsused',
+          content:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat. Duis aute irure dolor in reprehenderit in voluptate  velit esse cillum dolore eu fugiat nulla pariatur.',
+        },
+      ],
+    })}
+    scriptPath="/scripts/components/presentation-accordion.js"
+  />
+
+    <CodePreview
+    hideCode
+    minHeight="304px"
+    guideline="prohibited"
+    code={AccordionComponent({
+      sections: [
+        {
+          heading: 'Tallinna Linnavolikogu 10. koosseis',
+          content:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat. Duis aute irure dolor in reprehenderit in voluptate  velit esse cillum dolore eu fugiat nulla pariatur.',
+        },
+        {
+          heading: 'Tallinna Linnavolikogu eelnõud, istungite info ja vastuvõetud õigusaktid',
+          content:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat. Duis aute irure dolor in reprehenderit in voluptate  velit esse cillum dolore eu fugiat nulla pariatur.',
+        },
+      ],
+    })}
+    scriptPath="/scripts/components/presentation-accordion.js"
+
+/>
+
+</CodePreviewGroup>
+
+## Scrolling
+
+When the accordion content is longer than the viewport the whole accordion should vertically scroll with the rest of the page. Content should not scroll inside of an individual panel and content should never scroll horizontally in an accordion.
+
+<CodePreviewGroup>
+<CodePreview
+  hideCode
+  width='100%'
+  minHeight="268px"
+  guideline="permitted"
+  code={AccordionComponent({
+    sections: [
+      {
+        heading: 'Accordion title',
+        content:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat. Duis aute irure dolor in reprehenderit in voluptate  velit esse cillum dolore eu fugiat nulla pariatur.',
+      },
+      {
+        heading: 'Accordion title',
+        content:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat. Duis aute irure dolor in reprehenderit in voluptate  velit esse cillum dolore eu fugiat nulla pariatur.',
+      },
+           {
+        heading: 'Accordion title',
+        content:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat. Duis aute irure dolor in reprehenderit in voluptate  velit esse cillum dolore eu fugiat nulla pariatur.',
+      },
+           {
+        heading: 'Accordion title',
+        content:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat. Duis aute irure dolor in reprehenderit in voluptate  velit esse cillum dolore eu fugiat nulla pariatur.',
+      },
+    ],
+  })}
+  scriptPath="/scripts/components/presentation-accordion.js"
+/>
+
+<CodePreview
+  hideCode
+  guideline="prohibited"
+  minHeight="268px"
+  svgPath="/img/accordionUsage/scrolling-1-dont.svg"
+/>
+
+</CodePreviewGroup>
+
+<CodePreview
+  hideCode
+  guideline="prohibited"
+  minHeight="460px"
+  svgPath="/img/accordionUsage/scrolling-2-dont.svg"
+/>

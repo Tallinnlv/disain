@@ -1,0 +1,86 @@
+@use '../helpers' as h;
+
+.tds-form-group {
+  &--compact {
+    .tds-label,
+    .tds-label__hint,
+    .tds-textarea,
+    .tds-error-message {
+      @include h.tds-font(16);
+    }
+
+    .tds-error-message {
+      font-weight: bold;
+    }
+
+    .tds-label__hint {
+      margin-bottom: 6px;
+    }
+
+    .tds-label {
+      margin-bottom: 6px;
+    }
+
+    .tds-textarea {
+      padding: 0.75rem;
+      @include h.tds-font($size: 16);
+    }
+
+    .tds-text-input {
+      @include h.tds-font($size: 16);
+    }
+  }
+}
+
+.tds-textarea {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  padding: 1rem;
+  border: 0.125rem solid var(--color-border-strong);
+  border-radius: 0.25rem;
+  resize: none;
+  color: var(--color-content-default);
+  background-color: var(--color-surface-default);
+
+  @include h.tds-font($size: 18);
+
+  &:focus:not([disabled]) {
+    border: .125rem solid var(--color-border-focus-default);
+    z-index: 1;
+    outline: 0.1875rem solid var(--color-border-focus-contrast);
+    outline-offset: 0;
+    box-shadow: inset 0 0 0 0.0625rem var(--color-border-focus-default);
+  }
+
+  &--error {
+    border-color: var(--color-border-feedback-negative);
+
+    &:focus:not([disabled]) {
+      border: .125rem solid var(--color-border-feedback-negative);
+      box-shadow:  0 0 0 .0625rem var(--color-border-feedback-negative) inset !important;
+    }
+  }
+
+  &--compact {
+    padding: 0.75rem;
+  }
+
+  &[disabled] {
+    background: var(--color-surface-faint);
+    color: var(--color-content-faint);
+    border-color: var(--color-border-subtle);
+    cursor: not-allowed;
+  }
+
+  &--resizable {
+    resize: both;
+  }
+}
+
+.tds-textarea-counter {
+  @include h.tds-font(16);
+
+  margin-top: .5rem;
+  color: var(--color-content-default);
+}

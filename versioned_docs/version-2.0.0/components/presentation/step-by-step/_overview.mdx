@@ -1,0 +1,51 @@
+import {
+  CodePreview,
+  CodePreviewGroup,
+  StepByStepComponent,
+  UsageAdvice,
+} from '@site/src/components';
+
+# Overview
+
+<UsageAdvice permitted>
+  Explain a multi-step process in a short and simple way.
+</UsageAdvice>
+
+<UsageAdvice permitted={false}>
+  Track a user’s progress in a multi-step flow (form, questionnaire, etc). Use progress tracker instead.
+</UsageAdvice>
+
+## Principles
+
+Step-by-step component provides an easy overall picture of a process, e.g. applying for a financial support, registering a pet, etc.
+
+Every step must have a title. Description is optional but highly recommended.
+Keep the descriptions short, preferably 1-3 sentences. Descriptions may include a link to provide additional information.
+
+<CodePreview
+  minHeight="600px"
+  code={StepByStepComponent({
+    steps: [
+      {
+        number: '1',
+        title: 'Millest alustada',
+        description: 'Esita taotlus&nbsp;<a href="javascript:void(0);" class="tds-link tds-link--inline">e-teeninduses</a>.',
+      },
+      {
+        number: '2',
+        title: 'Isikutuvastus',
+        description: 'Isiku tuvastamine toimub ID-kaardi, mobiil ID-ga, Smart-ID-ga või EU eID-ga.',
+      },
+      {
+        number: '3',
+        title: 'Tulemus',
+        description: 'Toetus makstakse ühekordse maksena.',
+      },
+      {
+        number: '4',
+        title: 'Kui tulemus ei rahulda',
+        description: 'Isik, kes leiab, et otsusega või haldusmenetluse käigus on rikutud tema õigusi või piiratud tema vabadusi, võib esitada vaide linnaosa valitsuse kaudu Tallinna linnavalitsusele või kaebuse halduskohtule.',
+      },
+    ],
+  })}
+/>

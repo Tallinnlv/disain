@@ -1,0 +1,65 @@
+{
+  "name": "tallinn-uig",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "docusaurus": "docusaurus",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "swizzle": "docusaurus swizzle",
+    "deploy": "docusaurus deploy",
+    "clear": "docusaurus clear",
+    "serve": "docusaurus serve",
+    "lint": "eslint -c .eslintrc.js",
+    "write-translations": "docusaurus write-translations",
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "styles": "yarn sass src/css/tds-library/scss/index.scss src/css/tds-library/css/tds-next.min.css --watch --no-source-map --style compressed",
+    "stylelint": "stylelint \"**/*.{css,scss}\"",
+    "stylelint:fix": "stylelint \"**/*.{css,scss}\" --fix"
+  },
+  "dependencies": {
+    "@docusaurus/preset-classic": "^3.1.1",
+    "@docusaurus/theme-live-codeblock": "^3.1.1",
+    "@mdx-js/react": "^3.0.0",
+    "@popperjs/core": "^2.11.8",
+    "clsx": "^2.1.1",
+    "docusaurus-plugin-sass": "^0.2.5",
+    "js-cookie": "^3.0.5",
+    "prism-react-renderer": "^2.3.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "sass": "^1.71.1"
+  },
+  "devDependencies": {
+    "@docusaurus/eslint-plugin": "^3.3.2",
+    "@docusaurus/module-type-aliases": "^3.1.1",
+    "@docusaurus/tsconfig": "^3.1.1",
+    "@docusaurus/types": "^3.1.1",
+    "eslint": "8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-mdx": "^3.1.5",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-unused-imports": "^3.2.0",
+    "postcss": "^8.5.3",
+    "prettier": "^3.3.2",
+    "stylelint": "^16.15.0",
+    "stylelint-config-prettier-scss": "^1.0.0",
+    "stylelint-config-standard-scss": "^14.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 5 safari version"
+    ]
+  },
+  "engines": {
+    "node": ">=18.0"
+  }
+}

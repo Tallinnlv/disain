@@ -1,0 +1,366 @@
+@use '../helpers/' as h;
+@use '../tools/' as t;
+
+.tds-date-picker {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+
+  & .tds-input {
+    border-radius: .25rem 0 0 .25rem;
+    border: none;
+    border-top: .125rem solid var(--color-border-strong);
+    border-left: .125rem solid var(--color-border-strong);
+    border-bottom: .125rem solid var(--color-border-strong);
+
+    &.in-edit {
+      border: none;
+      border-top: .125rem solid var(--color-border-strong);
+      border-left: .125rem solid var(--color-border-strong);
+      border-bottom: .125rem solid var(--color-border-strong);
+      z-index: 1;
+    }
+
+    &.picker-open:focus {
+      outline: none;
+      box-shadow: none;
+      border: none;
+      border-top: .125rem solid var(--color-border-strong);
+      border-left: .125rem solid var(--color-border-strong);
+      border-bottom: .125rem solid var(--color-border-strong);
+      z-index: 1;
+      position: inherit;
+    }
+
+    &.tds-input--error {
+      border: none;
+      border-top: .125rem solid var(--color-border-feedback-negative);
+      border-left: .125rem solid var(--color-border-feedback-negative);
+      border-bottom: .125rem solid var(--color-border-feedback-negative);
+    }
+
+    &:focus {
+      border-color: var(--color-border-focus-default);
+      border-radius: .25rem;
+      box-shadow: 0 0 0 .0625rem var(--color-border-focus-contrast),
+      0 0 0 .0625rem var(--color-border-focus-default) inset,
+      -.125rem 0 0 .0625rem var(--color-border-focus-default) inset;
+      position: relative;
+      z-index: 10;
+    }
+  }
+
+  &--button {
+    height: t.tds-px-to-rem(48px);
+    width: t.tds-px-to-rem(48px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--color-surface-default);
+    border-radius: 0 .25rem .25rem 0;
+    border: .125rem solid var(--color-border-strong);
+
+    svg > path {
+      fill: var(--color-content-default);
+    }
+
+    @include h.tds-media-query($until: desktop) {
+      height: t.tds-px-to-rem(40px);
+      width: t.tds-px-to-rem(40px);
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.in-edit,
+    &:focus {
+      border: .125rem solid var(--color-border-focus-default);
+      background: var(--color-surface-focus-default);
+      outline: .1875rem solid var(--color-border-focus-contrast);
+      outline-offset: 0;
+      border-radius: .25rem;
+      box-shadow: 0 0 0 .0625rem var(--color-border-focus-default) inset;
+
+      svg > path {
+        fill: var(--color-border-focus-default);
+      }
+    }
+
+    &.tds-input--error {
+      border: .125rem solid var(--color-border-feedback-negative);
+
+      &:focus {
+        border: .125rem solid var(--color-border-feedback-negative);
+        box-shadow: 0 0 0 .0625rem var(--color-border-feedback-negative) inset;
+      }
+    }
+  }
+
+  .datepicker {
+    border-radius: .25rem;
+    background: var(--color-surface-default);
+    border: .125rem solid var(--color-border-strong);
+    width: t.tds-px-to-rem(352px);
+    align-items: flex-start;
+
+    &.datepicker-dropdown {
+      padding-top: 0;
+    }
+
+    .datepicker-picker {
+      border: none;
+      box-shadow: none;
+
+      .datepicker-header {
+        display: flex;
+        border: none;
+        justify-content: space-around;
+        align-items: center;
+        align-self: stretch;
+        height: t.tds-px-to-rem(64px);
+        background: var(--color-surface-faint);
+        gap: 0;
+
+        .custom-month-button, .custom-year-button {
+          display: flex;
+          position: relative;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          background: none;
+          border: none;
+          cursor: pointer;
+          color: var(--color-content-default);
+          @include h.tds-font(16);
+          @include h.tds-typography-weight-bold;
+
+          &:hover {
+            border-bottom: 3px solid var(--color-surface-contrast);
+            margin-bottom: -3px;
+          }
+
+          &.active-view {
+            border-bottom: 3px solid var(--color-surface-highlight-moderate);
+            margin-bottom: -3px;
+          }
+        }
+
+        .custom-month-button {
+          padding: 22px 38.5px;
+          width: t.tds-px-to-rem(160px);
+          text-transform: capitalize;
+        }
+
+        .custom-year-button {
+          padding: 22px 25px;
+          width: t.tds-px-to-rem(88px);
+          border-left: 2px solid var(--color-border-inverse);
+          border-right: 2px solid var(--color-border-inverse);
+        }
+
+        .tds-date-picker--nav {
+          display: flex;
+          flex-direction: row;
+          gap: .5rem;
+          padding: 0 16px;
+          width: t.tds-px-to-rem(104px);
+
+          .button {
+            width: t.tds-px-to-rem(32px);
+            height: t.tds-px-to-rem(32px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--color-surface-faint);
+            border: none;
+            cursor: pointer;
+
+            svg > path {
+              fill: var(--color-content-default);
+            }
+          }
+        }
+      }
+
+      .datepicker-main {
+        background: var(--color-surface-default);
+
+        .datepicker-view.datepicker-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: .125rem;
+          padding: 16px;
+
+          width: t.tds-px-to-rem(352px);
+          height: t.tds-px-to-rem(246px);
+
+          .datepicker-cell {
+            border-radius: 4px;
+            width: t.tds-px-to-rem(105.3px);
+            height: t.tds-px-to-rem(52px);
+            padding: 8px 16px;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-content-action-color-default);
+            line-height: t.tds-px-to-rem(20px);
+            @include h.tds-font(16);
+            @include h.tds-typography-weight-regular;
+
+            &.today {
+              border: 2px solid var(--color-border-action-color-default);
+              background: var(--color-surface-default);
+            }
+
+            &.selected {
+              background: var(--color-surface-highlight-moderate);
+              color: var(--color-content-inverse);
+              @include h.tds-typography-weight-bold;
+            }
+
+            &.disabled {
+              color: var(--color-content-default);
+              @include h.tds-typography-weight-regular;
+
+              &.today {
+                border: 2px solid var(--color-border-strong);
+                background: var(--color-surface-default);
+                @include h.tds-typography-weight-bold;
+              }
+
+              &:hover {
+                color: var(--color-content-default);
+                background: var(--color-surface-default);
+                text-decoration: none;
+              }
+            }
+
+            &.prev, &.next {
+              visibility: hidden;
+            }
+
+            &:hover {
+              color: var(--color-content-action-color-hover);
+              background: var(--color-surface-action-color-subtle-hover);
+              text-decoration-line: underline;
+              text-decoration-style: solid;
+              text-decoration-skip-ink: none;
+              text-decoration-thickness: auto;
+              text-underline-offset: auto;
+              text-underline-position: from-font;
+            }
+
+            &:focus, &.focused:not(.selected) {
+              color: var(--color-content-focus-default);
+              background: var(--color-surface-focus-default);
+              box-shadow: 0 0 0 3px var(--color-border-focus-contrast),
+                          0 0 0 3px var(--color-border-focus-default) inset;
+              @include h.tds-typography-weight-bold;
+            }
+          }
+        }
+
+        .datepicker-view {
+          display: flex;
+          gap: .25rem;
+          align-self: stretch;
+          padding: 16px 24px 24px;
+
+
+          .days {
+            .days-of-week {
+              display: flex;
+              padding: 8px 0 12px;
+              align-items: flex-start;
+              gap: .25rem;
+
+              .dow {
+                color: var(--color-content-faint);
+                text-align: center;
+                width: t.tds-px-to-rem(24px);
+                height: t.tds-px-to-rem(24px);
+
+                @include h.tds-font(16, 400);
+
+                font-style: normal;
+                font-weight: var(--weight-regular, 400);
+                line-height: var(--font-ui-line-height-sm, 20px);
+              }
+            }
+
+            .datepicker-grid {
+              display: grid;
+              grid-template-columns: repeat(7, 1fr);
+              gap: .25rem;
+              width: t.tds-px-to-rem(304px);
+              height: t.tds-px-to-rem(304px);
+
+              .datepicker-cell {
+                border-radius: 4px;
+                width: t.tds-px-to-rem(40px);
+                height: t.tds-px-to-rem(40px);
+                padding: 8px;
+                align-items: center;
+                justify-content: center;
+                color: var(--color-content-action-color-default);
+                line-height: t.tds-px-to-rem(20px);
+                @include h.tds-font(16);
+                @include h.tds-typography-weight-bold;
+
+                &.today {
+                  border: .125rem solid var(--color-border-action-color-default);
+                  background: var(--color-surface-default);
+                }
+
+                &.selected {
+                  background: var(--color-surface-highlight-moderate);
+                  color: var(--color-content-inverse);
+                }
+
+                &.disabled {
+                  color: var(--color-content-default);
+                  @include h.tds-typography-weight-regular;
+
+                  &.today {
+                    border: .125rem solid var(--color-border-strong);
+                    background: var(--color-surface-default);
+                    @include h.tds-typography-weight-bold;
+                  }
+
+                  &:hover {
+                    color: var(--color-content-default);
+                    background: var(--color-surface-default);
+                    text-decoration: none;
+                  }
+                }
+
+                &.prev,
+                &.next {
+                  visibility: hidden;
+                }
+
+                &:hover {
+                  color: var(--color-content-action-color-hover);
+                  background: var(--color-surface-action-color-subtle-hover);
+                  text-decoration-line: underline;
+                  text-decoration-style: solid;
+                  text-decoration-skip-ink: none;
+                  text-decoration-thickness: auto;
+                  text-underline-offset: auto;
+                  text-underline-position: from-font;
+                }
+
+                &:focus, &.focused:not(.selected) {
+                  color: var(--color-content-focus-default);
+                  background: var(--color-surface-focus-default);
+                  box-shadow: 0 0 0 3px var(--color-border-focus-contrast),
+                              0 0 0 3px var(--color-border-focus-default) inset;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

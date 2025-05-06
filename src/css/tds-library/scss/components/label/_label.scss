@@ -1,0 +1,28 @@
+@use '../../helpers' as h;
+
+@mixin tds-label {
+  @include h.tds-font($size: 18);
+
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--color-content-default);
+
+  &__hint {
+    @include h.tds-font($size: 18);
+
+    margin: 0 0 0.5rem;
+    color: var(--color-content-subtle);
+
+    &--compact {
+      @include h.tds-font($size: 16);
+    }
+  }
+
+  &--compact {
+    @include h.tds-font($size: 16);
+  }
+}
+
+.tds-label + .tds-label__hint {
+  margin: -0.25rem 0 0.5rem;
+}

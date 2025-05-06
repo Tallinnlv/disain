@@ -1,0 +1,126 @@
+@use '../helpers/' as h;
+@use '../settings/' as s;
+
+::-ms-reveal {
+  display: none;
+}
+
+// Headings
+
+%tds-heading-dp {
+  @include h.tds-font($size: 56, $weight: bold);
+
+  display: block;
+}
+
+.tds-heading-dp {
+  @extend %tds-heading-dp;
+}
+
+%tds-heading-lg {
+  @include h.tds-font($size: 48, $weight: bold);
+
+  display: block;
+}
+
+.tds-heading-lg {
+  @extend %tds-heading-lg;
+}
+
+h1 {
+  @extend %tds-heading-lg;
+}
+
+%tds-heading-md {
+  @include h.tds-font($size: 47, $weight: bold);
+
+  display: block;
+}
+
+h2 {
+  @extend %tds-heading-md;
+}
+
+.tds-heading-md {
+  @extend %tds-heading-md;
+}
+
+%tds-heading-sm {
+  @include h.tds-font($size: 46, $weight: bold);
+
+  display: block;
+}
+
+h3 {
+  @extend %tds-heading-sm;
+}
+
+.tds-heading-sm {
+  @extend %tds-heading-sm;
+}
+
+%tds-heading-xs {
+  @include h.tds-font($size: 45, $weight: bold);
+
+  display: block;
+}
+
+h4 {
+  @extend %tds-heading-xs;
+}
+
+.tds-heading-xs {
+  @extend %tds-heading-xs;
+}
+
+// Body text
+
+%tds-body-lg {
+  @include h.tds-font($size: 35);
+}
+
+.tds-body-lg {
+  @extend %tds-body-lg;
+}
+
+%tds-body-md {
+  @include h.tds-font($size: 17);
+}
+
+.tds-body-md {
+  @extend %tds-body-md;
+}
+
+%tds-body-sm {
+  @include h.tds-font($size: 15);
+}
+
+.tds-body-sm {
+  @extend %tds-body-sm;
+}
+
+// UI text
+
+%tds-ui-text-md {
+  @include h.tds-font($size: 18);
+}
+
+.tds-ui-text-md {
+  @extend %tds-ui-text-md;
+}
+
+%tds-ui-text-sm {
+  @include h.tds-font($size: 16);
+}
+
+.tds-ui-text-sm {
+  @extend %tds-ui-text-sm;
+}
+
+%tds-ui-text-xs {
+  @include h.tds-font($size: 13);
+}
+
+.tds-ui-text-xs {
+  @extend %tds-ui-text-xs;
+}

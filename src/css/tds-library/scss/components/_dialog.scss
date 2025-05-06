@@ -1,0 +1,172 @@
+@use '../helpers' as h;
+
+/* Modal overlay */
+.tds-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-surface-overlay-scrim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &.is-scrollable {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+
+/* Modal content */
+.tds-dialog {
+  background-color: var(--color-surface-overlay-container);
+  border-radius: 0.5rem;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  width: 100%;
+
+  &--small {
+    max-width: 480px;
+  }
+
+  &--medium {
+    max-width: 640px;
+  }
+
+  &--large {
+    max-width: 800px;
+  }
+
+  &--fluid {
+    max-width: 90%;
+  }
+
+  &--scroll-body {
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+  }
+
+  &--scroll-viewport {
+    margin-top: 240px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Modal header */
+.tds-dialog__header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+
+  .tds-dialog--scroll-body &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0.0625rem;
+    background-color: var(--color-border-subtle);
+  }
+
+  .tds-dialog__title {
+    @include h.tds-font(46);
+
+    font-weight: 700;
+    color: var(--color-content-default);
+    margin: 0;
+  }
+}
+
+.tds-dialog__body {
+  @include h.tds-font(17);
+
+  padding: 0 1.5rem;
+  color: var(--color-content-default);
+
+  .tds-dialog--scroll-body & {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1rem 1.5rem;
+    margin-bottom: 0;
+  }
+
+  &::-webkit-scrollbar {
+    width: 0.75rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 0.25rem 0.25rem 0.25rem 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-content-faint);
+    border-radius: 0.375rem;
+    border: 0.1875rem solid transparent;
+    background-clip: padding-box;
+  }
+}
+
+/* Modal footer */
+.tds-dialog__footer {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1.5rem;
+
+  .tds-dialog--scroll-body &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0.0625rem;
+    background-color: var(--color-border-subtle);
+  }
+
+  @include h.tds-media-query($until: tablet) {
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+    gap: 8px;
+
+    & button,
+    .tds-button {
+      width: 100%;
+    }
+  }
+}
+
+@include h.tds-media-query($until: desktop) {
+  .tds-dialog {
+    width: 100%;
+    max-width: none;
+    margin-left: 1rem;
+    margin-right: 1rem;
+
+    &--small,
+    &--medium,
+    &--large {
+      width: 100%;
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+  }
+}

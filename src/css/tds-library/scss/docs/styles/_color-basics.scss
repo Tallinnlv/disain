@@ -1,0 +1,422 @@
+@use '../../helpers/' as h;
+
+.flex-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+
+.color-palette {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.neutral {
+  gap: 0px;
+}
+
+.color-box {
+  flex: 1;
+  padding: 16px 24px;
+  align-self: stretch;
+  font-family: Arial, sans-serif;
+  color: #000;
+
+  p {
+    display: flex;
+    font-family: 'Lab Grotesque';
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0px !important;
+  }
+}
+
+.blue-10 {
+  background-color: #e0f3ff;
+  border-radius: 8px 0px 0px 8px;
+}
+
+.blue-20 {
+  background-color: #c6e4fb;
+}
+
+.blue-30 {
+  background-color: #99ccf5;
+}
+
+.blue-40 {
+  background-color: #67b0ea;
+  border-radius: 0px 8px 8px 0px;
+}
+
+.blue-50 {
+  font-family: 'Lab Grotesque';
+  background-color: #0072ce;
+  color: #fff;
+  font-size: 1.2em;
+  border-radius: 8px;
+  padding: 10px 368px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+
+  @media screen and (max-width: 768px) {
+    padding: 16px 16px;
+  }
+}
+
+.blue-60 {
+  background-color: #0060ad;
+  color: #fff;
+  border-radius: 8px 0px 0px 8px;
+}
+
+.blue-70 {
+  background-color: #05427f;
+  color: #fff;
+}
+
+.blue-80 {
+  background-color: #03294e;
+  color: #fff;
+}
+
+.blue-90 {
+  background-color: #041d3a;
+  color: #fff;
+  border-radius: 0px 8px 8px 0px;
+}
+
+.neutral-10 {
+  background-color: #f1f2f3;
+  border-radius: 4px 0px 0px 0px;
+  color: black !important;
+}
+
+.neutral-20 {
+  background-color: #dcdfe0;
+  color: black !important;
+}
+
+.neutral-30 {
+  background-color: #bfc2c5;
+  border-radius: 0px 4px 0px 0px;
+  color: black !important;
+}
+
+.neutral-40 {
+  background-color: #a0a3a7;
+  color: black !important;
+}
+
+.neutral-50 {
+  background-color: #777a7e;
+  color: white;
+}
+
+.neutral-60 {
+  background-color: #585c5f;
+  color: white;
+}
+
+.neutral-70 {
+  background-color: #404245;
+  color: white;
+}
+
+.neutral-80 {
+  background-color: #2a2c2d;
+  color: white;
+}
+
+.neutral-90 {
+  background-color: #131416;
+  color: white;
+}
+
+.neutral-0 {
+  background-color: #ffffff;
+  color: black !important;
+}
+
+.neutral-100 {
+  background-color: #000000;
+  color: white;
+  border-radius: 0px 0px 4px 0px;
+}
+
+.color-grid-system {
+  display: flex;
+  flex-direction: column;
+}
+
+.color-grid-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+
+  &--cubes {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+.color-grid-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.color-grid-description {
+  flex: 1;
+  font-size: 18px;
+  margin-left: 24px;
+
+  p {
+    margin-bottom: 0px !important;
+  }
+}
+
+.shade-10 {
+  background-color: #e0f3ff;
+  color: black;
+}
+
+.shade-green-10 {
+  background-color: #e6f5e7;
+  color: black;
+}
+
+.shade-red-10 {
+  background-color: #fee8e7;
+  color: black;
+}
+
+.shade-20 {
+  background-color: #c6e4fb;
+  color: black;
+}
+.shade-30 {
+  background-color: #99ccf5;
+  color: black;
+}
+.shade-40 {
+  background-color: #67b0ea;
+  color: black;
+}
+
+.shade-red-40 {
+  background-color: #f97a76;
+  color: black;
+}
+
+.shade-50 {
+  background-color: #0072ce;
+}
+.shade-red-50 {
+  background-color: #cc1925;
+}
+.shade-60 {
+  background-color: #0060ad;
+}
+.shade-70 {
+  background-color: #05427f;
+}
+.shade-80 {
+  background-color: #03294e;
+}
+
+.shade-green-80 {
+  background-color: #013c18;
+}
+
+.shade-red-80 {
+  background-color: #63030a;
+}
+
+.shade-90 {
+  background-color: #041d3a;
+}
+
+.new-color-palette-grid {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.color-palette-column {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-self: stretch;
+}
+
+.palette-box {
+  display: flex;
+  color: white;
+  justify-content: space-between;
+  text-align: center;
+  align-self: stretch;
+  padding: 10px 24px;
+  align-items: center;
+
+  .left {
+    text-align: justify;
+  }
+
+  p {
+    font-weight: 700 !important;
+    margin-bottom: 0px !important;
+  }
+}
+
+.green-10 {
+  background-color: #e6f5e7;
+  color: black;
+  border-radius: 4px 4px 0px 0px;
+}
+.green-20 {
+  background-color: #cdead1;
+  color: black;
+}
+.green-30 {
+  background-color: #9fdaa8;
+  color: black;
+}
+.green-40 {
+  background-color: #6dbb77;
+  color: black;
+  border-radius: 0px 0px 4px 4px;
+}
+.green-50 {
+  background-color: #017e31;
+  border-radius: 4px;
+}
+.green-60 {
+  background-color: #07692c;
+  border-radius: 4px 4px 0px 0px;
+}
+.green-70 {
+  background-color: #055624;
+}
+.green-80 {
+  background-color: #013c18;
+}
+.green-90 {
+  background-color: #012810;
+  border-radius: 0px 0px 4px 4px;
+}
+
+.red-10 {
+  background-color: #fee8e7;
+  color: black;
+  border-radius: 4px 4px 0px 0px;
+}
+.red-20 {
+  background-color: #fed9d8;
+  color: black;
+}
+.red-30 {
+  background-color: #fcb3b0;
+  color: black;
+}
+.red-40 {
+  background-color: #f97a76;
+  color: black;
+  border-radius: 0px 0px 4px 4px;
+}
+.red-50 {
+  background-color: #cc1925;
+  border-radius: 4px;
+}
+.red-60 {
+  background-color: #b10612;
+  border-radius: 4px 4px 0px 0px;
+}
+.red-70 {
+  background-color: #89050e;
+}
+.red-80 {
+  background-color: #63030a;
+}
+.red-90 {
+  background-color: #40070c;
+  border-radius: 0px 0px 4px 4px;
+}
+
+.yellow-10 {
+  background-color: #fff7d6;
+  color: black;
+  border-radius: 4px 4px 0px 0px;
+}
+.yellow-20 {
+  background-color: #fbedb1;
+  color: black;
+}
+.yellow-30 {
+  background-color: #f8e38c;
+  color: black;
+}
+.yellow-40 {
+  background-color: #f6db6f;
+  color: black;
+  border-radius: 0px 0px 4px 4px;
+}
+.yellow-50 {
+  background-color: #f3d03e;
+  color: black;
+  border-radius: 4px;
+}
+.yellow-60 {
+  border-radius: 4px 4px 0px 0px;
+  background-color: #deab02;
+  color: black;
+}
+.yellow-70 {
+  background-color: #b87a00;
+  color: black;
+}
+.yellow-80 {
+  background-color: #664100;
+}
+.yellow-90 {
+  background-color: #331f00;
+  border-radius: 0px 0px 4px 4px;
+}
+
+.primary-shade {
+  margin: 4px 0px;
+}
+
+.circle {
+  width: 24px;
+  height: 24px;
+  background-color: #8a4df7;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle-number {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  display: block;
+}

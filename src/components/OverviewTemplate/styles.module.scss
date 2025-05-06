@@ -1,0 +1,20 @@
+@use '../../css/tds-library/scss/base/color-variables';
+@use '../../css/tds-library/scss/base/color-variables-dark';
+
+.SectionHeader {
+  background: var(--color-surface-feedback-info-faint);
+  height: 500px; /* Remove quotes around 500px */
+  width: 100%; /* Remove quotes */
+  position: absolute;
+  left: 0;
+  transform: translateY(calc(28px - 100%));
+  z-index: -1; /* Add semicolon at the end */
+}
+
+.SectionTitle {
+  margin-top: 32px;
+}
+
+.SectionWrapper {
+  margin-bottom: 50px;
+}

@@ -1,0 +1,98 @@
+import {
+  CodePreview,
+  DateInputComponent,
+  UsageAdvice,
+} from '@site/src/components';
+
+# Overview
+
+<UsageAdvice permitted>
+  When a user needs to input a far distant (e.g. birth date) or far future date (e.g. expiry date of an id card etc).
+</UsageAdvice>
+
+<UsageAdvice permitted={false}>
+  * Allow users to choose recent or near future dates.
+  * Limit date options to a specific range of dates.
+  * When it is important for the user to know the day of the week, or the relationship between days. For example, scheduling appointments.
+</UsageAdvice>
+
+## Principles
+
+Date input component consists of 2 or 3 text fields to let users enter a day, month and year.
+The fields are grouped together with a legend and optional hint text.
+
+<CodePreview
+  minHeight="272px"
+  svgPath="/img/dateInputOverview/principles.svg"
+  hideCode
+/>
+
+## Examples
+
+Date input can have either two or three text fields
+
+Do not automatically tab users between the fields of the date input because this can be confusing and may clash with normal keyboard controls.
+
+<CodePreview
+  minHeight="220px"
+  code={
+    `<div style="display: flex; gap: 4rem;">` + "\n" + "\n" +
+    DateInputComponent({
+      title: 'Sünniaeg',
+      hint: 'Vajadusel abitekst',
+      showDay: true,
+      labelDay: 'Sünnipäev',
+      labelMonth: 'Sünnikuu',
+      labelYear: 'Sünniaasta',
+    }) + "\n" + "\n" +
+    DateInputComponent({
+      title: 'Dokumendi kehtivusaeg',
+      hint: 'Vajadusel abitekst',
+      labelMonth: 'Kehtivusaja kuu',
+      labelYear: 'Kehtivusaja aasta',
+    }) + "\n" + "\n" +
+    `</div>`
+  }
+/>
+
+## Error messages
+
+If there's an error with the whole entered date, highlight all fields.
+
+<CodePreview
+  minHeight="220px"
+  code={DateInputComponent({
+    title: 'Sünniaeg',
+    isRequired: true,
+    errorMessage: 'Sünniaeg peab olema minevikus',
+    modifiers: ['is-error'],
+    showDay: true,
+    valueDay: '01',
+    valueMonth: '01',
+    valueYear: '2035',
+    labelDay: 'Sünnipäev',
+    labelMonth: 'Sünnikuu',
+    labelYear: 'Sünniaasta',
+  })}
+/>
+
+If there's an error with one or two fields, highlight only the field(s) that have an error.
+The error message should specify which field(s) has an error.
+
+<CodePreview
+  minHeight="220px"
+  code={DateInputComponent({
+    title: 'Sünniaeg',
+    isRequired: true,
+    errorMessage: 'Sünniaeg peab sisaldama aastat',
+    modifiers: ['is-error'],
+    showDay: true,
+    valueDay: '01',
+    valueMonth: '01',
+    errorDay: false,
+    errorMonth: false,
+    labelDay: 'Sünnipäev',
+    labelMonth: 'Sünnikuu',
+    labelYear: 'Sünniaasta',
+  })}
+/>

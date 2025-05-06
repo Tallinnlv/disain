@@ -1,0 +1,100 @@
+@use '../../helpers/' as h;
+
+.tds-badge {
+  display: inline-flex;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  line-height: var(--font-size-16);
+  color: var(--color-content-inverse);
+  justify-content: center;
+  align-items: center;
+  border-radius: 1000px;
+  width: max-content;
+
+  // Colors
+
+  &--primary {
+    background: var(--color-decorative-blue-primary);
+  }
+
+  &--green {
+    background: var(--color-decorative-green-primary);
+  }
+
+  &--yellow {
+    background: var(--color-decorative-yellow-primary);
+
+    & .tds-badge__text {
+      color: var(--color-content-static-dark);
+    }
+  }
+
+  &--red {
+    background: var(--color-decorative-red-primary);
+  }
+
+  &--neutral {
+    background: var(--color-decorative-neutral-subtle);
+
+    & .tds-badge__text {
+      color: var(--color-content-default);
+    }
+  }
+
+  // Sizes
+
+  &--medium {
+    padding: 4px 6px;
+  }
+
+  &--small {
+    padding: 2px 4px;
+  }
+
+  &--xsmall {
+    padding: 0 4px;
+  }
+
+  // Bade Dot
+
+  &--dot {
+    padding: 0;
+    width: 12px;
+    height: 12px;
+  }
+
+  &--dot-small {
+    width: 8px;
+    height: 8px;
+  }
+
+  &__text {
+    @include h.tds-font(18, 400);
+
+    padding: 0 4px;
+
+    &--medium {
+      @include h.tds-font(16);
+    }
+
+    &--small {
+      @include h.tds-font(13);
+
+      padding: 0;
+    }
+
+    &--xsmall {
+      @include h.tds-font(13);
+
+      padding: 0;
+    }
+
+    &--bold {
+      font-weight: 700;
+    }
+  }
+}
+
+.tds-badge--align-left {
+  margin-left: auto;
+}

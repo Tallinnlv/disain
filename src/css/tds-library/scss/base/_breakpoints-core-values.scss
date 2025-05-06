@@ -1,0 +1,19 @@
+$breakpoints: (
+  xs: 320px,
+  s: 641px,
+  m: 992px,
+  l: 1200px,
+  xl: 1800px,
+);
+
+:root {
+  @each $name, $value in $breakpoints {
+    --breakpoint-#{$name}: #{$value};
+  }
+}
+
+$breakpoint-xs: map-get($breakpoints, xs);
+$breakpoint-s: map-get($breakpoints, s);
+$breakpoint-m: map-get($breakpoints, m);
+$breakpoint-l: map-get($breakpoints, l);
+$breakpoint-xl: map-get($breakpoints, xl);

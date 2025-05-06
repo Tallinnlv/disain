@@ -1,0 +1,210 @@
+@use '../helpers' as h;
+@use '../settings' as s;
+@use '../components/button' as b;
+@use '../tools/' as t;
+@use './input/' as input;
+@use './error-message/' as error-message;
+@use './badge/' as badge;
+
+.tds-body {
+  @include h.tds-font(17);
+
+  color: var(--color-content-default);
+}
+
+.tds-accordion__section {
+  position: relative;
+  background-color: var(--color-surface-default);
+  padding-top: 0;
+}
+
+.tds-accordion__section-heading {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.tds-accordion__section-content > :last-child {
+  margin-bottom: 0;
+}
+
+.tds-accordion {
+  max-height: 80vh;
+  overflow: auto hidden;
+  border-bottom: 2px solid var(--color-border-subtle);
+  padding-right: 2px;
+  padding-left: 2px;
+  padding-top: 2px;
+
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 4px 4px 4px 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-content-faint);
+    border-radius: 6px;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+  }
+}
+
+.tds-accordion__section-content {
+  display: none;
+  overflow-y: hidden;
+  position: relative;
+  z-index: 9999;
+}
+
+.tds-accordion__section-content[hidden] {
+  @supports (content-visibility: hidden) {
+    content-visibility: hidden;
+    display: inherit;
+  }
+
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.tds-accordion__section-toggle {
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+  gap: 12px;
+}
+
+.tds-accordion__section--expanded .tds-accordion__section-content {
+  display: block;
+  padding: 24px 24px 32px;
+
+  @include h.tds-media-query($until: tablet) {
+    padding: 16px 16px 24px;
+  }
+
+  @include h.tds-media-query($from: desktop) {
+    padding: 24px 32px 40px;
+  }
+}
+
+.tds-accordion-nav__chevron {
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+  width: t.tds-px-to-rem(24px);
+  height: t.tds-px-to-rem(24px);
+
+  svg {
+    width: t.tds-px-to-rem(24px);
+    height: t.tds-px-to-rem(24px);
+  }
+
+  vertical-align: middle;
+
+  svg {
+    path {
+      fill: var(--color-content-default);
+    }
+  }
+
+  @include h.tds-media-query($until: tablet) {
+    svg {
+      width: t.tds-px-to-rem(24px);
+      height: t.tds-px-to-rem(24px);
+    }
+
+    width: t.tds-px-to-rem(24px);
+    height: t.tds-px-to-rem(24px);
+  }
+
+  @include h.tds-media-query($from: desktop) {
+    svg {
+      width: t.tds-px-to-rem(32px);
+      height: t.tds-px-to-rem(32px);
+    }
+
+    width: t.tds-px-to-rem(32px);
+    height: t.tds-px-to-rem(32px);
+  }
+
+  &::after {
+    content: '';
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    transform: rotate(-45deg);
+  }
+}
+
+.tds-accordion-nav__chevron--up {
+  transform: rotate(180deg);
+}
+
+.tds-accordion__section-button {
+  @include h.tds-font($size: 46, $weight: bold);
+  @include h.tds-text-colour;
+
+  padding: 24px;
+  width: 100%;
+  border: 0;
+  border-top: 2px solid var(--color-border-subtle);
+  border-bottom: 2px solid transparent;
+  color: s.$tds-text-colour;
+  background: var(--color-surface-default);
+  text-align: left;
+  cursor: pointer;
+  -webkit-appearance: none;
+
+  @include h.tds-media-query($until: tablet) {
+    padding: 16px;
+  }
+
+  @include h.tds-media-query($from: desktop) {
+    padding: 24px 32px;
+  }
+
+  &:active {
+    color: s.$tds-link-active-colour;
+    background: var(--color-surface-default);
+  }
+
+  &:hover {
+    border-top: 2px solid var(--color-border-subtle);
+    background: var(--color-surface-faint);
+  }
+
+  &:focus {
+    outline: 0;
+    border: none;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    border-radius: var(--radius-4x, 8px);
+    background: var(--color-surface-default, #fff);
+    box-shadow:
+      0 0 0 3px var(--color-border-focus-contrast, #f3d03e),
+      0 0 0 3px var(--color-border-focus-default, #131416) inset;
+  }
+
+  &::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+  }
+}
+
+.tds-accordion__section-heading-text {
+  color: var(--color-content-default);
+}
+
+.tds-accordion__section-heading-text,
+.tds-accordion__section-summary {
+  display: block;
+
+  .tds-accordion__section-heading-text-focus,
+  .tds-accordion__section-summary-focus,
+  .tds-accordion__section-toggle-focus {
+    display: inline;
+  }
+}

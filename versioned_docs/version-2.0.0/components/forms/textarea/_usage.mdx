@@ -1,0 +1,70 @@
+import {
+  CodePreview,
+  TextareaComponent,
+  CodePreviewGroup,
+} from '@site/src/components';
+
+# Usage guidelines
+
+## Alignment
+
+Align label with the field box.
+
+<CodePreviewGroup>
+<CodePreview
+  hideCode
+  minHeight="300px"
+  guideline='permitted'
+  width='80%'
+  code={TextareaComponent({
+    label: 'Label',
+    filledArea: 'Content',
+    error: false,
+    hint: false,
+  })}
+/>
+<CodePreview
+  hideCode
+  minHeight="300px"
+  guideline='prohibited'
+  width='80%'
+ code={TextareaComponent({
+    label: '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Label',
+    filledArea: 'Content',
+    error: false,
+    hint: false,
+  })}
+/>
+
+</CodePreviewGroup>
+
+## Labels
+
+Do not use placeholder text as a label.
+
+<CodePreviewGroup>
+<CodePreview
+  hideCode
+  minHeight="300px"
+  guideline='permitted'
+  width='80%'
+  code={TextareaComponent({
+    label: 'Label',
+    filledArea: 'Content',
+    error: false,
+    hint: false,
+  })}
+/>
+<CodePreview
+  hideCode
+  minHeight="300px"
+  guideline='prohibited'
+  width='80%'
+ code={TextareaComponent({
+    placeholder: 'Label',
+    error: false,
+    hint: false,
+  })}
+/>
+
+</CodePreviewGroup>

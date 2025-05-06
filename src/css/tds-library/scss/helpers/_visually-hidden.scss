@@ -1,0 +1,70 @@
+/// @param {Boolean} $important [true] - Whether to mark as `!important`
+///
+/// @access public
+
+@mixin tds-visually-hidden($important: true) {
+  position: absolute if($important, !important, null);
+
+  &::before {
+    content: '\00a0';
+  }
+
+  &::after {
+    content: '\00a0';
+  }
+
+  width: 1px if($important, !important, null);
+  height: 1px if($important, !important, null);
+
+  margin: 0 if($important, !important, null);
+  padding: 0 if($important, !important, null);
+
+  overflow: hidden if($important, !important, null);
+  clip: rect(0 0 0 0) if($important, !important, null);
+  clip-path: inset(50%) if($important, !important, null);
+
+  border: 0 if($important, !important, null);
+
+  white-space: nowrap if($important, !important, null);
+
+  user-select: none;
+}
+
+///
+/// @param {Boolean} $important [true] - Whether to mark as `!important`
+///
+/// @access public
+
+@mixin tds-visually-hidden-focusable($important: true) {
+  position: absolute if($important, !important, null);
+
+  width: 1px if($important, !important, null);
+  height: 1px if($important, !important, null);
+
+  margin: 0 if($important, !important, null);
+
+  overflow: hidden if($important, !important, null);
+  clip: rect(0 0 0 0) if($important, !important, null);
+  clip-path: inset(50%) if($important, !important, null);
+
+  white-space: nowrap if($important, !important, null);
+
+  user-select: none;
+
+  &:active,
+  &:focus {
+    position: static if($important, !important, null);
+
+    width: auto if($important, !important, null);
+    height: auto if($important, !important, null);
+    margin: inherit if($important, !important, null);
+
+    overflow: visible if($important, !important, null);
+    clip: auto if($important, !important, null);
+    clip-path: none if($important, !important, null);
+
+    white-space: inherit if($important, !important, null);
+
+    user-select: text;
+  }
+}

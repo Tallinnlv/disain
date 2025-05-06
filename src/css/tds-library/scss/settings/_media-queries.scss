@@ -1,0 +1,29 @@
+@use '../base/breakpoints-core-values' as b;
+
+////
+/// @group settings/layout
+////
+
+/// Breakpoint definitions
+///
+/// @type Map
+/// @access public
+
+$tds-breakpoints: (
+  mobile: b.$breakpoint-xs,
+  // small screen
+  tablet: b.$breakpoint-s,
+  // medium screen
+  desktop: b.$breakpoint-l,
+  // large screen
+  // 769px - old value
+) !default;
+
+/// Show active breakpoint in top-right corner.
+///
+/// Only use this during local development.
+///
+/// @type Boolean
+/// @access public
+
+$tds-show-breakpoints: false !default;

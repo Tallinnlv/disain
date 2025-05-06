@@ -1,0 +1,20 @@
+.Heading {
+  color: var(--general-text-muted, #61676B);
+  /* Body/Lg/Lead text */
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  /* 36px */
+}
+
+h1 {
+  color: var(--general-text-default, #171A1C);
+
+  /* Heading/Lg/Heading L */
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
+  /* 52.8px */
+}

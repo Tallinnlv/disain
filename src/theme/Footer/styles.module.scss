@@ -1,0 +1,88 @@
+@use '../../css/tds-library/scss/components/link';
+@use '../../css/tds-library/scss/base/color-variables-dark';
+@use '../../css/tds-library/scss/base/color-variables';
+
+.footerWrapper {
+  padding: 0 16px;
+  width: 100%;
+}
+
+.footerTop {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footerTitleContainer {
+  display: flex;
+  align-items: center;
+
+  h4 {
+    margin: 0;
+  }
+}
+
+.footerTitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.footerBadge {
+  background-color: #f3d03e;
+  color: var(--color-content-static-dark);
+  padding: 0.125rem 0.5rem;
+  border-radius: 40px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  margin-left: 0.625rem;
+  line-height: 133.333%;
+}
+
+.footerDescription {
+  color: var(--color-content-default);
+  margin-top: 0.625rem;
+  font-size: 1.125rem;
+  margin-bottom: 0;
+}
+
+.footerLinksContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.25rem;
+  width: 100%;
+}
+
+.footerLinks {
+  font-size: 1.125rem;
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.footerLinks a {
+  margin-right: 1.25rem;
+  color: inherit;
+}
+
+.footerRightLink {
+  font-size: 1.125rem;
+  text-align: right;
+}
+
+.footerRightLink a {
+  color: inherit;
+}
+
+@media (max-width: 48rem) {
+  .footerLinksContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footerRightLink {
+    margin-top: 1.25rem;
+    text-align: center;
+  }
+}

@@ -1,0 +1,38 @@
+@use './' as fieldset;
+
+@mixin fieldset-common-styles {
+  &__text {
+    @include fieldset.tds-fieldset__text;
+  }
+
+  .tds-fieldset__text + .tds-fieldset__text--hint {
+    margin: -0.75rem 0 1rem;
+  }
+
+  &__required {
+    @include fieldset.tds-fieldset__required;
+  }
+
+  &--error {
+    @include fieldset.tds-fieldset--error;
+  }
+
+  &__notice {
+    @include fieldset.tds-fieldset__notice;
+
+    &--error-text-below {
+      @extend .tds-fieldset__notice;
+      
+      margin-top: 0.5rem;
+      margin-bottom: 0;
+    }
+  }
+
+  .tds-fieldset__text + .tds-fieldset__notice {
+    margin: -0.5rem 0 1rem;
+  }
+
+  .tds-fieldset__text + .tds-fieldset__text--hint + .tds-fieldset__notice {
+    margin: -0.5rem 0 1rem;
+  }
+}

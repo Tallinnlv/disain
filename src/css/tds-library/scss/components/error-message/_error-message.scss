@@ -1,0 +1,16 @@
+@use '../../helpers' as h;
+
+@mixin tds-error-message {
+  @include h.tds-font(18, bold);
+
+  margin: 0.25rem 0 0.5rem;
+  color: var(--color-content-feedback-negative);
+
+  &--compact {
+    @include h.tds-font(16, bold);
+  }
+}
+
+.tds-label + .tds-label__hint + .tds-error-message {
+  margin: 0 0 0.5rem;
+}

@@ -1,0 +1,112 @@
+import {
+  CodePreview,
+  CodePreviewGroup,
+  CheckboxComponent,
+  RadioComponent,
+} from '@site/src/components';
+
+# Usage guidelines
+
+### Single option
+
+Do not use for “accepting terms of service” and similar functionality. Use a checkbox instead.
+
+<CodePreviewGroup>
+  <CodePreview
+    minHeight="100px"
+    showToggle={false}
+    guideline="permitted"
+    hideCode
+    code={CheckboxComponent({
+      checkboxes: [
+        [
+          {
+            label:
+              'Olen lugenud ja nõustun  <a class="tds-link tds-link--inline" href="javascript:void(0);">kasutustingimustega</a>',
+            checked: false,
+          },
+          // ...
+        ],
+      ],
+    })}
+  />
+  <CodePreview
+    minHeight="100px"
+    showToggle={false}
+    guideline="prohibited"
+    hideCode
+    code={RadioComponent({
+      radios: [
+        [
+          {
+            label:
+              'Olen lugenud ja nõustun <a class="tds-link tds-link--inline" href="javascript:void(0);">kasutustingimustega</a>',
+            checked: false,
+          },
+          // ...
+        ],
+      ],
+    })}
+  />
+</CodePreviewGroup>
+
+### Inline radios
+
+Inline stacking may be used for two options with short labels. If you have more that two options and/or longer labels, use vertical stacking instead.
+
+<CodePreviewGroup>
+  <CodePreview
+    minHeight="350px"
+    hideCode
+    guideline="permitted"
+    showToggle={false}
+    code={RadioComponent({
+      inline: true,
+      radios: [
+        [
+          { label: 'Option 1', checked: false },
+          // ...
+          { label: 'Option 2', checked: false },
+        ],
+      ],
+    })}
+  />
+  <CodePreview
+    minHeight="350px"
+    hideCode
+    guideline="permitted"
+    showToggle={false}
+    code={RadioComponent({
+      radios: [
+        [
+          { label: 'Option 1', checked: false },
+          // ...
+          { label: 'Option 2', checked: false },
+          { label: 'Option 3 with long label', checked: false },
+          { label: 'Option 4', checked: false },
+          { label: 'Option 5 with even longer label', checked: false },
+        ],
+      ],
+    })}
+  />
+</CodePreviewGroup>
+
+<CodePreview
+  minHeight="180px"
+  hideCode
+  guideline="prohibited"
+  showToggle={false}
+  code={RadioComponent({
+    inline: true,
+    radios: [
+      [
+        { label: 'Option 1', checked: false },
+        // ...
+        { label: 'Option 2', checked: false },
+        { label: 'Option 3 with long label', checked: false },
+        { label: 'Option 4', checked: false },
+        { label: 'Option 5 with even longer label', checked: false },
+      ],
+    ],
+  })}
+/>

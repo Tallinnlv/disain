@@ -1,0 +1,58 @@
+import { CodePreview, CodePreviewGroup } from '@site/src/components';
+
+# Usage guidelines
+
+## Multiple dialogs
+
+Avoid showing multiple dialogs at the same time.
+
+<CodePreview
+  hideCode
+  guideline="prohibited"
+  minHeight="360px"
+  svgPath="/img/dialogUsage/multiple--dont.svg"
+/>
+
+## Use a title
+
+A dialog should always have a title. If a dialog is opened by a user, the title should match or contain similar words to the button label they tapped to open it.
+
+<CodePreviewGroup>
+
+<CodePreview
+  hideCode
+  guideline="permitted"
+  minHeight="200px"
+  svgPath="/img/dialogUsage/title--do2.svg"
+/>
+
+<CodePreview
+  hideCode
+  guideline="prohibited"
+  minHeight="200px"
+  svgPath="/img/dialogUsage/title--dont1.svg"
+/>
+
+</CodePreviewGroup>
+
+## Avoid overly complex content
+
+Dialogs shouldn’t contain large amounts of content or complex data. Keep them simple and focused. If the content is too long, it probably should have its own page.
+
+<CodePreviewGroup>
+
+<CodePreview
+  hideCode
+  guideline="permitted"
+  minHeight="920px"
+  svgPath="/img/dialogUsage/content--do.svg"
+/>
+
+<CodePreview
+  hideCode
+  guideline="prohibited"
+  minHeight="920px"
+  svgPath="/img/dialogUsage/content--dont.svg"
+/>
+
+</CodePreviewGroup>

@@ -1,0 +1,911 @@
+import {
+  CodePreview,
+  CodePreviewGroup,
+  TableComponent,
+  UsageAdvice,
+} from '@site/src/components';
+
+# Overview
+
+{/* prettier-ignore */}
+<UsageAdvice permitted>
+  - To display and organize tabular data.
+  - When comparing, sorting, and
+  filtering multi-dimensional data and objects.
+</UsageAdvice>
+
+<UsageAdvice permitted={false}>
+- As a layout mechanism.
+- As a replacement for a spreadsheet or similar application.
+
+Consider using other presentation formats when the data is very simple, e.g. when the table would only have less than 4 rows or less than 3 columns.
+
+</UsageAdvice>
+{/* prettier-ignore */}
+
+## Size
+
+Table is available in two sizes — regular and compact.
+
+Use regular size for simple tables with 2-4 columns and a maximum of 10 rows. Compact size is recommended for large data tables with more than 4 columns and 10 rows.
+
+If you have multiple tables on a page then use the same size for all of them.
+
+<CodePreview
+  minHeight="330px"
+  displayBlock
+  code={TableComponent({
+    caption: 'Regular table',
+    compact: false,
+    sortable: false,
+    multiSelect: false,
+    columns: [
+      { key: 'period', label: 'Periood' },
+      { key: 'nr', label: 'Nr' },
+      { key: 'pealkiri', label: 'Pealkiri' },
+    ],
+    data: [
+      {
+        period: '23.08.2024',
+        nr: '18043',
+        pealkiri: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--inline    "
+    > 
+      Tallinna Üürikomisjoni otsus üürivaidlusasjas 11-1/129/23  
+    </a>`,
+      },
+      {
+        period: '21.08.2024',
+        nr: '18042',
+        pealkiri: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--inline    "
+    > 
+      Tallinna Kultuuri- ja Spordiamet annab teada spordikeskusele mittevajaliku inventari võõrandamisest  
+    </a>`,
+      },
+    ],
+  })}
+/>
+
+<CodePreview
+  minHeight="320px"
+  displayBlock
+  code={TableComponent({
+    caption: 'Compact table',
+    compact: true,
+    sortable: false,
+    multiSelect: false,
+    columns: [
+      { key: 'liik', label: 'Seose liik' },
+      { key: 'loodud', label: 'Loodud' },
+      { key: 'pealkiri', label: 'Pealkiri' },
+      { key: 'nr', label: 'Nr' },
+      { key: 'voetud', label: 'Vastu võetud' },
+    ],
+    data: [
+      {
+        liik: 'Akt viitab',
+        loodud: '03.06.2024',
+        pealkiri: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--inline    "
+    > 
+      Linnaosa valitsuse väljastatavate müügilubade hindade kehtestamine
+    </a>`,
+        nr: '382',
+        voetud: '26.04.2023',
+      },
+      {
+        liik: 'Akt viitab',
+        loodud: '03.06.2024',
+        pealkiri: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--inline    "
+    > 
+      Tallinna linnaosade ja linnaosade valitsuste põhimäärused
+    </a>`,
+        nr: '8',
+        voetud: '20.04.2017',
+      },
+    ],
+  })}
+/>
+
+## Caption
+
+Caption is the title right above the table.
+
+Caption may be omitted for simple tables with self-explanatory content and is highly recommended for larger tables in more complex interfaces.
+
+<CodePreview
+  displayBlock
+  minHeight="370px"
+  code={TableComponent({
+    caption: 'This is a table',
+    compact: false,
+    sortable: false,
+    multiSelect: false,
+    alignRight: false,
+    columns: [
+      { key: 'period', label: 'Period' },
+      { key: 'nr', label: 'Nr' },
+      { key: 'pealkiri', label: 'Pealkiri' },
+    ],
+    data: [
+      {
+        period: '23.08.2024',
+        nr: '18043',
+        pealkiri: `<a href="javascript:void(0);" class="tds-link tds-link--inline">Tallinna Üürikomisjoni otsus üürivaidlusasjas 11-1/129/23</a>`,
+      },
+      {
+        period: '21.08.2024',
+        nr: '18042',
+        pealkiri: `<a href="javascript:void(0);" class="tds-link tds-link--inline">Tallinna Kultuuri- ja Spordiamet annab teada spordikeskusele mittevajaliku inventari võõrandamisest</a>`,
+      },
+    ],
+  })}
+/>
+
+## Header
+
+A table header is the row at the top of the table that helps identify the columns below. The header provides clarity if data is non-descriptive or ambiguous.
+
+Headers should be clear, concise, and straightforward and use sentence-case, not all-caps..
+
+Use of a header is highly recommended in all cases but it may be omitted for very simple tables if the content is self-explanatory.
+
+<CodePreview
+  displayBlock
+  minHeight="350px"
+  code={TableComponent({
+    caption: 'Table with a header',
+    compact: false,
+    sortable: false,
+    multiSelect: false,
+    columns: [
+      { key: 'liik', label: 'Seose liik' },
+      { key: 'loodud', label: 'Loodud' },
+      { key: 'pealkiri', label: 'Pealkiri' },
+      { key: 'nr', label: 'Nr' },
+      { key: 'voetud', label: 'Vastu võetud' },
+    ],
+    data: [
+      {
+        liik: 'Akt viitab',
+        loodud: '03.06.2024',
+        pealkiri: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--inline    "
+    > 
+      Linnaosa valitsuse väljastatavate müügilubade hindade kehtestamine
+    </a>`,
+        nr: '382',
+        voetud: '26.04.2023',
+      },
+      {
+        liik: 'Akt viitab',
+        loodud: '03.06.2024',
+        pealkiri: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--inline    "
+    > 
+      Tallinna linnaosade ja linnaosade valitsuste põhimäärused
+    </a>`,
+        nr: '8',
+        voetud: '20.04.2017',
+      },
+    ],
+  })}
+/>
+
+<CodePreview
+  minHeight="350px"
+  displayBlock
+  code={TableComponent({
+    caption: 'Table without a header',
+    compact: false,
+    sortable: false,
+    multiSelect: false,
+    hasHeader: false,
+    columns: [
+      { key: 'number', label: '' },
+      { key: 'name', label: '' },
+      { key: 'term', label: '' },
+      { key: 'role', label: '' },
+    ],
+    data: [
+      {
+        number: '10.',
+        name: 'Voldemar Lender',
+        term: '1906-1913 <br/> mai–august',
+        role: 'esimene eestlasest <br/> Tallinna linnapea',
+      },
+      {
+        number: '11.',
+        name: 'Jaan Poska',
+        term: '1913–1917 <br/> august–aprill',
+        role: 'linnapea',
+      },
+    ],
+  })}
+/>
+
+## Content
+
+Table cells can contain a variety of content — text, links, buttons, badges, avatars etc.
+
+<CodePreview
+displayBlock
+  minHeight="280px"
+  code={TableComponent({
+    compact: true,
+    sortable: false,
+    multiSelect: false,
+    alignRightLastColumn: true,
+    columns: [
+      { key: 'avatar', label: 'Avatar' },
+      { key: 'text', label: 'Text' },
+      { key: 'link', label: 'Link' },
+      { key: 'badge', label: 'Badge' },
+      { key: 'button', label: 'Button' },
+      { key: 'actions', label: 'Actions', headerAlignRight: true},
+    ],
+    data: [
+      {
+        avatar: `<div class="avatar-icon avatar-icon--text-black" style="background-color: #F5C940;">AV</div>`,
+        text: '03.06.2024',
+        link: `<a href="javascript:void(0);" class="tds-link tds-link--inline ">Linnaosa valitsuse väljastatavate müügilubade hindade kehtestamine</a>`,
+        badge: `<span class="tds-badge">22</span>`,
+        button: ` <a
+      href="javascript:void(0);"
+      class="tds-link tds-link--compact tds-link--inline tds-link--icon-left   "
+      
+    >
+      <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M13 14.5858V2H11V14.5858L5.70712 9.29289L4.29291 10.7071L12 18.4142L19.7071 10.7071L18.2929 9.29289L13 14.5858ZM4 22H20V20H4V22Z"
+                fill="#0060AD"
+              />
+            </svg>
+      PDF
+      
+    </a>`,
+        actions: `
+        <div class="button-wrapper">
+      <button
+      type="button"
+      class="tds-button tds-button--icon--compact tds-button--icon-neutral"
+      aria-label="Muuda"
+    >
+    <span class="tds-icon">
+
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+
+<path fill-rule="evenodd" clip-rule="evenodd" d="M21.4142 6.99991L17 2.58569L4.09706 15.4887L3.02988 19.7574C2.94468 20.0981 3.04453 20.4586 3.29291 20.707C3.54129 20.9554 3.90178 21.0552 4.24256 20.97L8.51127 19.9029L21.4142 6.99991ZM5.37439 18.6255L5.90299 16.5112L17 5.41412L18.5858 6.99991L7.48877 18.0969L5.37439 18.6255ZM12 20.9999H20V18.9999H12V20.9999Z" fill="currentColor"/>
+</svg>
+</span>
+
+    </button>
+     <button
+      type="button"
+      class="tds-button tds-button--icon--compact tds-button--icon-neutral"
+      aria-label="Kustuta"
+    >
+    <span class="tds-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+
+<path fill-rule="evenodd" clip-rule="evenodd" d="M10 3C8.89543 3 8 3.89543 8 5V6H4V8H5.03774L5.42678 18.1153C5.48873 19.7261 6.81256 21 8.42456 21H15.5754C17.1874 21 18.5113 19.7261 18.5732 18.1153L18.9623 8H20V6H16V5C16 3.89543 15.1046 3 14 3H10ZM14 6V5H10V6H14ZM7.4253 18.0384L7.03922 8H16.9608L16.5747 18.0384C16.5541 18.5754 16.1128 19 15.5754 19H8.42456C7.88723 19 7.44595 18.5754 7.4253 18.0384ZM9 17V9.99997H11V17H9ZM13 10L13 17H15L15 10H13Z" fill="currentColor"/>
+</svg>
+</span>
+    </button>
+      </div>
+    `,
+      },
+      {
+        avatar: `<div class="avatar-icon" style="background-color: #2F80ED;">AV</div>`,
+        text: '03.06.2024',
+        link: `<a href="javascript:void(0);" class="tds-link tds-link--inline ">Tallinna linnaosade ja linnaosade valitsuste põhimäärused</a>`,
+        badge: `<span class="tds-badge tds-badge--green">44</span>`,
+        button: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--compact tds-link--inline tds-link--icon-left   "
+      
+    >
+      <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M13 14.5858V2H11V14.5858L5.70712 9.29289L4.29291 10.7071L12 18.4142L19.7071 10.7071L18.2929 9.29289L13 14.5858ZM4 22H20V20H4V22Z"
+                fill="#0060AD"
+              />
+            </svg>
+      PDF
+      
+    </a>`,
+        actions: `
+          <div class="button-wrapper">
+      <button
+      type="button"
+      class="tds-button tds-button--icon--compact tds-button--icon-neutral"
+      aria-label="Muuda"
+    >
+    <span class="tds-icon">
+
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+
+<path fill-rule="evenodd" clip-rule="evenodd" d="M21.4142 6.99991L17 2.58569L4.09706 15.4887L3.02988 19.7574C2.94468 20.0981 3.04453 20.4586 3.29291 20.707C3.54129 20.9554 3.90178 21.0552 4.24256 20.97L8.51127 19.9029L21.4142 6.99991ZM5.37439 18.6255L5.90299 16.5112L17 5.41412L18.5858 6.99991L7.48877 18.0969L5.37439 18.6255ZM12 20.9999H20V18.9999H12V20.9999Z" fill="currentColor"/>
+</svg>
+
+    </button>
+     <button
+      type="button"
+      class="tds-button tds-button--icon--compact tds-button--icon-neutral"
+      aria-label="Kustuta"
+    >
+    <span class="tds-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+
+<path fill-rule="evenodd" clip-rule="evenodd" d="M10 3C8.89543 3 8 3.89543 8 5V6H4V8H5.03774L5.42678 18.1153C5.48873 19.7261 6.81256 21 8.42456 21H15.5754C17.1874 21 18.5113 19.7261 18.5732 18.1153L18.9623 8H20V6H16V5C16 3.89543 15.1046 3 14 3H10ZM14 6V5H10V6H14ZM7.4253 18.0384L7.03922 8H16.9608L16.5747 18.0384C16.5541 18.5754 16.1128 19 15.5754 19H8.42456C7.88723 19 7.44595 18.5754 7.4253 18.0384ZM9 17V9.99997H11V17H9ZM13 10L13 17H15L15 10H13Z" fill="currentColor"/>
+</svg>
+</span>
+
+    </button>
+      </div>
+    `,
+      },
+    ],
+
+})}
+/>
+
+## Sorting
+
+Sorting allows reordering all the items included in a table based on the values of one of its columns. Any number of columns can be sortable, but data can only be sorted by one column at a time.
+
+Columns that do contain a sortable data type are interactive and therefore have corresponding hover, active, and focus states.
+
+<CodePreview
+  minHeight="280px"
+  scriptPath="/scripts/components/presentation-table.js"
+  displayBlock
+  code={TableComponent({
+    compact: true,
+    multiSelect: false,
+    columns: [
+      { key: 'liik', label: 'Seose liik' },
+      { key: 'loodud', label: 'Loodud', sortable: true },
+      { key: 'pealkiri', label: 'Pealkiri', sortable: true },
+      { key: 'nr', label: 'Nr' },
+      {
+        key: 'voetud',
+        label: 'Vastu võetud',
+        sortable: true,
+      },
+    ],
+    data: [
+      {
+        liik: 'Akt viitab',
+        loodud: '03.06.2024',
+        pealkiri: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--inline    "
+    > 
+      Linnaosa valitsuse väljastatavate müügilubade hindade kehtestamine
+    </a>`,
+        nr: '382',
+        voetud: '26.04.2023',
+      },
+      {
+        liik: 'Akt viitab',
+        loodud: '03.06.2024',
+        pealkiri: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--inline    "
+    > 
+      Tallinna linnaosade ja linnaosade valitsuste põhimäärused
+    </a>`,
+        nr: '8',
+        voetud: '20.04.2017',
+      },
+    ],
+  })}
+/>
+
+## Alignment
+
+Align content to the left by default. This ensures readability across different content types, consistency in content of varying lengths, and alignment between the column header and the content within the cell.
+
+Use left alignment for:
+
+- Text-based content, links, dates, phone numbers, etc.
+- Numerical values that do not contain decimals or floating point numbers.
+- Nested components that display a string or text value (buttons, badges, chips, etc.)
+
+Right alignment can be used when expressing numerical values with decimals (for example financial information and currency amounts) as this aligns the decimal places vertically.
+
+Right alignment can also be used in a last column of a table if it contains inline actions.
+
+<CodePreview
+  minHeight="280px"
+  displayBlock
+  code={TableComponent({
+    compact: true,
+    sortable: false,
+    alignRightLastColumn: true,
+    multiSelect: false,
+    columns: [
+      { key: 'id', label: 'ID' },
+      { key: 'liik', label: 'Text' },
+      { key: 'loodud', label: 'Date' },
+      { key: 'pealkiri', label: 'Link' },
+      { key: 'cost', label: 'Cost (€)', headerAlignRight: true, alignRight: true},
+      { key: 'actions', label: 'Actions', headerAlignRight: true },
+    ],
+    data: [
+      {
+        id: '382',
+        liik: 'Akt viitab',
+        loodud: '03.06.2024',
+        pealkiri: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--inline    "
+    > 
+      Linnaosa valitsuse väljastatavate müügilubade hindade kehtestamine
+    </a>`,
+        nr: '382',
+        cost: '15 000,00',
+        actions: `
+        <div class="button-wrapper">
+      <button
+      type="button"
+      class="tds-button tds-button--icon--compact tds-button--icon-neutral"
+      aria-label="Muuda"
+    >
+    <span class="tds-icon">
+
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+
+<path fill-rule="evenodd" clip-rule="evenodd" d="M21.4142 6.99991L17 2.58569L4.09706 15.4887L3.02988 19.7574C2.94468 20.0981 3.04453 20.4586 3.29291 20.707C3.54129 20.9554 3.90178 21.0552 4.24256 20.97L8.51127 19.9029L21.4142 6.99991ZM5.37439 18.6255L5.90299 16.5112L17 5.41412L18.5858 6.99991L7.48877 18.0969L5.37439 18.6255ZM12 20.9999H20V18.9999H12V20.9999Z" fill="currentColor"/>
+</svg>
+</span>
+
+    </button>
+     <button
+      type="button"
+      class="tds-button tds-button--icon--compact tds-button--icon-neutral"
+      aria-label="Kustuta"
+    >
+    <span class="tds-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+
+<path fill-rule="evenodd" clip-rule="evenodd" d="M10 3C8.89543 3 8 3.89543 8 5V6H4V8H5.03774L5.42678 18.1153C5.48873 19.7261 6.81256 21 8.42456 21H15.5754C17.1874 21 18.5113 19.7261 18.5732 18.1153L18.9623 8H20V6H16V5C16 3.89543 15.1046 3 14 3H10ZM14 6V5H10V6H14ZM7.4253 18.0384L7.03922 8H16.9608L16.5747 18.0384C16.5541 18.5754 16.1128 19 15.5754 19H8.42456C7.88723 19 7.44595 18.5754 7.4253 18.0384ZM9 17V9.99997H11V17H9ZM13 10L13 17H15L15 10H13Z" fill="currentColor"/>
+</svg>
+</span>
+    </button>
+      </div>
+    `,
+      },
+      {
+        id: '8',
+        liik: 'Akt viitab',
+        loodud: '03.06.2024',
+        pealkiri: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--inline    "
+    > 
+      Tallinna linnaosade ja linnaosade valitsuste põhimäärused
+    </a>`,
+        cost: '500,25',
+        actions: `
+        <div class="button-wrapper">
+      <button
+      type="button"
+      class="tds-button tds-button--icon--compact tds-button--icon-neutral"
+      aria-label="Muuda"
+    >
+    <span class="tds-icon">
+
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+
+<path fill-rule="evenodd" clip-rule="evenodd" d="M21.4142 6.99991L17 2.58569L4.09706 15.4887L3.02988 19.7574C2.94468 20.0981 3.04453 20.4586 3.29291 20.707C3.54129 20.9554 3.90178 21.0552 4.24256 20.97L8.51127 19.9029L21.4142 6.99991ZM5.37439 18.6255L5.90299 16.5112L17 5.41412L18.5858 6.99991L7.48877 18.0969L5.37439 18.6255ZM12 20.9999H20V18.9999H12V20.9999Z" fill="currentColor"/>
+</svg>
+</span>
+
+    </button>
+     <button
+      type="button"
+      class="tds-button tds-button--icon--compact tds-button--icon-neutral"
+      aria-label="Kustuta"
+    >
+
+    <span class="tds-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+
+<path fill-rule="evenodd" clip-rule="evenodd" d="M10 3C8.89543 3 8 3.89543 8 5V6H4V8H5.03774L5.42678 18.1153C5.48873 19.7261 6.81256 21 8.42456 21H15.5754C17.1874 21 18.5113 19.7261 18.5732 18.1153L18.9623 8H20V6H16V5C16 3.89543 15.1046 3 14 3H10ZM14 6V5H10V6H14ZM7.4253 18.0384L7.03922 8H16.9608L16.5747 18.0384C16.5541 18.5754 16.1128 19 15.5754 19H8.42456C7.88723 19 7.44595 18.5754 7.4253 18.0384ZM9 17V9.99997H11V17H9ZM13 10L13 17H15L15 10H13Z" fill="currentColor"/>
+</svg>
+</span>
+    </button>
+      </div>
+    `,
+      },
+      
+    ],
+  })}
+/>
+
+## Multi-select
+
+A multi-select table includes checkboxes enabling users to select multiple rows in a table to perform bulk operations. Checking or unchecking the checkbox in the table header either selects or deselects the checkboxes on each row in the table body. Individual checkboxes in the rows can also be selected or deselected.
+
+The bulk action button(s) appear on top right of the table after making the first selection.
+
+<CodePreview
+  minHeight="450px"
+  displayBlock
+  code={TableComponent({
+    caption: 'Multi-select table',
+    compact: true,
+    sortable: false,
+    multiSelect: true,
+    columns: [
+      { key: 'id', label: 'ID' },
+      { key: 'liik', label: 'Text' },
+      { key: 'loodud', label: 'Date' },
+      { key: 'pealkiri', label: 'Link' },
+      { key: 'cost', label: 'Cost (€)', headerAlignRight: true, alignRight: true},
+      { key: 'actions', label: 'Actions', headerAlignRight: true, alignRight: true  },
+    ],
+    data: [
+      {
+        id: '382',
+        liik: 'Akt viitab',
+        loodud: '03.06.2024',
+        pealkiri: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--inline    "
+    > 
+      Linnaosa valitsuse väljastatavate müügilubade hindade kehtestamine
+    </a>`,
+        nr: '382',
+        cost: '15 000,00',
+        actions: `
+        <div class="button-wrapper">
+      <button
+      type="button"
+      class="tds-button tds-button--icon--compact tds-button--icon-neutral"
+      aria-label="Muuda"
+    >
+    <span class="tds-icon">
+
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+
+<path fill-rule="evenodd" clip-rule="evenodd" d="M21.4142 6.99991L17 2.58569L4.09706 15.4887L3.02988 19.7574C2.94468 20.0981 3.04453 20.4586 3.29291 20.707C3.54129 20.9554 3.90178 21.0552 4.24256 20.97L8.51127 19.9029L21.4142 6.99991ZM5.37439 18.6255L5.90299 16.5112L17 5.41412L18.5858 6.99991L7.48877 18.0969L5.37439 18.6255ZM12 20.9999H20V18.9999H12V20.9999Z" fill="currentColor"/>
+</svg>
+</span>
+
+    </button>
+     <button
+      type="button"
+      class="tds-button tds-button--icon--compact tds-button--icon-neutral"
+      aria-label="Kustuta"
+    >
+    <span class="tds-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+
+<path fill-rule="evenodd" clip-rule="evenodd" d="M10 3C8.89543 3 8 3.89543 8 5V6H4V8H5.03774L5.42678 18.1153C5.48873 19.7261 6.81256 21 8.42456 21H15.5754C17.1874 21 18.5113 19.7261 18.5732 18.1153L18.9623 8H20V6H16V5C16 3.89543 15.1046 3 14 3H10ZM14 6V5H10V6H14ZM7.4253 18.0384L7.03922 8H16.9608L16.5747 18.0384C16.5541 18.5754 16.1128 19 15.5754 19H8.42456C7.88723 19 7.44595 18.5754 7.4253 18.0384ZM9 17V9.99997H11V17H9ZM13 10L13 17H15L15 10H13Z" fill="currentColor"/>
+</svg>
+</span>
+    </button>
+      </div>
+    `,
+      },
+      {
+        multiSelect: 'checked',
+        id: '8',
+        liik: 'Akt viitab',
+        loodud: '03.06.2024',
+        pealkiri: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--inline    "
+    > 
+      Tallinna linnaosade ja linnaosade valitsuste põhimäärused
+    </a>`,
+        cost: '500,25',
+        actions: `
+        <div class="button-wrapper">
+      <button
+      type="button"
+      class="tds-button tds-button--icon--compact tds-button--icon-neutral"
+      aria-label="Muuda"
+    >
+    <span class="tds-icon">
+
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+
+<path fill-rule="evenodd" clip-rule="evenodd" d="M21.4142 6.99991L17 2.58569L4.09706 15.4887L3.02988 19.7574C2.94468 20.0981 3.04453 20.4586 3.29291 20.707C3.54129 20.9554 3.90178 21.0552 4.24256 20.97L8.51127 19.9029L21.4142 6.99991ZM5.37439 18.6255L5.90299 16.5112L17 5.41412L18.5858 6.99991L7.48877 18.0969L5.37439 18.6255ZM12 20.9999H20V18.9999H12V20.9999Z" fill="currentColor"/>
+</svg>
+</span>
+
+    </button>
+     <button
+      type="button"
+      class="tds-button tds-button--icon--compact tds-button--icon-neutral"
+      aria-label="Kustuta"
+    >
+
+    <span class="tds-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+
+<path fill-rule="evenodd" clip-rule="evenodd" d="M10 3C8.89543 3 8 3.89543 8 5V6H4V8H5.03774L5.42678 18.1153C5.48873 19.7261 6.81256 21 8.42456 21H15.5754C17.1874 21 18.5113 19.7261 18.5732 18.1153L18.9623 8H20V6H16V5C16 3.89543 15.1046 3 14 3H10ZM14 6V5H10V6H14ZM7.4253 18.0384L7.03922 8H16.9608L16.5747 18.0384C16.5541 18.5754 16.1128 19 15.5754 19H8.42456C7.88723 19 7.44595 18.5754 7.4253 18.0384ZM9 17V9.99997H11V17H9ZM13 10L13 17H15L15 10H13Z" fill="currentColor"/>
+</svg>
+</span>
+    </button>
+      </div>
+    `,
+      },
+      {
+        multiSelect: 'checked',
+        id: '382',
+        liik: 'Akt viitab',
+        loodud: '03.06.2024',
+        pealkiri: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--inline    "
+    > 
+      Linnaosa valitsuse väljastatavate müügilubade hindade kehtestamine
+    </a>`,
+        nr: '382',
+        cost: '15 000,00',
+        actions: `
+        <div class="button-wrapper">
+      <button
+      type="button"
+      class="tds-button tds-button--icon--compact tds-button--icon-neutral"
+      aria-label="Muuda"
+    >
+    <span class="tds-icon">
+
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+
+<path fill-rule="evenodd" clip-rule="evenodd" d="M21.4142 6.99991L17 2.58569L4.09706 15.4887L3.02988 19.7574C2.94468 20.0981 3.04453 20.4586 3.29291 20.707C3.54129 20.9554 3.90178 21.0552 4.24256 20.97L8.51127 19.9029L21.4142 6.99991ZM5.37439 18.6255L5.90299 16.5112L17 5.41412L18.5858 6.99991L7.48877 18.0969L5.37439 18.6255ZM12 20.9999H20V18.9999H12V20.9999Z" fill="currentColor"/>
+</svg>
+</span>
+
+    </button>
+     <button
+      type="button"
+      class="tds-button tds-button--icon--compact tds-button--icon-neutral"
+      aria-label="Kustuta"
+    >
+    <span class="tds-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+
+<path fill-rule="evenodd" clip-rule="evenodd" d="M10 3C8.89543 3 8 3.89543 8 5V6H4V8H5.03774L5.42678 18.1153C5.48873 19.7261 6.81256 21 8.42456 21H15.5754C17.1874 21 18.5113 19.7261 18.5732 18.1153L18.9623 8H20V6H16V5C16 3.89543 15.1046 3 14 3H10ZM14 6V5H10V6H14ZM7.4253 18.0384L7.03922 8H16.9608L16.5747 18.0384C16.5541 18.5754 16.1128 19 15.5754 19H8.42456C7.88723 19 7.44595 18.5754 7.4253 18.0384ZM9 17V9.99997H11V17H9ZM13 10L13 17H15L15 10H13Z" fill="currentColor"/>
+</svg>
+</span>
+    </button>
+      </div>
+    `,
+      },
+      {
+        id: '8',
+        liik: 'Akt viitab',
+        loodud: '03.06.2024',
+        pealkiri: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--inline    "
+    > 
+      Tallinna linnaosade ja linnaosade valitsuste põhimäärused
+    </a>`,
+        cost: '500,25',
+        actions: `
+        <div class="button-wrapper">
+      <button
+      type="button"
+      class="tds-button tds-button--icon--compact tds-button--icon-neutral"
+      aria-label="Muuda"
+    >
+    <span class="tds-icon">
+
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+
+<path fill-rule="evenodd" clip-rule="evenodd" d="M21.4142 6.99991L17 2.58569L4.09706 15.4887L3.02988 19.7574C2.94468 20.0981 3.04453 20.4586 3.29291 20.707C3.54129 20.9554 3.90178 21.0552 4.24256 20.97L8.51127 19.9029L21.4142 6.99991ZM5.37439 18.6255L5.90299 16.5112L17 5.41412L18.5858 6.99991L7.48877 18.0969L5.37439 18.6255ZM12 20.9999H20V18.9999H12V20.9999Z" fill="currentColor"/>
+</svg>
+</span>
+
+    </button>
+     <button
+      type="button"
+      class="tds-button tds-button--icon--compact tds-button--icon-neutral"
+      aria-label="Kustuta"
+    >
+
+    <span class="tds-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+
+<path fill-rule="evenodd" clip-rule="evenodd" d="M10 3C8.89543 3 8 3.89543 8 5V6H4V8H5.03774L5.42678 18.1153C5.48873 19.7261 6.81256 21 8.42456 21H15.5754C17.1874 21 18.5113 19.7261 18.5732 18.1153L18.9623 8H20V6H16V5C16 3.89543 15.1046 3 14 3H10ZM14 6V5H10V6H14ZM7.4253 18.0384L7.03922 8H16.9608L16.5747 18.0384C16.5541 18.5754 16.1128 19 15.5754 19H8.42456C7.88723 19 7.44595 18.5754 7.4253 18.0384ZM9 17V9.99997H11V17H9ZM13 10L13 17H15L15 10H13Z" fill="currentColor"/>
+</svg>
+</span>
+    </button>
+      </div>
+    `,
+      },
+      
+    ],
+  })}
+/>
+
+## Empty state
+
+If there is no data to display in a table (for example, after some filters are applied to the data), a message should be displayed.
+
+<CodePreview
+  minHeight="390px"
+  displayBlock
+  scriptPath="/scripts/components/presentation-table.js"
+  code={TableComponent({
+    compact: true,
+    multiSelect: false,
+
+    columns: [
+      { key: 'liik', label: 'Seose liik' },
+      { key: 'loodud', label: 'Loodud'},
+      { key: 'pealkiri', label: 'Pealkiri' },
+      { key: 'nr', label: 'Nr' },
+      {
+        key: 'voetud',
+        label: 'Vastu võetud',
+      },
+    ],
+    data: [],
+
+})}
+/>
+
+## Tables on a small screen
+
+On small screens tables can be either horizontally scrollable or collapsed to a list.
+
+### Scrollable
+
+If a table doesn't fit on the screen on a narrow display, it can be made horizontally scrollable. This is the default behavior for tables and recommended behavior for large data tables.
+
+<CodePreview
+  minHeight="740px"
+  mobilePreview
+  width="60%"
+  code={TableComponent({
+    compact: true,
+    multiSelect: false,
+    columns: [
+      { key: 'liik', label: 'Seose liik' },
+      { key: 'loodud', label: 'Loodud' },
+      { key: 'pealkiri', label: 'Pealkiri' },
+      { key: 'nr', label: 'Nr' },
+      {
+        key: 'voetud',
+        label: 'Vastu võetud',
+        headerAlignRight: true,
+        alignRight: true,
+      },
+    ],
+    data: [
+      {
+        liik: 'Akt viitab',
+        loodud: '03.06.2024',
+        pealkiri: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--inline    "
+    > 
+      Linnaosa valitsuse väljastatavate müügilubade hindade kehtestamine
+    </a>`,
+        nr: '382',
+        voetud: '26.04.2023',
+      },
+      {
+        liik: 'Akt viitab',
+        loodud: '03.06.2024',
+        pealkiri: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--inline    "
+    > 
+      Tallinna linnaosade ja linnaosade valitsuste põhimäärused
+    </a>`,
+        nr: '8',
+        voetud: '20.04.2017',
+      },
+      {
+        liik: 'Akt viitab',
+        loodud: '03.06.2024',
+        pealkiri: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--inline    "
+    > 
+      Linnaosa valitsuse väljastatavate müügilubade hindade kehtestamine
+    </a>`,
+        nr: '382',
+        voetud: '26.04.2023',
+      },
+      {
+        liik: 'Akt viitab',
+        loodud: '03.06.2024',
+        pealkiri: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--inline    "
+    > 
+      Tallinna linnaosade ja linnaosade valitsuste põhimäärused
+    </a>`,
+        nr: '8',
+        voetud: '20.04.2017',
+      },
+    ],
+  })}
+/>
+
+### Collapsed
+
+In a collapsed table, each row is displayed as a separate section, repeating the header cells in each section. This is the recommended variant for small and simple tables.
+
+<CodePreview
+  minHeight="620px"
+  mobilePreview
+  displayBlock
+  code={TableComponent({
+    compact: true,
+    multiSelect: false,
+    collapsed: true,
+    columns: [
+      { key: 'liik', label: 'Seose liik' },
+      { key: 'loodud', label: 'Loodud' },
+      { key: 'pealkiri', label: 'Pealkiri' },
+      { key: 'nr', label: 'Nr' },
+      {
+        key: 'voetud',
+        label: 'Vastu võetud',
+        headerAlignRight: true,
+      },
+    ],
+    data: [
+      {
+        liik: 'Akt viitab',
+        loodud: '03.06.2024',
+        pealkiri: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--inline    "
+    > 
+      Linnaosa valitsuse väljastatavate müügilubade hindade kehtestamine
+    </a>`,
+        nr: '382',
+        voetud: '26.04.2023',
+      },
+      {
+        liik: 'Akt viitab',
+        loodud: '03.06.2024',
+        pealkiri: `<a
+      href="javascript:void(0);"
+      class="tds-link tds-link--inline    "
+    > 
+      Tallinna linnaosade ja linnaosade valitsuste põhimäärused
+    </a>`,
+        nr: '8',
+        voetud: '20.04.2017',
+      },
+    ],
+  })}
+/>

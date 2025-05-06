@@ -1,0 +1,58 @@
+---
+title: Overview
+description: Tallinn Design System uses the following breakpoints to optimize layouts across screen sizes.
+hide_table_of_contents: true
+---
+
+# Breakpoints
+
+Tallinn Design System uses the following breakpoints to optimize layouts across screen sizes.
+
+import { CodePreview, TableComponent } from '@site/src/components';
+
+<CodePreview
+  hideCode
+  noPaddingInBody
+  borderNone
+  displayBlock
+  minHeight="720px"
+  code={TableComponent({
+    compact: false,
+    sortable: false,
+    multiSelect: false,
+    alignRight: false,
+    columns: [
+      { key: 'name', label: 'Name' },
+      { key: 'token', label: 'Token' },
+      { key: 'viewport', label: 'Viewport' },
+      { key: 'cols', label: 'Cols' },
+    ],
+    data: [
+      {
+        name: 'X-small',
+        token: '--breakpoint-xs',
+        viewport: '<600px',
+        cols: '2',
+      },
+      { name: 'Small', token: '--breakpoint-s', viewport: '≥600px', cols: '6' },
+      {
+        name: 'Medium',
+        token: '--breakpoint-m',
+        viewport: '≥900px',
+        cols: '6',
+      },
+      {
+        name: 'Large',
+        token: '--breakpoint-l',
+        viewport: '≥1200px',
+        cols: '12',
+      },
+      {
+        name: 'X-large',
+        token: '--breakpoint-xl',
+        viewport: '≥1800px',
+        cols: '12',
+      },
+    ],
+  })}
+/>

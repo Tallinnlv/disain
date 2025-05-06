@@ -1,0 +1,145 @@
+---
+title: Tokens
+description: Typography tokens are used to define the font size, line height, and font weight of text elements.
+hide_table_of_contents: true
+---
+
+import { CodePreview, TableComponent } from '@site/src/components';
+
+# Typography tokens
+
+## Semantic
+
+<CodePreview
+  hideCode
+  noPaddingInBody
+  borderNone
+  displayBlock
+  minHeight="600px"
+  code={TableComponent({
+    compact: false,
+    sortable: true,
+    multiSelect: false,
+    alignRight: true,
+    columns: [
+      { key: 'token', label: 'Token' },
+      { key: 'value', label: 'Value' },
+    ],
+    data: [
+      {
+        token: '--font-size-display',
+        value: 'clamp(2.25rem, 2.778vw + 1.417rem, 3.5rem)',
+      },
+      {
+        token: '--font-size-heading-lg',
+        value: 'clamp(1.75rem, 1.667vw + 1.25rem, 2.5rem)',
+      },
+      {
+        token: '--font-size-heading-md',
+        value: 'clamp(1.5rem, 1.111vw + 1.167rem, 2rem)',
+      },
+      {
+        token: '--font-size-heading-sm',
+        value: 'clamp(1.25rem, 0.556vw + 1.083rem, 1.5rem)',
+      },
+      {
+        token: '--font-size-heading-xs',
+        value: 'clamp(1.125rem, 0.278vw + 1.042rem, 1.25rem)',
+      },
+      {
+        token: '--line-height-display',
+        value: '1.1',
+      },
+      {
+        token: '--line-height-heading',
+        value: '1.2',
+      },
+      {
+        token: '--line-height-body',
+        value: '1.5',
+      },
+      {
+        token: '--line-height-100',
+        value: '1rem',
+      },
+      {
+        token: '--line-height-125',
+        value: '1.25rem',
+      },
+      {
+        token: '--line-height-150',
+        value: '1.5rem',
+      },
+    ],
+  })}
+/>
+
+## Core
+
+<CodePreview
+  minHeight="640px"
+  noPaddingInBody
+  borderNone
+  hideCode
+  displayBlock
+  code={TableComponent({
+    compact: false,
+    sortable: true,
+    multiSelect: false,
+    alignRight: true,
+    columns: [
+      { key: 'token', label: 'Token' },
+      { key: 'value', label: 'Value' },
+    ],
+    data: [
+      {
+        token: '--font-size-14',
+        value: '0.875rem',
+      },
+      {
+        token: '--font-size-16',
+        value: '1rem',
+      },
+      {
+        token: '--font-size-18',
+        value: '1.125rem',
+      },
+      {
+        token: '--font-size-20',
+        value: '1.25rem',
+      },
+      {
+        token: '--font-size-24',
+        value: '1.5rem',
+      },
+      {
+        token: '--font-size-32',
+        value: '2rem',
+      },
+      {
+        token: '--font-size-36',
+        value: '2.25rem',
+      },
+      {
+        token: '--font-size-40',
+        value: '2.5rem',
+      },
+      {
+        token: '--font-size-48',
+        value: '3rem',
+      },
+      {
+        token: '--font-size-56',
+        value: '3.5rem',
+      },
+      {
+        token: '--font-weight-regular',
+        value: '400',
+      },
+      {
+        token: '--font-weight-bold',
+        value: '700',
+      },
+    ],
+  })}
+/>

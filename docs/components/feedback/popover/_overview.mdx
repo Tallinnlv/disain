@@ -1,0 +1,221 @@
+import {
+  CodePreview,
+  TooltipComponent,
+  PopoverComponent,
+  UsageAdvice,
+} from '@site/src/components';
+
+<UsageAdvice permitted>
+  Provide additional useful but non-critical information and actions about referring elements.
+</UsageAdvice>
+
+<UsageAdvice permitted={false}>
+  Consider if placing the content within a popover is needed at all.
+  It might be more helpful to have the content inline and visible by default.
+
+  For short, non-actionable information, consider using a tooltip.
+</UsageAdvice>
+
+## Principles
+
+A popover is used to provide useful information about an element, including one or multiple actionable elements.
+It gives the user additional information without forcing them to act upon it like in a dialog.
+
+A popover is opened by clicking on an element that has the popover attached to it.
+Do not trigger popovers on hover as they may contain interactive elements and some users may find it difficult to interact with those elements.
+
+A popover can be dismissed by clicking on the close button within it, clicking outside of it or pressing the Esc key on the keyboard.
+
+The title of a popover should be clear and concise and preferably fit to one line, or 2 lines at maximum.
+Try to keep the content of a popover also as short as possible.
+
+Only one popover can be visible at a time.
+
+<CodePreview
+  minHeight="210px"
+  code={PopoverComponent({
+    title: "Popover title",
+    content: "Popover content",
+    position: "bottom-center"
+  })}
+/>
+
+Having a title in a popover is recommended, but it may be omitted if needed.
+
+<CodePreview
+  minHeight="210px"
+  code={PopoverComponent({
+    content: "Popover without title. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
+  })}
+/>
+
+### Size
+
+On mobile screens the popover has the same width as the content area, by default.
+The width may be reduced if needed.
+
+On larger screens the default width is 400px.
+This may be reduced or increased if needed, but should not exceed 600px.
+
+The height of the popover is determined by the content and should never exceed the height of the viewport.
+Try to keep the height below 400px.
+
+<CodePreview
+  minHeight="570px"
+  svgPath="/img/popoverOverview/size.svg"
+  hideCode
+/>
+
+### Placement
+
+By default, popovers should be placed above the referring element.
+When there isn't enough space in the viewport, the popover is moved to the side or below as needed.
+
+<CodePreview
+  minHeight="380px"
+  code={
+    `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px">` + "\n" + "\n" +
+    PopoverComponent({
+      title: "Popover title",
+      content: "Popover content",
+      position: "bottom-center",
+    }) + "\n" + "\n" +
+    PopoverComponent({
+      title: "Popover title",
+      content: "Popover content",
+      position: "top-center",
+    }) + "\n" + "\n" +
+    PopoverComponent({
+      title: "Popover title",
+      content: "Popover content",
+      position: "left-center",
+    }) + "\n" + "\n" +
+    PopoverComponent({
+      title: "Popover title",
+      content: "Popover content",
+      position: "right-center",
+    }) + "\n" + "\n" +
+    `</div>`
+  }
+/>
+
+### Pointer
+
+Popover has a pointer to help show the relationship between the popover and where it was triggered from.
+
+There are predefined positions for start, center and end.
+Position of the pointer may also be adjusted manually if needed.
+
+<CodePreview
+  minHeight="750px"
+  code={
+    `<div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: auto 1rem auto auto auto 1rem auto; gap: 1rem;">` + "\n" + "\n" +
+    PopoverComponent({
+      title: "Popover title",
+      content: "Popover content",
+      position: "bottom-left",
+      customStyle: "grid-column: 1; grid-row: 1;",
+    }) + "\n" + "\n" +
+    PopoverComponent({
+      title: "Popover title",
+      content: "Popover content",
+      position: "bottom-center",
+      customStyle: "grid-column: 2; grid-row: 1;",
+    }) + "\n" + "\n" +
+    PopoverComponent({
+      title: "Popover title",
+      content: "Popover content",
+      position: "bottom-right",
+      customStyle: "grid-column: 3; grid-row: 1;",
+    }) + "\n" + "\n" +
+    PopoverComponent({
+      title: "Popover title",
+      content: "Popover content",
+      position: "right-top",
+      customStyle: "grid-column: 1; grid-row: 3;",
+    }) + "\n" + "\n" +
+    PopoverComponent({
+      title: "Popover title",
+      content: "Popover content",
+      position: "left-top",
+      customStyle: "grid-column: 3; grid-row: 3;",
+    }) + "\n" + "\n" +
+    PopoverComponent({
+      title: "Popover title",
+      content: "Popover content",
+      position: "right-center",
+      customStyle: "grid-column: 1; grid-row: 4;",
+    }) + "\n" + "\n" +
+    PopoverComponent({
+      title: "Popover title",
+      content: "Popover content",
+      position: "left-center",
+      customStyle: "grid-column: 3; grid-row: 4;",
+    }) + "\n" + "\n" +
+    PopoverComponent({
+      title: "Popover title",
+      content: "Popover content",
+      position: "right-bottom",
+      customStyle: "grid-column: 1; grid-row: 5;",
+    }) + "\n" + "\n" +
+    PopoverComponent({
+      title: "Popover title",
+      content: "Popover content",
+      position: "left-bottom",
+      customStyle: "grid-column: 3; grid-row: 5;",
+    }) + "\n" + "\n" +
+    PopoverComponent({
+      title: "Popover title",
+      content: "Popover content",
+      position: "top-left",
+      customStyle: "grid-column: 1; grid-row: 7;",
+    }) + "\n" + "\n" +
+    PopoverComponent({
+      title: "Popover title",
+      content: "Popover content",
+      position: "top-center",
+      customStyle: "grid-column: 2; grid-row: 7;",
+    }) + "\n" + "\n" +
+    PopoverComponent({
+      title: "Popover title",
+      content: "Popover content",
+      position: "top-right",
+      customStyle: "grid-column: 3; grid-row: 7;",
+    }) + "\n" + "\n" +
+    `</div>`
+  }
+/>
+
+### Interactive content
+
+Popover can contain links and buttons.
+
+<CodePreview
+  minHeight="250px"
+  code={PopoverComponent({
+    title: "Popover title",
+    content: "Popover content",
+    customStyle: "width: 400px;",
+    showLink: true,
+  })}
+/>
+
+<CodePreview
+  minHeight="270px"
+  code={PopoverComponent({
+    title: "Popover title",
+    content: "Popover content",
+    customStyle: "width: 400px;",
+    showButtons: true,
+  })}
+/>
+
+### Custom content
+
+Popover can also contain custom content.
+
+<CodePreview
+  minHeight="560px"
+  svgPath="/img/popoverOverview/custom.svg"
+  hideCode
+/>

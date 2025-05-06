@@ -1,0 +1,4 @@
+@mixin tds-fieldset--error {
+  padding-left: 1.5rem;
+  border-left: 0.25rem solid var(--color-border-feedback-negative);
+}

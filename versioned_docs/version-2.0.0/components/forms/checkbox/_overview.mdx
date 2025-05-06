@@ -1,0 +1,313 @@
+import {
+  CodePreview,
+  CheckboxComponent,
+  CodePreviewGroup,
+  UsageAdvice,
+} from '@site/src/components';
+
+# Overview
+
+<UsageAdvice permitted>
+  Use checkboxes when you need to let users select multiple options from a list
+  or toggle a single option on or off.
+</UsageAdvice>
+
+<UsageAdvice permitted={false}>
+  Do not use checkboxes if users can only choose one option from a list. In this
+  case, use the radios component.
+</UsageAdvice>
+
+## Principles
+
+Make the label clickable. Users should be able to click on either the text label or the checkbox to select or deselect an option.
+
+Always position checkboxes to the left of their labels. This makes them easier to find, especially for users of screen magnifiers.
+
+Unlike with radios, users can select multiple options from a list of checkboxes.
+Do not assume that users will know how many options they can select based on the visual difference between radios and checkboxes alone. If needed, add a hint explaining this, for example, “Select all that apply”.
+
+Do not pre-select checkbox options as this makes it more likely that users will:
+
+- not realise they’ve missed a question
+- submit the wrong answer
+
+## Variants
+
+### Single checkbox
+
+Single checkboxes have two variants: with labels and without.
+
+Checkboxes should have labels in most instances.
+
+A checkbox without a label is most often used in a data table, where its context or interaction is made clear, either by its placement, or by its relationship to other content within the same row or column. Even if the checkbox has no visible label, it will still require a hidden label for assistive technologies.
+
+<CodePreview
+  minHeight="200px"
+  showToggle={false}
+  caption="With label"
+  code={CheckboxComponent({
+    checkboxes: [
+      [
+        { label: 'Label', checked: false },
+        { label: 'Label', checked: true },
+        // ...
+      ],
+    ],
+  })}
+/>
+
+<CodePreview
+
+showToggle={false}
+minHeight="200px"
+caption="Without label"
+code={CheckboxComponent({
+checkboxes: [
+[
+{ checked: false },
+{ checked: true },
+// ...
+],
+],
+})}
+/>
+
+<CodePreview
+
+showToggle={false}
+minHeight="100px"
+caption="Inline checkbox"
+code={CheckboxComponent({
+inline: true,
+checkboxes: [
+[
+{ label: 'Label', checked: false },
+{ label: 'Label', checked: true },
+// ...
+],
+],
+})}
+/>
+
+### Checkbox group
+
+Related checkboxes can be grouped together. Using a legend is recommended.
+
+<CodePreview
+  showToggle={false}
+  minHeight="300px"
+  code={CheckboxComponent({
+    title: 'Legend',
+    checkboxes: [
+      [
+        { label: 'Label', checked: true },
+        { label: 'Label', checked: false },
+        { label: 'Label', checked: false },
+        // ...
+      ],
+    ],
+  })}
+/>
+
+<CodePreview
+  minHeight="400px"
+  showToggle={false}
+  scriptPath="/scripts/components/forms-checkbox.js"
+  code={CheckboxComponent({
+    title: '<b>Märksõnad</b>',
+    checkboxes: [[{ label: 'Vali kõik', checked: false }]],
+    subCheckboxes: [
+      [
+        { label: 'Andmekaitse ja infoturve', checked: false },
+        {
+          label: 'Ettevõtluskeskkond',
+          checked: false,
+          hint: 'sh reklaam, turism ja tarbijakaitse',
+        },
+        {
+          label: 'Linnaosad',
+          checked: false,
+          hint: 'näiteks linnaosa ja linnaosa valitsuse põhimäärus',
+        },
+      ],
+    ],
+  })}
+/>
+
+## Size
+
+Regular should be used in most cases. Compact could be used for example in large and dense data tables and filter interfaces.
+
+<CodePreview
+  showToggle={false}
+  caption="Regular size"
+  minHeight="300px"
+  code={CheckboxComponent({
+    title: 'Legend',
+    checkboxes: [
+      [
+        { label: 'Label', checked: true },
+        { label: 'Label', checked: false },
+        { label: 'Label', checked: false },
+        // ...
+      ],
+    ],
+  })}
+/>
+
+<CodePreview
+  showToggle={false}
+  minHeight="300px"
+  caption="Compact size"
+  code={CheckboxComponent({
+    title: 'Legend',
+    compact: true,
+    checkboxes: [
+      [
+        { label: 'Label', checked: true },
+        { label: 'Label', checked: false },
+        { label: 'Label', checked: false },
+        // ...
+      ],
+    ],
+  })}
+/>
+
+## Hint text
+
+<CodePreview
+  showToggle={false}
+  minHeight="320px"
+  code={CheckboxComponent({
+    title: 'Legend',
+    hintTitle: 'Hint text',
+    checkboxes: [
+      [
+        { label: 'Label', checked: true },
+        { label: 'Label', checked: false },
+        { label: 'Label', checked: false },
+        // ...
+      ],
+    ],
+  })}
+/>
+<CodePreview
+  showToggle={false}
+  minHeight="350px"
+  code={CheckboxComponent({
+    title: 'Legend',
+    hintTitle: 'Hint text',
+    checkboxes: [
+      [
+        { label: 'Label', checked: true, hint: 'Hint text' },
+        { label: 'Label', checked: false },
+        { label: 'Label', checked: false },
+        // ...
+      ],
+    ],
+  })}
+/>
+
+## Required indicator
+
+Related checkboxes can be grouped together. Using a group label is recommended.
+Checkbox group can also have its own hint text.
+
+If there are more than five items in a group, consider using the select component.
+
+<CodePreview
+  showToggle={false}
+  minHeight="170px"
+  caption="Required single checkbox"
+  code={CheckboxComponent({
+    checkboxes: [[{ label: 'Label', checked: false, required: true }]],
+  })}
+/>
+<CodePreview
+  showToggle={false}
+  minHeight="300px"
+  caption="Required checkbox group"
+  code={CheckboxComponent({
+    titleRequired: true,
+    title: 'Legend',
+    checkboxes: [
+      [
+        { label: 'Label', checked: false },
+        { label: 'Label', checked: false },
+        { label: 'Label', checked: false },
+        // ...
+      ],
+    ],
+  })}
+/>
+
+<CodePreview
+  showToggle={false}
+  minHeight="200px"
+  width="50%"
+  caption="Required indicator on a multiple line label"
+  code={CheckboxComponent({
+    checkboxes: [
+      [
+        {
+          label:
+            'Very long label that spans multiple lines and just keeps on going',
+          checked: false,
+          required: true,
+        },
+      ],
+    ],
+  })}
+/>
+
+## Error state
+
+<CodePreview
+  minHeight="200px"
+  code={CheckboxComponent({
+    checkboxes:
+    [
+      [
+        { label: 'Single checkbox', checked: false, checkboxHasError: true , required: true},
+        // ...
+      ],
+    ],
+  })}
+/>
+<CodePreview
+  minHeight="320px"
+  code={CheckboxComponent({
+    modifiers: 'is-error',
+    title: 'Checkbox group',
+    titleRequired: true,
+    hintTitle: 'Hint text',
+    errorMessage: 'Error message',
+
+    checkboxes: [
+      [
+        { label: 'Label', checked: false },
+        { label: 'Label', checked: false },
+        { label: 'Label', checked: false },
+        // ...
+      ],
+    ],
+
+})}
+/>
+
+## Disabled state
+
+Use this state when the user doesn’t have permission to edit the field.
+
+<CodePreview
+  minHeight="220px"
+  code={CheckboxComponent({
+    modifiers: 'is-disabled',
+    checkboxes: [
+      [
+        { label: 'Label', checked: true },
+        { label: 'Label', checked: false },
+      ],
+    ],
+  })}
+/>

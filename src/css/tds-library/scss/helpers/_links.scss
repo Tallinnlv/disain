@@ -1,0 +1,391 @@
+@use 'colour' as c;
+@use '../helpers/typography' as typo;
+@use '../helpers/focused' as focused;
+@use '../settings' as s;
+////
+/// @group helpers/links
+////
+
+/// Common link styles
+///
+/// Provides the typography and focus state, regardless of link style.
+///
+/// @access public
+
+@mixin tds-link-common {
+  @include typo.tds-typography-common;
+  @include tds-link-decoration;
+
+  &:hover {
+    @include tds-link-hover-decoration;
+  }
+
+  &:focus {
+    @include focused.tds-focused-text;
+  }
+}
+
+/// Link decoration
+///
+/// Provides the text decoration for links, including thickness and underline
+/// offset. Use this mixin only if you cannot use the `tds-link-common` mixin.
+///
+/// @access public
+@mixin tds-link-decoration {
+  text-decoration: underline;
+
+  @if s.$tds-link-underline-thickness {
+    text-decoration-thickness: s.$tds-link-underline-thickness;
+  }
+
+  @if s.$tds-link-underline-offset {
+    text-underline-offset: s.$tds-link-underline-offset;
+  }
+}
+
+/// Link hover decoration
+///
+/// Provides the text decoration for links in their hover state, for you to use
+/// within a `:hover` pseudo-selector. Use this mixin only if you cannot use the
+/// `tds-link-common` mixin.
+///
+/// @access public
+
+@mixin tds-link-hover-decoration {
+  @if s.$tds-link-hover-underline-thickness {
+    text-decoration-thickness: s.$tds-link-hover-underline-thickness;
+    // Disable ink skipping on underlines on hover. Browsers haven't
+    // standardised on this part of the spec yet, so set both properties
+    text-decoration-skip-ink: none; // Chromium, Firefox
+    text-decoration-skip: none; // Safari
+  }
+}
+
+/// Default link styles
+///
+/// Makes links use the default unvisited, visited, hover and active colours.
+///
+/// If you use this mixin in a component, you must also include the
+/// `tds-link-common` mixin to get the correct focus and hover states.
+///
+/// @example scss
+///   .tds-component__link {
+///     @include tds-link-common;
+///     @include tds-link-style-default;
+///   }
+///
+/// @access public
+
+@mixin tds-link-style-default {
+  &:link {
+    color: s.$tds-link-colour;
+  }
+
+  &:visited {
+    color: s.$tds-link-visited-colour;
+  }
+
+  &:hover {
+    color: s.$tds-link-hover-colour;
+  }
+
+  &:active {
+    color: s.$tds-link-active-colour;
+  }
+
+  // When focussed, the text colour needs to be darker to ensure that colour
+  // contrast is still acceptable
+  &:focus {
+    color: s.$tds-focus-text-colour;
+  }
+}
+
+/// Error link styles
+///
+/// Makes links use the error colour. The link will darken if it's active or a
+/// user hovers their cursor over it.
+///
+/// If you use this mixin in a component, you must also include the
+/// `tds-link-common` mixin to get the correct focus and hover states.
+///
+/// @example scss
+///   .tds-component__link {
+///     @include tds-link-common;
+///     @include tds-link-style-error;
+///   }
+///
+/// @access public
+
+@mixin tds-link-style-error {
+  &:link,
+  &:visited {
+    color: $tds-error-colour;
+  }
+
+  &:hover {
+    color: scale-color($tds-error-colour, $lightness: -30%);
+  }
+
+  &:active {
+    color: $tds-error-colour;
+  }
+
+  // When focussed, the text colour needs to be darker to ensure that colour
+  // contrast is still acceptable
+  &:focus {
+    color: $tds-focus-text-colour;
+  }
+}
+
+/// Success link styles
+///
+/// Makes links use the success colour. The link will darken if it's active or a
+/// user hovers their cursor over it.
+///
+/// If you use this mixin in a component, you must also include the
+/// `tds-link-common` mixin to get the correct focus and hover states.
+///
+/// @example scss
+///   .tds-component__link {
+///     @include tds-link-common;
+///     @include tds-link-style-success;
+///   }
+///
+/// @access public
+
+@mixin tds-link-style-success {
+  &:link,
+  &:visited {
+    color: $tds-success-colour;
+  }
+
+  &:hover {
+    color: scale-color($tds-success-colour, $lightness: -30%);
+  }
+
+  &:active {
+    color: $tds-success-colour;
+  }
+
+  // When focussed, the text colour needs to be darker to ensure that colour
+  // contrast is still acceptable
+  &:focus {
+    color: $tds-focus-text-colour;
+  }
+}
+
+/// Muted link styles
+///
+/// Makes links use the secondary text colour. The link will darken if it's
+/// active or a user hovers their cursor over it.
+///
+/// If you use this mixin in a component, you must also include the
+/// `tds-link-common` mixin to get the correct focus and hover states.
+///
+/// @example scss
+///   .tds-component__link {
+///     @include tds-link-common;
+///     @include tds-link-style-muted;
+///   }
+///
+/// @access public
+
+@mixin tds-link-style-muted {
+  &:link,
+  &:visited {
+    color: $tds-secondary-text-colour;
+  }
+
+  &:hover,
+  &:active {
+    color: $tds-text-colour;
+  }
+
+  // When focussed, the text colour needs to be darker to ensure that colour
+  // contrast is still acceptable
+  &:focus {
+    color: $tds-focus-text-colour;
+  }
+}
+
+/// Text link styles
+///
+/// Makes links use the primary text colour, in all states. Use this mixin for
+/// navigation components, such as breadcrumbs or the back link.
+///
+/// If you use this mixin in a component, you must also include the
+/// `tds-link-common` mixin to get the correct focus and hover states.
+///
+/// @example scss
+///   .tds-component__link {
+///     @include tds-link-common;
+///     @include tds-link-style-text;
+///   }
+///
+/// @access public
+
+@mixin tds-link-style-text {
+  &:link,
+  &:visited {
+    @include tds-text-colour;
+  }
+
+  // Force a colour change on hover to work around a bug in Safari
+  // https://bugs.webkit.org/show_bug.cgi?id=224483
+  &:hover {
+    @if type-of($tds-text-colour) == color {
+      color: rgba($tds-text-colour, 0.99);
+    }
+  }
+
+  &:active,
+  &:focus {
+    @include tds-text-colour;
+  }
+}
+
+/// Inverse link styles
+///
+/// Makes links white, in all states. Use this mixin if you're displaying links
+/// against a dark background.
+///
+/// If you use this mixin in a component, you must also include the
+/// `tds-link-common` mixin to get the correct focus and hover states.
+///
+/// @example scss
+///   .tds-component__link {
+///     @include tds-link-common;
+///     @include tds-link-style-inverse;
+///   }
+///
+/// @access public
+
+@mixin tds-link-style-inverse {
+  &:link,
+  &:visited {
+    color: c.tds-colour('white');
+  }
+
+  // Force a colour change on hover to work around a bug in Safari
+  // https://bugs.webkit.org/show_bug.cgi?id=224483
+  &:hover,
+  &:active {
+    color: rgba(c.tds-colour('white'), 0.99);
+  }
+
+  &:focus {
+    color: s.$tds-focus-text-colour;
+  }
+}
+
+/// Default link styles, without a visited state
+///
+/// Makes links use the default unvisited, hover and active colours, with no
+/// distinct visited state.
+///
+/// Use this mixin when it's not helpful to distinguish between visited and
+/// non-visited links. For example, when you link to pages with
+/// frequently-changing content, such as the dashboard for an admin interface.
+///
+/// If you use this mixin in a component, you must also include the
+/// `tds-link-common` mixin to get the correct focus and hover states.
+///
+/// @example scss
+///   .tds-component__link {
+///     @include tds-link-common;
+///     @include tds-link-style-no-visited-state;
+///   }
+///
+/// @access public
+
+@mixin tds-link-style-no-visited-state {
+  &:link {
+    color: s.$tds-link-colour;
+  }
+
+  &:visited {
+    color: s.$tds-link-colour;
+  }
+
+  &:hover {
+    color: s.$tds-link-hover-colour;
+  }
+
+  &:active {
+    color: s.$tds-link-active-colour;
+  }
+
+  // When focussed, the text colour needs to be darker to ensure that colour
+  // contrast is still acceptable
+  &:focus {
+    color: s.$tds-focus-text-colour;
+  }
+}
+
+/// Remove underline from links
+///
+/// Remove underlines from links unless the link is active or a user hovers
+/// their cursor over it.
+///
+/// @example scss
+///   .tds-component__link {
+///     @include tds-link-common;
+///     @include tds-link-style-default;
+///     @include tds-link-style-no-underline;
+///   }
+///
+/// @access public
+
+@mixin tds-link-style-no-underline {
+  &:not(:hover):not(:active) {
+    text-decoration: none;
+  }
+}
+
+/// Include link destination when printing the page
+///
+/// If the user prints the page, add the destination URL after the link text, if
+/// the URL starts with `/`, `http://` or `https://`.
+///
+/// @access public
+
+@mixin tds-link-print-friendly {
+  @include tds-media-query($media-type: print) {
+    &[href^="/"],
+    &[href^="http://"],
+    &[href^="https://"]
+    {
+      &::after {
+        content: ' (' attr(href) ')';
+        font-size: 90%;
+
+        // Because the URLs may be very long, ensure that they may be broken
+        // at arbitrary points if there are no otherwise acceptable break
+        // points in the line
+        word-wrap: break-word;
+      }
+    }
+  }
+}
+
+/// Image link styles
+///
+/// Prepares and provides the focus state for links that only contain images
+/// with no accompanying text.
+///
+/// @access public
+
+@mixin tds-link-image {
+  // Needed to draw the focus around the entire image
+  display: inline-block;
+
+  // Remove extra space at the bottom of the image that's added by line-height
+  line-height: 0;
+
+  // Don't render an underline
+  text-decoration: none;
+
+  &:focus {
+    @include tds-focused-box;
+  }
+}

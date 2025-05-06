@@ -1,0 +1,49 @@
+# Accessibility
+
+Switches are interactive elements that allow users to turn settings on or off. Proper accessibility implementation ensures that all users, including those with disabilities, can interact with switches effectively.
+
+## ARIA Attributes
+
+The Switch component implements the following ARIA attributes:
+
+- `role="switch"` - Identifies the element as a switch control
+- `aria-checked` - Indicates the current state of the switch (true/false)
+- `aria-label` - Provides an accessible name when no visible label is present
+- `aria-labelledby` - References the ID of a visible label element
+- `aria-describedby` - References the ID of hint text that provides additional description
+
+## Keyboard Interaction
+
+The Switch component supports the following keyboard interactions:
+
+- **Space** or **Enter**: Toggle the state of the switch
+- **Tab**: Move focus to the next focusable element
+- **Shift+Tab**: Move focus to the previous focusable element
+
+## Focus Management
+
+- The switch has a visible focus indicator when focused through keyboard navigation
+- Focus states are visually distinct from other states
+
+## Labels and Hints
+
+- Every switch has a clear, descriptive label
+- Labels are programmatically associated with the switch using `for` attributes
+- Optional hint text provides additional context and is programmatically associated with the switch
+
+## Special Cases
+
+### Master-Child Relationship
+
+For master switches that control nested switches:
+- The master switch uses `aria-controls` to indicate its relationship with child switches
+- Child switches are automatically disabled when the master switch is off
+- This relationship is communicated visually and programmatically
+
+### Disabled State
+
+Disabled switches:
+- Are visually distinct from enabled switches
+- Cannot receive keyboard focus
+- Are programmatically marked as disabled
+- Communicate their disabled state visually through reduced opacity
