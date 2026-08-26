@@ -89,13 +89,29 @@ export function validateDesignSystem(html, componentName) {
         });
       }
       
-      // 3. Check for inline styles (discouraged in design system)
-      const elementsWithInlineStyles = tempContainer.querySelectorAll('[style]');
+      // 3. Check for inline styles (discouraged in design system).
+      // Ignore elements whose inline style is purely positioning: Popper.js
+      // (and similar runtime positioning) writes position/inset/transform
+      // inline on tooltips and popovers, which is not an authored violation.
+      const positioningProps = [
+        'position', 'inset', 'top', 'right', 'bottom', 'left',
+        'margin', 'transform', 'z-index',
+      ];
+      const isRuntimePositioningOnly = (el) =>
+        Array.from(el.style).length > 0 &&
+        Array.from(el.style).every((prop) =>
+          positioningProps.some(
+            (allowed) => prop === allowed || prop.startsWith(`${allowed}-`),
+          ),
+        );
+      const elementsWithInlineStyles = Array.from(
+        tempContainer.querySelectorAll('[style]'),
+      ).filter((el) => !isRuntimePositioningOnly(el));
       if (elementsWithInlineStyles.length > 0) {
         issues.push({
           severity: 'warning',
           message: `Found ${elementsWithInlineStyles.length} elements with inline styles. Use design system classes instead.`,
-          context: Array.from(elementsWithInlineStyles).map(el => el.outerHTML).join('\n')
+          context: elementsWithInlineStyles.map(el => el.outerHTML).join('\n')
         });
       }
       
