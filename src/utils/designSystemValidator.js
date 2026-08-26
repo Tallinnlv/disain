@@ -173,8 +173,15 @@ export function createValidatorWidget() {
     dsConsole.clear();
     dsConsole.info('Running validation on all components...');
     
-    // Trigger validation for all components with design system classes
-    const designSystemElements = document.querySelectorAll('[class*="tds-"]');
+    // Trigger validation for all components with design system classes.
+    // Exclude the console and this widget: their own UI uses tds-* classes.
+    const designSystemElements = Array.from(
+      document.querySelectorAll('[class*="tds-"]'),
+    ).filter(
+      element =>
+        !element.closest('#tds-validation-console') &&
+        !element.closest('#tds-validator-widget'),
+    );
     designSystemElements.forEach(element => {
       const html = element.outerHTML;
       const componentName = detectComponentTypeFromElement(element);

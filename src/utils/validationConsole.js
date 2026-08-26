@@ -306,13 +306,21 @@ export function createValidationConsole() {
     
     // Run validation button handler
     document.getElementById('tds-run-validation').addEventListener('click', () => {
-      // Clear existing results (optional - you can remove this if you want to keep previous results)
-      // consoleAPI.clear();
-      
+      // Clear previous results so repeated runs stay comparable
+      consoleAPI.clear();
+
       dsConsole.info('Running validation on all components...');
-      
-      // Find all design system components in the page
-      const designSystemElements = document.querySelectorAll('[class*="tds-"]');
+
+      // Find all design system components in the page. The console and the
+      // validator widget build their own UI from tds-* classed elements, so
+      // exclude them or every run would validate the previous run's output.
+      const designSystemElements = Array.from(
+        document.querySelectorAll('[class*="tds-"]'),
+      ).filter(
+        (element) =>
+          !element.closest('#tds-validation-console') &&
+          !element.closest('#tds-validator-widget'),
+      );
       
       if (designSystemElements.length === 0) {
         dsConsole.warn('No design system components found on the page.');
@@ -336,12 +344,7 @@ export function createValidationConsole() {
           }
           
           // Run accessibility checks
-          if (typeof scanForA11y === 'function') {
-            scanForA1y(html, componentName);
-          } else {
-            // If scanForA11y is not directly available, try to run basic a11y checks
-            runBasicA11yChecks(element, componentName);
-          }
+          runBasicA11yChecks(element, componentName);
           
           // Run design system validation
           if (typeof validateDesignSystem === 'function') {
