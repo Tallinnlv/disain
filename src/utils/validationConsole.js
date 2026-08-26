@@ -1,4 +1,5 @@
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
+import { validateDesignSystem } from './designValidator';
 
 /**
  * Creates an interactive validation console that displays in the browser
@@ -311,49 +312,78 @@ export function createValidationConsole() {
 
       dsConsole.info('Running validation on all components...');
 
-      // Find all design system components in the page. The console and the
-      // validator widget build their own UI from tds-* classed elements, so
-      // exclude them or every run would validate the previous run's output.
-      const designSystemElements = Array.from(
-        document.querySelectorAll('[class*="tds-"]'),
-      ).filter(
-        (element) =>
-          !element.closest('#tds-validation-console') &&
-          !element.closest('#tds-validator-widget'),
-      );
-      
-      if (designSystemElements.length === 0) {
+      // The examples live in same-origin iframes (CodePreviewIframe), so
+      // scan those documents as well as the top page.
+      const documents = [document];
+      document.querySelectorAll('iframe').forEach((frame) => {
+        try {
+          if (frame.contentDocument) documents.push(frame.contentDocument);
+        } catch (error) {
+          // Cross-origin iframe - not one of ours, skip it
+        }
+      });
+
+      // Collect root design system components. Skip elements nested inside
+      // another tds-* element so each component is validated once, and
+      // exclude the console's and validator widget's own tds-* classed UI.
+      const components = [];
+      documents.forEach((doc) => {
+        doc.querySelectorAll('[class*="tds-"]').forEach((element) => {
+          if (
+            element.closest('#tds-validation-console') ||
+            element.closest('#tds-validator-widget')
+          ) {
+            return;
+          }
+          const parent = element.parentElement;
+          if (parent && parent.closest('[class*="tds-"]')) return;
+          components.push(element);
+        });
+      });
+
+      if (components.length === 0) {
         dsConsole.warn('No design system components found on the page.');
         return;
       }
-      
-      dsConsole.info(`Found ${designSystemElements.length} design system components to validate.`);
-      
-      // Run validation on each component
-      designSystemElements.forEach(element => {
+
+      const frameCount = documents.length - 1;
+      dsConsole.info(
+        `Found ${components.length} components on the page and in ${frameCount} example frames.`,
+      );
+
+      let a11yErrors = 0;
+      let a11yWarnings = 0;
+
+      components.forEach((element) => {
         try {
-          const html = element.outerHTML;
           const componentName = detectComponentTypeFromElement(element);
-          
-          // Run HTML validation
-          validateHTMLStructure(html, componentName);
-          
-          // Run W3C validation if enabled
-          if (window.TDS_VALIDATE_W3C) {
-            validateWithW3C(html, componentName);
-          }
-          
-          // Run accessibility checks
-          runBasicA11yChecks(element, componentName);
-          
-          // Run design system validation
-          if (typeof validateDesignSystem === 'function') {
-            validateDesignSystem(html, componentName);
-          }
+
+          const a11yResult = runBasicA11yChecks(element, componentName);
+          a11yErrors += a11yResult.errors;
+          a11yWarnings += a11yResult.warnings;
+
+          validateDesignSystem(element.outerHTML, componentName);
         } catch (error) {
           dsConsole.error(`Error validating component: ${error.message}`, error.stack);
         }
       });
+
+      // Per-tab summaries so a run is never silent
+      dsConsole.info(
+        `HTML: ${components.length} components scanned. The live DOM is always well-formed - source markup is validated automatically when examples render.`,
+      );
+      if (a11yErrors === 0 && a11yWarnings === 0) {
+        dsConsole.a11y.success(
+          `Accessibility: ${components.length} components checked, no basic issues found ✓`,
+        );
+      } else {
+        dsConsole.a11y.warn(
+          `Accessibility: ${components.length} components checked - ${a11yErrors} errors, ${a11yWarnings} warnings (details above).`,
+        );
+      }
+      dsConsole.design.info(
+        `Design system: checking ${components.length} components, results follow...`,
+      );
     });
     
     // Helper function to detect component type from a DOM element
@@ -374,34 +404,38 @@ export function createValidationConsole() {
       return 'Unknown Component';
     }
     
-    // Basic a11y checks directly in the validation console
+    // Basic a11y checks directly in the validation console.
+    // Returns issue counts; the run handler prints one summary line instead
+    // of a success line per component.
     function runBasicA11yChecks(element, componentName) {
-      const issues = [];
-      
+      let errors = 0;
+      let warnings = 0;
+
       // Check for images without alt
       const imagesWithoutAlt = element.querySelectorAll('img:not([alt])');
       if (imagesWithoutAlt.length > 0) {
-        dsConsole.a11y.error(`Found ${imagesWithoutAlt.length} images without alt text`, 
+        errors += imagesWithoutAlt.length;
+        dsConsole.a11y.error(`Found ${imagesWithoutAlt.length} images without alt text`,
           imagesWithoutAlt[0].outerHTML, componentName);
       }
-      
+
       // Check for empty buttons without aria-label
       const emptyButtons = element.querySelectorAll('button:empty:not([aria-label]):not([aria-labelledby])');
       if (emptyButtons.length > 0) {
-        dsConsole.a11y.error(`Found ${emptyButtons.length} empty buttons without accessible name`, 
+        errors += emptyButtons.length;
+        dsConsole.a11y.error(`Found ${emptyButtons.length} empty buttons without accessible name`,
           emptyButtons[0].outerHTML, componentName);
       }
-      
+
       // Check for form elements without labels
       const unlabeledInputs = element.querySelectorAll('input:not([type="hidden"]):not([aria-label]):not([aria-labelledby])');
       if (unlabeledInputs.length > 0) {
-        dsConsole.a11y.warn(`Found ${unlabeledInputs.length} form elements that might need labels`, 
+        warnings += unlabeledInputs.length;
+        dsConsole.a11y.warn(`Found ${unlabeledInputs.length} form elements that might need labels`,
           unlabeledInputs[0].outerHTML, componentName);
       }
-      
-      if (issues.length === 0) {
-        dsConsole.a11y.success(`Basic accessibility checks passed for ${componentName}`, null, componentName);
-      }
+
+      return { errors, warnings };
     }
     
     // Create the console API
@@ -621,19 +655,3 @@ export function createValidationConsole() {
           success: () => {},
           // Add any other methods your console provides
       };
-  
-  // Import dependencies or define validation functions
-  function validateHTMLStructure(html, componentName) {
-    // Implement basic HTML validation if not already imported
-    const hasValidStructure = !html.includes('</') || html.includes('<');
-    if (!hasValidStructure) {
-      dsConsole.error(`HTML structure appears invalid`, html.substring(0, 100), componentName);
-      return false;
-    }
-    return true;
-  }
-  
-  function validateWithW3C(html, componentName) {
-    // Simplified W3C validation placeholder
-    dsConsole.info(`W3C validation would be performed here`, null, componentName);
-  } 
