@@ -1,4 +1,7 @@
 (function () {
+  // Hide functions for all tooltips, used for dismissing with Escape
+  const hideFunctions = [];
+
   // Select all elements with the tooltip-target class
   document.querySelectorAll('.tooltip-target').forEach((element) => {
     const tooltip = document.getElementById(
@@ -60,5 +63,16 @@
         }
       }
     });
+
+    hideFunctions.push(hideTooltip);
+  });
+
+  // Dismiss tooltips with the Escape key (WCAG 1.4.13). Listens on the
+  // document so it also works when the tooltip is shown by hovering an
+  // element that does not have keyboard focus.
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      hideFunctions.forEach((hide) => hide());
+    }
   });
 })();
