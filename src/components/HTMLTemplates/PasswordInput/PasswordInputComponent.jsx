@@ -44,6 +44,7 @@ const PasswordInputComponent = ({
           </svg>
         </span>
       </button>
+    </div>
   </div>
 </div>
     `;
