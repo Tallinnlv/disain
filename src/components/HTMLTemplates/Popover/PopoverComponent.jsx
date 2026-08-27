@@ -26,7 +26,7 @@ const PopoverComponent = ({
   showButtons = false,
 }) => {
   return html`
-  <div class="tds-popover"${customStyle ? ` style="${customStyle}"` : ''}>
+  <div class="tds-popover"${customStyle ? ` style="${customStyle}" data-demo-style=""` : ''}>
     <div class="tds-popover__wrapper">
       ${title ? `<div class="tds-popover__title">${title}</div>` : ''}
       <div class="tds-popover__content">${content}</div>

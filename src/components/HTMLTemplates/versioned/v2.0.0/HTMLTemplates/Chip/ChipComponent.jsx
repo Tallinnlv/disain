@@ -17,7 +17,7 @@ const getIconInputSvg = (size) => {
 };
 
 const getTooltip = (content, id) => {
-  return html`<div id="${id}" class="tds-tooltip" role="tooltip" data-position="top" style="z-index: 1000;">${content}</div>`;
+  return html`<div id="${id}" class="tds-tooltip" role="tooltip" data-position="top" style="z-index: 1000;" data-demo-style="">${content}</div>`;
 };
 
 /**
@@ -48,7 +48,7 @@ const ChipComponent = ({
     return html`
 <button type="button" class="tds-chip tds-chip--selection tds-chip--selection-${chipSize}${selected ? ' tds-chip--selected' : ''}${tooltipId ? ' tooltip-target' : ''}" onclick="this.classList.toggle('tds-chip--selected')"${tooltipId ? ` aria-describedby="${tooltipId}" data-position="top"` : ''}>
   ${iconLeft && customIcon && chipSize !== 'small' ? customIcon : ''}
-  ${content ? html`<span class="tds-chip--text"${customTextStyle ? ` style="${customTextStyle}"` : ''}>
+  ${content ? html`<span class="tds-chip--text"${customTextStyle ? ` style="${customTextStyle}" data-demo-style=""` : ''}>
     ${tooltipId ? content.slice(0, 20) + '...' : content}
   </span>` : ''}
 </button>
@@ -59,7 +59,7 @@ ${tooltipId ? getTooltip(content, tooltipId) : ''}
   return html`
 <div class="tds-chip tds-chip--input tds-chip--input-${chipSize}${tooltipId ? ' tooltip-target' : ''}"${tooltipId ? ` aria-describedby="${tooltipId}" data-position="top"` : ''}>
   ${iconLeft && customIcon && chipSize !== 'small' ? customIcon : ''}
-  ${content ? html`<span class="tds-chip--text"${customTextStyle ? ` style="${customTextStyle}"` : ''}>${tooltipId ? content.slice(0, 20) + '...' : content}</span>` : ''}
+  ${content ? html`<span class="tds-chip--text"${customTextStyle ? ` style="${customTextStyle}" data-demo-style=""` : ''}>${tooltipId ? content.slice(0, 20) + '...' : content}</span>` : ''}
   <button type="button" class="tds-chip--input__button">
     ${getIconInputSvg(chipSize)}
   </button>

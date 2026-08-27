@@ -64,18 +64,18 @@ const TableComponent = ({
 
     columns.forEach((column, columnIndex) => {
         tableRowsHtml +=`
-        <td class="tds-table__cell${alignRight && columnIndex % 2 !== 0 ? ' tds-table__cell--right' : ''}${alignRightLastColumn && columnIndex === columns.length - 1 ? ' tds-table__cell--right' : ''}${column.alignRight ? ' tds-table__cell--right' : ''}"${column.key === 'darkMode' ? ' style="background-color: #131416; color: white;"': ''} data-title="${column.label}" data-key="${column.key}">
+        <td class="tds-table__cell${alignRight && columnIndex % 2 !== 0 ? ' tds-table__cell--right' : ''}${alignRightLastColumn && columnIndex === columns.length - 1 ? ' tds-table__cell--right' : ''}${column.alignRight ? ' tds-table__cell--right' : ''}"${column.key === 'darkMode' ? ' style="background-color: #131416; color: white;" data-demo-style=""': ''} data-title="${column.label}" data-key="${column.key}">
           ${column.key === 'lightMode' && colors[rowIndex] ? `
-                <div style="display: flex; align-items: center;">
-                  ${borderIcons ? `<span class="border-icon" style="border-color: ${colors[rowIndex].light}; margin-right: 8px;" aria-label="Light mode border color for ${row[column.key]}" role="img"></span>`
+                <div style="display: flex; align-items: center;" data-demo-style="">
+                  ${borderIcons ? `<span class="border-icon" style="border-color: ${colors[rowIndex].light}; margin-right: 8px;" data-demo-style="" aria-label="Light mode border color for ${row[column.key]}" role="img"></span>`
           : `<span class="color-icon" style="background-color: ${colors[rowIndex]
-            .light}; margin-right: 8px;"aria-label="Light mode color for ${row[column.key]}" role="img"></span>`}
+            .light}; margin-right: 8px;" data-demo-style="" aria-label="Light mode color for ${row[column.key]}" role="img"></span>`}
               ${row[column.key]}
             </div>` : column.key === 'darkMode' && colors[rowIndex]
-          ? `<div style="display: flex; align-items: center;">
-              ${borderIcons ? `<span class="border-icon" style="border-color: ${colors[rowIndex].dark}; margin-right: 8px;" aria-label="Dark mode border color for ${row[column.key]}" role="img"></span>`
+          ? `<div style="display: flex; align-items: center;" data-demo-style="">
+              ${borderIcons ? `<span class="border-icon" style="border-color: ${colors[rowIndex].dark}; margin-right: 8px;" data-demo-style="" aria-label="Dark mode border color for ${row[column.key]}" role="img"></span>`
             : `<span class="color-icon" style="background-color: ${colors[rowIndex]
-              .dark}; margin-right: 8px;" aria-label="Dark mode color for ${row[column.key]}" role="img"></span>`}
+              .dark}; margin-right: 8px;" data-demo-style="" aria-label="Dark mode color for ${row[column.key]}" role="img"></span>`}
             ${row[column.key]}
           </div>`
           : row[column.key]}

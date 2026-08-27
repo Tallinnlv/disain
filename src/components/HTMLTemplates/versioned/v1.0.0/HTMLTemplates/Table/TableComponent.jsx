@@ -113,19 +113,19 @@ export function TableComponent({
                       ? 'tds-table__cell--right'
                       : ''}"
                     ${column.key === 'darkMode'
-                      ? 'style="background-color: #131416; color: white;"'
+                      ? 'style="background-color: #131416; color: white;" data-demo-style=""'
                       : ''}
                     data-title="${column.label}"
                     data-key="${column.key}"
                   >
                     ${column.key === 'lightMode' && colors[rowIndex]
                       ? html`
-                          <div style="display: flex; align-items: center;">
+                          <div style="display: flex; align-items: center;" data-demo-style="">
                             ${borderIcons
                               ? html`<span
                                   class="border-icon"
                                   style="border-color: ${colors[rowIndex]
-                                    .light}; margin-right: 8px;"
+                                    .light}; margin-right: 8px;" data-demo-style=""
                                   aria-label="Light mode border color for ${row[
                                     column.key
                                   ]}"
@@ -134,7 +134,7 @@ export function TableComponent({
                               : html`<span
                                   class="color-icon"
                                   style="background-color: ${colors[rowIndex]
-                                    .light}; margin-right: 8px;"
+                                    .light}; margin-right: 8px;" data-demo-style=""
                                   aria-label="Light mode color for ${row[
                                     column.key
                                   ]}"
@@ -145,12 +145,12 @@ export function TableComponent({
                         `
                       : column.key === 'darkMode' && colors[rowIndex]
                         ? html`
-                            <div style="display: flex; align-items: center;">
+                            <div style="display: flex; align-items: center;" data-demo-style="">
                               ${borderIcons
                                 ? html`<span
                                     class="border-icon"
                                     style="border-color: ${colors[rowIndex]
-                                      .dark}; margin-right: 8px;"
+                                      .dark}; margin-right: 8px;" data-demo-style=""
                                     aria-label="Dark mode border color for ${row[
                                       column.key
                                     ]}"
@@ -159,7 +159,7 @@ export function TableComponent({
                                 : html`<span
                                     class="color-icon"
                                     style="background-color: ${colors[rowIndex]
-                                      .dark}; margin-right: 8px;"
+                                      .dark}; margin-right: 8px;" data-demo-style=""
                                     aria-label="Dark mode color for ${row[
                                       column.key
                                     ]}"
