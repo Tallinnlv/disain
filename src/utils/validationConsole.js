@@ -427,8 +427,17 @@ export function createValidationConsole() {
           emptyButtons[0].outerHTML, componentName);
       }
 
-      // Check for form elements without labels
-      const unlabeledInputs = element.querySelectorAll('input:not([type="hidden"]):not([aria-label]):not([aria-labelledby])');
+      // Check for form elements without labels. An input counts as labeled
+      // when it has aria-label/aria-labelledby, a wrapping <label>, or a
+      // <label for="..."> pointing at its id anywhere in its document.
+      const unlabeledInputs = Array.from(
+        element.querySelectorAll('input:not([type="hidden"]):not([aria-label]):not([aria-labelledby])'),
+      ).filter((input) => {
+        if (input.closest('label')) return false;
+        const id = input.getAttribute('id');
+        if (id && input.ownerDocument.querySelector(`label[for="${CSS.escape(id)}"]`)) return false;
+        return true;
+      });
       if (unlabeledInputs.length > 0) {
         warnings += unlabeledInputs.length;
         dsConsole.a11y.warn(`Found ${unlabeledInputs.length} form elements that might need labels`,
@@ -447,12 +456,15 @@ export function createValidationConsole() {
         const messageItem = document.createElement('div');
         messageItem.className = `tds-validation-error-item tds-${type}`;
         
-        let content = message;
+        // Render the message as text, not HTML: messages often contain tag
+        // names like </span>, which innerHTML would parse and swallow.
+        messageItem.textContent = message;
         if (componentName) {
-          content += `<span class="tds-component-info">(${componentName})</span>`;
+          const info = document.createElement('span');
+          info.className = 'tds-component-info';
+          info.textContent = `(${componentName})`;
+          messageItem.appendChild(info);
         }
-        
-        messageItem.innerHTML = content;
         
         if (context) {
           const contextElement = document.createElement('div');

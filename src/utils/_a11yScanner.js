@@ -137,7 +137,9 @@ function runBasicA11yChecks(container) {
   // Check 4: Form elements without labels
   const inputsWithoutLabels = container.querySelectorAll('input:not([type="hidden"]):not([aria-label]):not([aria-labelledby])');
   const inputsWithLabels = Array.from(inputsWithoutLabels).filter(input => {
-    // Check if this input has an associated label
+    // Check if this input has an associated label (wrapping <label> or
+    // a <label for="..."> pointing at its id)
+    if (input.closest('label')) return false;
     const id = input.getAttribute('id');
     return id ? container.querySelector(`label[for="${id}"]`) === null : true;
   });

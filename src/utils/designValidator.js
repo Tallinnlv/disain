@@ -104,9 +104,13 @@ export function validateDesignSystem(html, componentName) {
             (allowed) => prop === allowed || prop.startsWith(`${allowed}-`),
           ),
         );
+      // Elements marked data-demo-style are intentional demo visuals
+      // (token swatches, avatar placeholders) and are exempt.
       const elementsWithInlineStyles = Array.from(
         tempContainer.querySelectorAll('[style]'),
-      ).filter((el) => !isRuntimePositioningOnly(el));
+      ).filter(
+        (el) => !isRuntimePositioningOnly(el) && !el.hasAttribute('data-demo-style'),
+      );
       if (elementsWithInlineStyles.length > 0) {
         issues.push({
           severity: 'warning',
