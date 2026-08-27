@@ -72,9 +72,9 @@ const BadgeComponent = ({
   }
 
   return html`
-<div style="position: relative; display: inline-flex; align-items: center;">
-  <div style="display: block;" aria-hidden="${!!ariaLabel}">${iconSvg}</div>
-  <span style="position: absolute; ${getPositionStyle(iconPosition)}"${a11yAttributes}>
+<div style="position: relative; display: inline-flex; align-items: center;" data-demo-style="">
+  <div style="display: block;" data-demo-style="" aria-hidden="${!!ariaLabel}">${iconSvg}</div>
+  <span style="position: absolute; ${getPositionStyle(iconPosition)}" data-demo-style=""${a11yAttributes}>
     ${badgeElement}
   </span>
 </div>
