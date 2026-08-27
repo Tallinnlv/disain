@@ -69,7 +69,7 @@ const TableComponent = ({
                 <div style="display: flex; align-items: center;">
                   ${borderIcons ? `<span class="border-icon" style="border-color: ${colors[rowIndex].light}; margin-right: 8px;" aria-label="Light mode border color for ${row[column.key]}" role="img"></span>`
           : `<span class="color-icon" style="background-color: ${colors[rowIndex]
-            .light}; margin-right: 8px;"aria-label="Light mode color for ${row[column.key]}" role="img"></span>`}
+            .light}; margin-right: 8px;" aria-label="Light mode color for ${row[column.key]}" role="img"></span>`}
               ${row[column.key]}
             </div>` : column.key === 'darkMode' && colors[rowIndex]
           ? `<div style="display: flex; align-items: center;">
