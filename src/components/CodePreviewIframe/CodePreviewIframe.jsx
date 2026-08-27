@@ -139,7 +139,7 @@ const CodePreviewIframe = ({
                 ${width
                   ? `<div style="width: ${width}">${svgPath ? `<img src="${svgPath}" alt="SVG Image" />` : code}</div>`
                   : svgPath
-                    ? `<img src="${svgPath}"  style="width: ${customSvgWidth ? customSvgWidth : '100%'}; height: auto;"  height: auto;" alt="SVG Image" />`
+                    ? `<img src="${svgPath}" style="width: ${customSvgWidth ? customSvgWidth : '100%'}; height: auto;" alt="SVG Image" />`
                     : code}
               </div>
               <script>
