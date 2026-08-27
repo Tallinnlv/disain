@@ -74,7 +74,7 @@ When there isn't enough space in the viewport, the popover is moved to the side 
 <CodePreview
   minHeight="380px"
   code={
-    `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px">` + "\n" + "\n" +
+    `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px" data-demo-style="">` + "\n" + "\n" +
     PopoverComponent({
       title: "Popover title",
       content: "Popover content",
@@ -109,7 +109,7 @@ Position of the pointer may also be adjusted manually if needed.
 <CodePreview
   minHeight="750px"
   code={
-    `<div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: auto 1rem auto auto auto 1rem auto; gap: 1rem;">` + "\n" + "\n" +
+    `<div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: auto 1rem auto auto auto 1rem auto; gap: 1rem;" data-demo-style="">` + "\n" + "\n" +
     PopoverComponent({
       title: "Popover title",
       content: "Popover content",
