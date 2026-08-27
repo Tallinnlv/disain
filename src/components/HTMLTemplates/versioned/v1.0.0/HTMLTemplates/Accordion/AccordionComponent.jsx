@@ -43,7 +43,7 @@ export function AccordionComponent({ sections, showSuffix = false }) {
                   <span class="tds-accordion__section-toggle" data-nosnippet="">
                     <span class="tds-accordion__section-toggle-focus">
                       <span
-                        class="tds-accordion-nav__chevron ${section.expanded ? `tds-accordion-nav__chevron--up"` : `tds-accordion-nav__chevron--down`}"
+                        class="tds-accordion-nav__chevron ${section.expanded ? `tds-accordion-nav__chevron--up` : `tds-accordion-nav__chevron--down`}"
                       ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
   <path fill-rule="evenodd" clip-rule="evenodd" d="M5.69189 11.5764L7.64137 9.7569L16 18.7125L24.3586 9.7569L26.308 11.5764L16 22.6208L5.69189 11.5764Z" fill="#131416"/>
 </svg></span>
@@ -57,6 +57,7 @@ export function AccordionComponent({ sections, showSuffix = false }) {
                     </span>
                   </span>
                   ${showSuffix ? renderSuffix(section.suffix) : ''}
+                  </span>
                 </button>
               </h2>
             </div>
