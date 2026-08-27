@@ -93,9 +93,11 @@ export function validateDesignSystem(html, componentName) {
       // Ignore elements whose inline style is purely positioning: Popper.js
       // (and similar runtime positioning) writes position/inset/transform
       // inline on tooltips and popovers, which is not an authored violation.
+      // 'display' is included because component scripts toggle visibility
+      // via style.display at runtime (tabs arrows, date-picker internals).
       const positioningProps = [
         'position', 'inset', 'top', 'right', 'bottom', 'left',
-        'margin', 'transform', 'z-index',
+        'margin', 'transform', 'z-index', 'display',
       ];
       const isRuntimePositioningOnly = (el) =>
         Array.from(el.style).length > 0 &&
@@ -104,9 +106,13 @@ export function validateDesignSystem(html, componentName) {
             (allowed) => prop === allowed || prop.startsWith(`${allowed}-`),
           ),
         );
+      // Elements marked data-demo-style are intentional demo visuals
+      // (token swatches, avatar placeholders) and are exempt.
       const elementsWithInlineStyles = Array.from(
         tempContainer.querySelectorAll('[style]'),
-      ).filter((el) => !isRuntimePositioningOnly(el));
+      ).filter(
+        (el) => !isRuntimePositioningOnly(el) && !el.hasAttribute('data-demo-style'),
+      );
       if (elementsWithInlineStyles.length > 0) {
         issues.push({
           severity: 'warning',

@@ -55,7 +55,12 @@ const CodePreviewIframe = ({
 }) => {
   const html = String.raw;
 
-  code = htmlCode`${code}`;
+  // Only process (and validate) actual markup: some previews have no code
+  // prop, and htmlCode`${undefined}` would produce the literal string
+  // "undefined", which the validators then flag as a fake component.
+  if (code != null) {
+    code = htmlCode`${code}`;
+  }
 
   // Merge single scriptPath into scriptPaths for backward compatibility
   const allScripts = [...(scriptPath ? [scriptPath] : []), ...scriptPaths];
@@ -134,7 +139,7 @@ const CodePreviewIframe = ({
                 ${width
                   ? `<div style="width: ${width}">${svgPath ? `<img src="${svgPath}" alt="SVG Image" />` : code}</div>`
                   : svgPath
-                    ? `<img src="${svgPath}"  style="width: ${customSvgWidth ? customSvgWidth : '100%'}; height: auto;"  height: auto;" alt="SVG Image" />`
+                    ? `<img src="${svgPath}" style="width: ${customSvgWidth ? customSvgWidth : '100%'}; height: auto;" alt="SVG Image" />`
                     : code}
               </div>
               <script>
