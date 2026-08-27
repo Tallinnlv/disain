@@ -92,9 +92,10 @@ export function TableComponent({
                   >
                     <input
                       type="checkbox"
-                      id="checkbox0-0"
+                      id="checkbox-row-${rowIndex}"
                       class="tds-checkboxes__input"
                       name="checkboxGroup0"
+                      aria-label="Select row ${rowIndex + 1}"
                       ${row.multiSelect === 'checked' ? `checked` : ''}
                     />
                   </div>
@@ -223,9 +224,10 @@ export function TableComponent({
                       >
                         <input
                           type="checkbox"
-                          id="checkbox0-0"
+                          id="checkbox-select-all"
                           class="tds-checkboxes__input tds-checkboxes__input--minus"
                           name="checkboxGroup0"
+                          aria-label="Select all rows"
                           checked
                         />
                       </div>

@@ -58,7 +58,7 @@ const TableComponent = ({
       <tr class="tds-table__row${row.multiSelect === 'checked' ? ` tds-table__row--selected`: ''}">
         ${multiSelect ? `<td class="tds-table__cell">
           <div class="tds-checkboxes__item tds-checkboxes__item--compact">
-            <input class="tds-checkboxes__input" type="checkbox" id="checkbox0-0" name="checkboxGroup0"${row.multiSelect === 'checked' ? ` checked` : ''} />
+            <input class="tds-checkboxes__input" type="checkbox" id="checkbox-row-${rowIndex}" name="checkboxGroup0" aria-label="Select row ${rowIndex + 1}"${row.multiSelect === 'checked' ? ` checked` : ''} />
           </div>
         </td>` : ''}`;
 
@@ -106,7 +106,7 @@ const TableComponent = ({
       <tr class="tds-table__row">
         ${multiSelect ? `<th class="tds-table__header" scope="col">
           <div class="tds-checkboxes__item tds-checkboxes__item--compact">
-            <input class="tds-checkboxes__input tds-checkboxes__input--minus" name="checkboxGroup0" checked type="checkbox" id="checkbox0-0" />
+            <input class="tds-checkboxes__input tds-checkboxes__input--minus" name="checkboxGroup0" checked type="checkbox" id="checkbox-select-all" aria-label="Select all rows" />
           </div>
         </th>` : ''}
         ${tableHeadersHtml}
