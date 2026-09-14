@@ -19,6 +19,7 @@ import { uid } from '@site/src/utils/uid';
  * @param {boolean} [props.compact=false] - Compact size
  * @param {boolean} [props.titleRequired=false] - Show the required indicator
  * @param {boolean} [props.isDisabled=false] - Disabled state
+ * @param {string} [props.ariaLabel=''] - Accessible name of the select when there is no visible title
  */
 
 const SelectComponent = (props = {}) => {
@@ -35,6 +36,7 @@ const SelectComponent = (props = {}) => {
     selectCustomText = '',
     isError = false,
     isDisabled = false,
+    ariaLabel = '',
   } = props;
 
   const id = customId ?? uid('select', props);
@@ -80,7 +82,8 @@ const SelectComponent = (props = {}) => {
       aria-haspopup="listbox"
       aria-controls="${listboxId}"
       aria-expanded="false"${title ? `
-      aria-labelledby="${labelId}"` : ''}${describedBy ? `
+      aria-labelledby="${labelId}"` : ariaLabel ? `
+      aria-label="${ariaLabel}"` : ''}${describedBy ? `
       aria-describedby="${describedBy}"` : ''}${isError ? `
       aria-invalid="true"` : ''}${isDisabled ? `
       disabled` : ''}
@@ -92,7 +95,7 @@ const SelectComponent = (props = {}) => {
         </svg>
       </span>
     </button>
-    <ul class="tds-dropdown${compact ? ' tds-dropdown--compact' : ''}" id="${listboxId}" role="listbox"${title ? ` aria-labelledby="${labelId}"` : ''} tabindex="-1" hidden>
+    <ul class="tds-dropdown${compact ? ' tds-dropdown--compact' : ''}" id="${listboxId}" role="listbox"${title ? ` aria-labelledby="${labelId}"` : ariaLabel ? ` aria-label="${ariaLabel}"` : ''} tabindex="-1" hidden>
       ${options}
     </ul>
   </div>

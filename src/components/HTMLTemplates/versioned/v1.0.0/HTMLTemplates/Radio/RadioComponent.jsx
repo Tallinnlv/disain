@@ -1,110 +1,120 @@
-/**
- * @param {object} props
- * @param {array} [props.modifiers] - Additional CSS classes
- * @param {array} [props.title=['', '']] - The title of the radio group
- * @param {array} [props.hintTitle=['', '']] - The hint of the radio group
- * @param {array} [props.radios] - The options for the radios
- * @param {array} [props.errorMessage=['','']] - The error message
- * @param {boolean} [props.compact = false] - The compact state
- */
-
-const html = String.raw;
+import { html } from '@site/src/utils/formatHtml';
+import { uid } from '@site/src/utils/uid';
 
 const required = `<span class="tds-fieldset__required">*</span>`;
 
-const createRadio = (radio, columnIndex, index, modifiers) => {
-  const radioHasError = radio.radioHasError ? 'tds-radios__item--error' : '';
-  const isDisabled = radio.disabled ? 'is-disabled' : '';
-  const isChecked = radio.checked ? 'checked' : '';
-  const isRequired = radio.required ? required : '';
-  const disabled =
-    radio.disabled || modifiers.includes('is-disabled') ? 'disabled' : '';
+const classes = (...names) => names.filter(Boolean).join(' ');
+
+/**
+ * One radio item.
+ * @param {object} radio - option definition (label, checked, disabled, hint, required,
+ *   radioHasError, errorMessage)
+ * @param {string} optionId - id of the input; hint/error ids derive from it
+ * @param {string} name - name attribute (shared by the whole column)
+ * @param {string|string[]} modifiers - group modifiers
+ * @param {boolean} groupHasError - whether the whole group is in error state
+ */
+const createRadio = (radio, optionId, name, modifiers, groupHasError) => {
+  const hasError = Boolean(radio.radioHasError);
+  const disabled = radio.disabled || modifiers.includes('is-disabled');
+  const hintId = `${optionId}-hint`;
+  const errorId = `${optionId}-error`;
+
   const label = radio.label
-    ? `<label for="radio${columnIndex}-${index}" class="tds-label tds-radios__label">${radio.label}${isRequired}</label>`
+    ? `<label for="${optionId}" class="tds-label tds-radios__label">${radio.label}${radio.required ? required : ''}</label>`
     : '';
   const hint = radio.hint
-    ? `<div id="radio${columnIndex}-${index}-hint" class="tds-radio-hint">${radio.hint}</div>`
+    ? `<div id="${hintId}" class="tds-radio-hint">${radio.hint}</div>`
     : '';
-  const errorMessage = radio.radioHasError
-    ? `<div id="radio${columnIndex}-${index}-error" class="tds-fieldset__notice--error-text-below">Error message</div>`
+  const errorMessage = hasError
+    ? `<div id="${errorId}" class="tds-fieldset__notice--error-text-below">${radio.errorMessage || 'Error message'}</div>`
     : '';
 
-  const ariaDescribedBy = [
-    hint ? `radio${columnIndex}-${index}-hint` : '',
-    radio.radioHasError ? `radio${columnIndex}-${index}-error` : '',
-  ]
+  const describedBy = [radio.hint ? hintId : '', hasError ? errorId : '']
     .filter(Boolean)
     .join(' ');
 
+  const attributes = [
+    'type="radio"',
+    `id="${optionId}"`,
+    'class="tds-radios__input"',
+    `name="${name}"`,
+    radio.checked ? 'checked' : '',
+    disabled ? 'disabled' : '',
+    hasError || groupHasError ? 'aria-invalid="true"' : '',
+    describedBy ? `aria-describedby="${describedBy}"` : '',
+  ]
+    .filter(Boolean)
+    .join('\n        ');
+
   return html`
-    <div class="tds-radios__item ${radioHasError} ${isDisabled}">
+    <div class="${classes('tds-radios__item', hasError && 'tds-radios__item--error', radio.disabled && 'is-disabled')}">
       <input
-        type="radio"
-        id="radio${columnIndex}-${index}"
-        class="tds-radios__input"
-        ${isChecked}
-        ${disabled}
-        ${radio.radioHasError ? 'aria-invalid="true"' : ''}
-        ${ariaDescribedBy ? `aria-describedby="${ariaDescribedBy}"` : ''}
-        name="radioGroup${columnIndex}"
+        ${attributes}
       />
       ${label} ${hint} ${errorMessage}
     </div>
   `;
 };
 
-const createFieldset = (
+const createFieldset = ({
+  id,
   items,
-  index,
   modifiers,
   title,
   hintTitle,
   errorMessage,
   titleRequired,
   compact,
-  radios,
   inline,
-) => {
-  const isError = modifiers.includes('is-error') ? 'tds-fieldset--error' : '';
-  const isCompact = compact ? 'tds-fieldset--compact' : '';
-  const titleText = Array.isArray(title) ? title[index] : title;
-  const hintTitleText = Array.isArray(hintTitle) ? hintTitle[index] : hintTitle;
+}) => {
+  const isError = modifiers.includes('is-error');
+  const titleText = Array.isArray(title) ? title[0] : title;
+  const hintTitleText = Array.isArray(hintTitle) ? hintTitle[0] : hintTitle;
   const errorMessageText = Array.isArray(errorMessage)
-    ? errorMessage[index]
+    ? errorMessage[0]
     : errorMessage;
 
+  const legendId = `${id}-legend`;
+  const hintId = `${id}-hint`;
+  const errorId = `${id}-error`;
+
   const titleHTML = titleText
-    ? html`<legend id="fieldset-title-${index}" class="tds-fieldset__text">
+    ? html`<legend id="${legendId}" class="tds-fieldset__text">
         ${titleText}${titleRequired ? required : ''}
       </legend>`
     : '';
   const hintTitleHTML = hintTitleText
-    ? html`<div id="fieldset-hint-${index}" class="tds-fieldset__text--hint">
+    ? html`<div id="${hintId}" class="tds-fieldset__text--hint">
         ${hintTitleText}
       </div>`
     : '';
   const errorMessageHTML = isError
-    ? html`<div id="fieldset-error-${index}" class="tds-fieldset__notice">
+    ? html`<div id="${errorId}" class="tds-fieldset__notice">
         ${errorMessageText}
       </div>`
     : '';
 
-  const ariaDescribedBy = [
-    hintTitleText ? `fieldset-hint-${index}` : '',
-    isError ? `fieldset-error-${index}` : '',
-  ]
+  const describedBy = [hintTitleText ? hintId : '', isError ? errorId : '']
     .filter(Boolean)
     .join(' ');
 
+  const attributes = [
+    `id="${id}"`,
+    `class="${classes('tds-fieldset', isError && 'tds-fieldset--error', compact && 'tds-fieldset--compact')}"`,
+    titleText ? `aria-labelledby="${legendId}"` : '',
+    describedBy ? `aria-describedby="${describedBy}"` : '',
+  ]
+    .filter(Boolean)
+    .join('\n      ');
+
   return html`
     <fieldset
-      class="tds-fieldset ${isError} ${isCompact}"
-      aria-labelledby="${titleText ? `fieldset-title-${index}` : ''}"
-      ${ariaDescribedBy ? `aria-describedby="${ariaDescribedBy}"` : ''}
+      ${attributes}
     >
       <div class="tds-fieldset__column">
         ${titleHTML} ${hintTitleHTML} ${errorMessageHTML}
-        <div class="tds-radios ${inline ? 'tds-radios--inline' : ''}">
+        <div class="${classes('tds-radios', inline && 'tds-radios--inline')}">
           ${items}
         </div>
       </div>
@@ -112,34 +122,70 @@ const createFieldset = (
   `;
 };
 
-export function RadioComponent({
-  modifiers = '',
-  title = '',
-  hintTitle = '',
-  errorMessage = '',
-  compact = false,
-  radios = [],
-  titleRequired = false,
-  inline = false,
-  subRadios = [],
-}) {
-  subRadios = Array.isArray(subRadios) ? subRadios : [];
+/**
+ * @param {object} props
+ * @param {string} [props.id] - Id prefix for the group; every option, hint and error id derives from it. Generated when omitted.
+ * @param {string} [props.name] - Name attribute of the inputs (defaults to the id; columns after the first get a numeric suffix)
+ * @param {string|string[]} [props.modifiers=''] - Additional CSS classes
+ * @param {string|string[]} [props.title=''] - The title of the radio group
+ * @param {string|string[]} [props.hintTitle=''] - The hint of the radio group
+ * @param {array} [props.radios=[]] - Columns of options
+ * @param {string|string[]} [props.errorMessage=''] - The error message for the radio group
+ * @param {boolean} [props.titleRequired = false] - The required indicator for the radio group
+ * @param {boolean} [props.compact = false] - The compact state
+ * @param {boolean} [props.inline = false] - The inline layout of the radio group
+ * @param {array} [props.subRadios=[]] - Columns of sub-options rendered in an indented wrapper
+ */
+
+export function RadioComponent(props = {}) {
+  const {
+    modifiers = '',
+    title = '',
+    hintTitle = '',
+    errorMessage = '',
+    compact = false,
+    radios = [],
+    titleRequired = false,
+    inline = false,
+    name,
+  } = props;
+  const subRadios = Array.isArray(props.subRadios) ? props.subRadios : [];
+
+  const id = props.id ?? uid('radio', props);
+  const groupName = name ?? id;
+  const groupHasError = modifiers.includes('is-error');
+  const multiColumn = radios.length > 1;
 
   const radioItems = radios
     .map((radioColumn, columnIndex) => {
+      const columnName = multiColumn
+        ? `${groupName}-${columnIndex + 1}`
+        : groupName;
+      const optionPrefix = multiColumn ? `${id}-${columnIndex + 1}` : id;
+
       const mainRadios = radioColumn
         .map((radio, index) =>
-          createRadio(radio, columnIndex, index, modifiers),
+          createRadio(
+            radio,
+            `${optionPrefix}-option-${index + 1}`,
+            columnName,
+            modifiers,
+            groupHasError,
+          ),
         )
         .join('');
 
-      const subRadioItems = subRadios[columnIndex]
-        ? subRadios[columnIndex]
-            .map((subRadio, subIndex) =>
-              createRadio(subRadio, columnIndex, `sub-${subIndex}`, modifiers),
-            )
-            .join('')
-        : '';
+      const subRadioItems = (subRadios[columnIndex] || [])
+        .map((subRadio, subIndex) =>
+          createRadio(
+            subRadio,
+            `${optionPrefix}-sub-${subIndex + 1}`,
+            columnName,
+            modifiers,
+            groupHasError,
+          ),
+        )
+        .join('');
 
       return html`
         ${mainRadios}
@@ -151,28 +197,27 @@ export function RadioComponent({
     .join('');
 
   if (!title && !hintTitle && !errorMessage) {
-    const isMultiple = radios.length > 1 || radios[0].length > 1;
+    const isMultiple = radios.length > 1 || (radios[0] || []).length > 1;
     return isMultiple
       ? html`
-          <div class="tds-radios ${inline ? 'tds-radios--inline' : ''}">
+          <div class="${classes('tds-radios', inline && 'tds-radios--inline')}">
             ${radioItems}
           </div>
         `
       : radioItems;
   }
 
-  return createFieldset(
-    radioItems,
-    0,
+  return createFieldset({
+    id,
+    items: radioItems,
     modifiers,
     title,
     hintTitle,
     errorMessage,
     titleRequired,
     compact,
-    radios,
     inline,
-  );
+  });
 }
 
 export default RadioComponent;
