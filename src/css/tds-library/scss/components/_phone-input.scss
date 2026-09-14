@@ -284,6 +284,16 @@
         color: var(--color-content-inverse);
       }
     }
+
+    &--focused {
+      background: var(--color-surface-highlight-moderate);
+      color: var(--color-content-inverse);
+
+      .tds-dropdown-phone__country,
+      .tds-dropdown-phone__country-code {
+        color: var(--color-content-inverse);
+      }
+    }
   }
 
   &__country {

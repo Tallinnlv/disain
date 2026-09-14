@@ -1,41 +1,73 @@
-// Add this script to your page or include it in a separate JavaScript file
-document.addEventListener('DOMContentLoaded', function() {
-    // Find all "Select All" checkboxes
-    const selectAllCheckboxes = document.querySelectorAll('.tds-checkboxes__item input[id$="-0"]');
-    
-    selectAllCheckboxes.forEach(selectAllCheckbox => {
-      // Only process checkboxes with "Vali kõik" label
-      const label = selectAllCheckbox.nextElementSibling;
-      if (label && label.textContent.trim() === 'Vali kõik') {
-        const fieldset = selectAllCheckbox.closest('.tds-fieldset');
-        if (!fieldset) return;
-        
-        // Find all sub-checkboxes in the same fieldset
-        const subCheckboxes = fieldset.querySelectorAll('.tds-checkboxes__sub-category-wrapper input[type="checkbox"]');
-        
-        // Add event listener for the "Select All" checkbox
-        selectAllCheckbox.addEventListener('change', function() {
-          const isChecked = this.checked;
-          
-          // Update all sub-checkboxes
-          subCheckboxes.forEach(checkbox => {
-            checkbox.checked = isChecked;
+/**
+ * Checkbox group: "select all".
+ *
+ * Every checkbox with `data-select-all` controls the other checkboxes in its
+ * group (the closest `.tds-checkboxes`, or fieldset). Both directions stay in
+ * sync; when only some options are checked the select-all checkbox is set to
+ * the native indeterminate state.
+ */
+(function () {
+  function activeItems(items) {
+    return items.filter((item) => !item.disabled);
+  }
+
+  function syncSelectAll(selectAll, items) {
+    const active = activeItems(items);
+    const checkedCount = active.filter((item) => item.checked).length;
+    const allChecked = active.length > 0 && checkedCount === active.length;
+
+    selectAll.checked = allChecked;
+    selectAll.indeterminate = checkedCount > 0 && !allChecked;
+    selectAll.classList.toggle(
+      'tds-checkboxes__input--minus',
+      selectAll.indeterminate,
+    );
+  }
+
+  function init() {
+    document
+      .querySelectorAll('input[type="checkbox"][data-select-all]')
+      .forEach((selectAll) => {
+        if (selectAll.dataset.selectAllInitialised) return;
+
+        const group =
+          selectAll.closest('.tds-checkboxes') || selectAll.closest('fieldset');
+        if (!group) return;
+
+        const items = Array.from(
+          group.querySelectorAll('input[type="checkbox"]'),
+        ).filter(
+          (item) => item !== selectAll && !item.hasAttribute('data-select-all'),
+        );
+        if (items.length === 0) return;
+        selectAll.dataset.selectAllInitialised = 'true';
+
+        // True while select-all is applying its state to the items, so the
+        // change events it dispatches do not re-sync select-all halfway.
+        let applying = false;
+
+        selectAll.addEventListener('change', () => {
+          const checked = selectAll.checked;
+          applying = true;
+          activeItems(items).forEach((item) => {
+            if (item.checked === checked) return;
+            item.checked = checked;
+            // Let other listeners (validation, forms) know the value changed.
+            item.dispatchEvent(new Event('change', { bubbles: true }));
+          });
+          applying = false;
+          syncSelectAll(selectAll, items);
+        });
+
+        items.forEach((item) => {
+          item.addEventListener('change', () => {
+            if (!applying) syncSelectAll(selectAll, items);
           });
         });
-        
-        // Add event listeners for sub-checkboxes
-        subCheckboxes.forEach(checkbox => {
-          checkbox.addEventListener('change', function() {
-            // If any sub-checkbox is unchecked, uncheck the "Select All" checkbox
-            if (!this.checked) {
-              selectAllCheckbox.checked = false;
-            } 
-            // If all sub-checkboxes are checked, check the "Select All" checkbox
-            else if (Array.from(subCheckboxes).every(cb => cb.checked)) {
-              selectAllCheckbox.checked = true;
-            }
-          });
-        });
-      }
-    });
-  });
+
+        syncSelectAll(selectAll, items);
+      });
+  }
+
+  init();
+})();

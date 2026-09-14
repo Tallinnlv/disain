@@ -31,9 +31,15 @@ const IFRAME_WIDTH = {
  * @param {boolean} [props.hideCode] - Display block for showcase container
  * @param {boolean} [props.showDimensions] - Show dimensions of showcase container
  * @param {string} [props.cssPath] - Show dimensions of showcase container
+ * @param {string} [props.title='Component example'] - Accessible name of the iframe (WCAG 4.1.2)
+ * @param {string} [props.htmlLang='en'] - lang attribute of the example document (use 'et' for Estonian examples)
+ * @param {string} [props.imageAlt] - Alt text for an svgPath image; defaults to title
  */
 const CodePreviewIframe = ({
   isMobile,
+  title = 'Component example',
+  htmlLang = 'en',
+  imageAlt,
   theme = 'light',
   minHeight = '130px',
   width,
@@ -73,6 +79,7 @@ const CodePreviewIframe = ({
     >
       <iframe
         className={styles.root}
+        title={title}
         width={isMobile ? IFRAME_WIDTH.MOBILE : IFRAME_WIDTH.DESKTOP}
         style={{
           background: darkBg ? '#002652' : '#FFFFFF',
@@ -83,7 +90,7 @@ const CodePreviewIframe = ({
         }}
         srcDoc={html`
           <!doctype html>
-          <html lang="en" data-ts-theme="${theme}" style="overflow: hidden">
+          <html lang="${htmlLang}" data-ts-theme="${theme}" style="overflow: hidden">
             <head>
               <meta charset="UTF-8" />
               <meta
@@ -137,9 +144,9 @@ const CodePreviewIframe = ({
                   : `gap: ${customGap || '32px'};`}"
               >
                 ${width
-                  ? `<div style="width: ${width}">${svgPath ? `<img src="${svgPath}" alt="SVG Image" />` : code}</div>`
+                  ? `<div style="width: ${width}">${svgPath ? `<img src="${svgPath}" alt="${imageAlt ?? title}" />` : code}</div>`
                   : svgPath
-                    ? `<img src="${svgPath}" style="width: ${customSvgWidth ? customSvgWidth : '100%'}; height: auto;" alt="SVG Image" />`
+                    ? `<img src="${svgPath}" style="width: ${customSvgWidth ? customSvgWidth : '100%'}; height: auto;" alt="${imageAlt ?? title}" />`
                     : code}
               </div>
               <script>

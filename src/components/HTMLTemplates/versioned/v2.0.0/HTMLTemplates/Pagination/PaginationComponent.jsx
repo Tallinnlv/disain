@@ -10,6 +10,10 @@ import { html } from '@site/src/utils/formatHtml';
  * @param {number} props.activePage - The active page number
  * @param {number[]} [props.pages] - Whether to show the next page link
  * @param {boolean} [props.currentPageMargin] - Adding class for current page margin
+ * @param {string} [props.href = '#'] - Link pattern for page links; "{page}" is replaced with the page number
+ * @param {string} [props.previousLabel = 'Previous page'] - Accessible name of the previous link
+ * @param {string} [props.nextLabel = 'Next page'] - Accessible name of the next link
+ * @param {string} [props.ariaLabel = 'Pagination'] - Accessible name of the navigation landmark
  */
 
 const PaginationComponent = ({
@@ -21,7 +25,13 @@ const PaginationComponent = ({
   pages = [1, 7, 8, 9, 10, 11, total],
   activePage,
   currentPageMargin = false,
+  href = '#',
+  previousLabel = 'Previous page',
+  nextLabel = 'Next page',
+  ariaLabel = 'Pagination',
 }) => {
+  const pageHref = (pageNumber) => href.replace('{page}', pageNumber);
+
   const modifiedPages = pages.reduce((acc, currentValue, i, array) => {
     const nextValue = array[i + 1];
     if (nextValue - currentValue > 1) {
@@ -49,11 +59,13 @@ const PaginationComponent = ({
     const svgPath = isPrev
       ? 'M11.793 4.29297L13.2073 5.70718L7.91436 11.0001H21.5002V13.0001H7.91437L13.2073 18.293L11.793 19.7072L4.08594 12.0001L11.793 4.29297Z'
       : 'M17.0858 11.0001L11.7929 5.70718L13.2071 4.29297L20.9142 12.0001L13.2071 19.7072L11.7929 18.293L17.0858 13.0001H3.5V11.0001H17.0858Z';
+    const targetPage = isPrev ? Math.max(1, (activePage || page) - 1) : Math.min(total, (activePage || page) + 1);
+    // The visible title is hidden on small screens, so the accessible name
+    // comes from aria-label (it contains the visible text).
+    const label = isPrev ? previousLabel : nextLabel;
 
-    return (
-      shouldShow &&
-      html`<div class="tds-pagination__${direction}">
-    <a class="tds-pagination__link tds-button--tertiary" href="javascript:void(0);" rel="${direction}">
+    return html`<div class="tds-pagination__${direction}">
+    <a class="tds-pagination__link tds-button--tertiary" href="${pageHref(targetPage)}" rel="${isPrev ? 'prev' : 'next'}" aria-label="${label}">
       ${isPrev
         ? html`<svg class="tds-pagination__icon tds-pagination__icon--${direction}" xmlns="http://www.w3.org/2000/svg" height="24" width="24" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
         <path d="${svgPath}"></path>
@@ -61,15 +73,14 @@ const PaginationComponent = ({
       <span class="tds-pagination__link-title">
         ${direction.replace(/^(.)/, (match, firstLetter) =>
           firstLetter.toUpperCase(),
-        )}<span class="tds-visually-hidden"></span>
+        )}
       </span>
       ${isNext
         ? html`<svg class="tds-pagination__icon tds-pagination__icon--${direction}" xmlns="http://www.w3.org/2000/svg" height="24" width="24" aria-hidden="true" focusable="false" viewBox="0 0 24 24">
         <path d="${svgPath}"></path>
       </svg>` : ''}
     </a>
-  </div>`
-    );
+  </div>`;
   };
 
   const prevBtn = createButton('previous', showPrev, page, total);
@@ -83,17 +94,17 @@ const PaginationComponent = ({
   modifiedPages.forEach((pageNumber) => {
     if (pageNumber === '...') {
       paginationHtml += `
-    <li class="tds-pagination__item tds-pagination__item--ellipses">...</li>`;
+    <li class="tds-pagination__item tds-pagination__item--ellipses" aria-hidden="true">...</li>`;
     } else {
       paginationHtml += `
     <li class="tds-pagination__item${pageNumber === activePage ? ` tds-pagination__item--current${currentPageMargin ? ' tds-pagination__item--mobile-margin' : ''}` : ''}">
-      <a class="tds-link tds-pagination__link" href="javascript:void(0);" aria-label="Page ${pageNumber}"${pageNumber === activePage ? ' aria-current="page"' : ''}>${pageNumber}</a>
+      <a class="tds-link tds-pagination__link" href="${pageHref(pageNumber)}" aria-label="Page ${pageNumber}"${pageNumber === activePage ? ' aria-current="page"' : ''}>${pageNumber}</a>
     </li>`;
     }
   });
 
   return html`
-<nav class="tds-pagination${isFirstThreeItems ? ' tds-pagination--first-three-items-on-mobile' : ''}${isLastThreeItems ? ' tds-pagination--last-three-items-on-mobile' : ''}${truncated ? ' truncated' : ''}" aria-label="Pagination">
+<nav class="tds-pagination${isFirstThreeItems ? ' tds-pagination--first-three-items-on-mobile' : ''}${isLastThreeItems ? ' tds-pagination--last-three-items-on-mobile' : ''}${truncated ? ' truncated' : ''}" aria-label="${ariaLabel}">
   ${prevBtn}
   <ul class="tds-pagination__list">
     ${paginationHtml}

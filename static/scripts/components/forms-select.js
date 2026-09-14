@@ -1,142 +1,197 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const formControl = document.querySelector('.tds-form-control');
-  const dropdown = document.querySelector('#location');
-  const options = Array.from(
-    dropdown.querySelectorAll('.tds-dropdown__option'),
-  );
-  const iconContainer = document.querySelector('.tds-select__icon'); // Icon container
-  let currentIndex = -1;
+/*
+ * Select (custom listbox) — WAI-ARIA "select-only combobox" pattern.
+ *
+ * Focus always stays on the combobox button; the highlighted option is
+ * announced through aria-activedescendant. Every `.tds-select` on the page
+ * is initialised independently.
+ */
+(function () {
+  const HIGHLIGHT_CLASS = 'tds-dropdown__option--focused';
+  const TYPEAHEAD_TIMEOUT = 500;
 
-  // Open dropdown
-  function openDropdown() {
-    formControl.setAttribute('aria-expanded', 'true');
-    dropdown.hidden = false;
-    toggleArrow(true); // Add "arrow-up" class
+  function initSelect(root) {
+    if (root.dataset.selectInitialised) return;
 
-    // Ensure currentIndex points to the already selected option or defaults to 0
-    currentIndex = options.findIndex(
-      (option) => option.getAttribute('aria-selected') === 'true',
-    );
+    const button = root.querySelector('.tds-form-control');
+    const listbox = root.querySelector('[role="listbox"]');
+    if (!button || !listbox) return;
 
-    // If no option is selected, start at the first option
-    if (currentIndex === -1) {
-      currentIndex = 0;
-    }
+    root.dataset.selectInitialised = 'true';
 
-    focusOption(currentIndex);
-  }
+    const options = Array.from(listbox.querySelectorAll('[role="option"]'));
+    const valueText = button.querySelector('.tds-form-control__placeholder');
+    const icon = button.querySelector('.tds-select__icon');
+    let activeIndex = -1;
+    let searchString = '';
+    let searchTimer = null;
 
-  // Close dropdown
-  function closeDropdown() {
-    formControl.setAttribute('aria-expanded', 'false');
-    dropdown.hidden = true;
-    toggleArrow(false); // Remove "arrow-up" class
-    currentIndex = -1; // Reset index
-  }
+    const isOpen = () => !listbox.hidden;
 
-  // Focus a specific option
-  function focusOption(index) {
-    options.forEach((option, i) => {
-      if (i === index) {
-        option.classList.add('focused');
-        option.setAttribute('aria-selected', 'true');
-        option.scrollIntoView({ block: 'nearest' });
-        option.focus(); // Ensure the option receives keyboard focus
-      } else {
-        option.classList.remove('focused');
-        option.setAttribute('aria-selected', 'false');
-      }
-    });
-  }
-
-  // Select a specific option
-  function selectOption(index) {
-    if (index >= 0 && index < options.length) {
-      const selectedOption = options[index];
-      formControl.querySelector('.tds-form-control__placeholder').innerText =
-        selectedOption.innerText;
-
-      // Update aria-selected for all options
-      options.forEach((option) =>
-        option.setAttribute('aria-selected', 'false'),
+    const selectedIndex = () =>
+      options.findIndex(
+        (option) => option.getAttribute('aria-selected') === 'true',
       );
-      selectedOption.setAttribute('aria-selected', 'true');
-    }
-  }
 
-  // Toggle arrow direction using class
-  function toggleArrow(isOpen) {
-    if (isOpen) {
-      iconContainer.classList.add('arrow-up'); // Add the class when open
-    } else {
-      iconContainer.classList.remove('arrow-up'); // Remove the class when closed
-    }
-  }
+    // Move the visual + aria-activedescendant highlight (no real focus move).
+    function highlight(index) {
+      activeIndex = index;
+      options.forEach((option, i) => {
+        option.classList.toggle(HIGHLIGHT_CLASS, i === index);
+      });
 
-  // Handle button click
-  formControl.addEventListener('click', () => {
-    const isExpanded = formControl.getAttribute('aria-expanded') === 'true';
-    if (isExpanded) {
-      closeDropdown();
-    } else {
-      openDropdown();
-    }
-  });
-
-  // Handle keyboard navigation
-  formControl.addEventListener('keydown', (event) => {
-    if (dropdown.hidden) {
-      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-        openDropdown();
-        event.preventDefault();
+      if (index > -1 && options[index].id) {
+        button.setAttribute('aria-activedescendant', options[index].id);
+      } else {
+        button.removeAttribute('aria-activedescendant');
       }
-      return;
+      if (index > -1) options[index].scrollIntoView({ block: 'nearest' });
     }
 
-    switch (event.key) {
-      case 'ArrowDown':
-        currentIndex = (currentIndex + 1) % options.length; // Move to the next option
-        focusOption(currentIndex);
-        event.preventDefault();
-        break;
-
-      case 'ArrowUp':
-        currentIndex = (currentIndex - 1 + options.length) % options.length; // Move to the previous option
-        focusOption(currentIndex);
-        event.preventDefault();
-        break;
-
-      case 'Enter':
-        selectOption(currentIndex);
-        closeDropdown();
-        event.preventDefault();
-        break;
-
-      case 'Escape':
-        closeDropdown();
-        event.preventDefault();
-        break;
-
-      default:
-        break;
+    function open() {
+      if (isOpen() || options.length === 0) return;
+      listbox.hidden = false;
+      button.setAttribute('aria-expanded', 'true');
+      if (icon) icon.classList.add('arrow-up');
+      highlight(Math.max(selectedIndex(), 0));
     }
-  });
 
-  // Handle click on options
-  options.forEach((option, index) => {
-    option.addEventListener('click', () => {
-      selectOption(index);
-      closeDropdown();
+    function close() {
+      if (!isOpen()) return;
+      listbox.hidden = true;
+      button.setAttribute('aria-expanded', 'false');
+      if (icon) icon.classList.remove('arrow-up');
+      highlight(-1);
+    }
+
+    function select(index) {
+      if (index < 0 || index >= options.length) return;
+      options.forEach((option, i) => {
+        option.setAttribute('aria-selected', String(i === index));
+      });
+      if (valueText) valueText.textContent = options[index].textContent.trim();
+    }
+
+    // Jump to the next option whose label starts with the typed characters;
+    // repeating the same character cycles through options starting with it.
+    function typeahead(character) {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => {
+        searchString = '';
+      }, TYPEAHEAD_TIMEOUT);
+      searchString += character.toLowerCase();
+
+      const sameCharacter = searchString
+        .split('')
+        .every((c) => c === searchString[0]);
+      const query = sameCharacter ? searchString[0] : searchString;
+      const start = activeIndex + 1;
+
+      for (let i = 0; i < options.length; i += 1) {
+        const index = (start + i) % options.length;
+        const label = options[index].textContent.trim().toLowerCase();
+        if (label.startsWith(query)) {
+          highlight(index);
+          return;
+        }
+      }
+    }
+
+    // `key` can be missing on the fake keydown Chromium fires for autofill.
+    const isPrintable = (event) =>
+      (event.key || '').length === 1 &&
+      !event.ctrlKey &&
+      !event.metaKey &&
+      !event.altKey;
+
+    button.addEventListener('click', () => {
+      if (isOpen()) {
+        close();
+      } else {
+        open();
+      }
     });
-  });
 
-  // Close dropdown when clicking outside
-  document.addEventListener('click', (event) => {
-    if (
-      !formControl.contains(event.target) &&
-      !dropdown.contains(event.target)
-    ) {
-      closeDropdown();
-    }
-  });
-});
+    button.addEventListener('keydown', (event) => {
+      const key = event.key || '';
+      const last = options.length - 1;
+
+      if (!isOpen()) {
+        if (['ArrowDown', 'ArrowUp', 'Enter', ' ', 'Home', 'End'].includes(key)) {
+          event.preventDefault();
+          open();
+          if (key === 'Home') highlight(0);
+          if (key === 'End') highlight(last);
+        } else if (isPrintable(event)) {
+          event.preventDefault();
+          open();
+          typeahead(key);
+        }
+        return;
+      }
+
+      switch (key) {
+        case 'ArrowDown':
+          highlight(Math.min(activeIndex + 1, last));
+          break;
+        case 'ArrowUp':
+          highlight(Math.max(activeIndex - 1, 0));
+          break;
+        case 'PageDown':
+          highlight(Math.min(activeIndex + 10, last));
+          break;
+        case 'PageUp':
+          highlight(Math.max(activeIndex - 10, 0));
+          break;
+        case 'Home':
+          highlight(0);
+          break;
+        case 'End':
+          highlight(last);
+          break;
+        case 'Enter':
+        case ' ':
+          select(activeIndex);
+          close();
+          break;
+        case 'Escape':
+          close();
+          break;
+        case 'Tab':
+          // Commit and close, but let focus move on.
+          select(activeIndex);
+          close();
+          return;
+        default:
+          if (!isPrintable(event)) return;
+          typeahead(key);
+      }
+      event.preventDefault();
+    });
+
+    // Keep focus on the button while clicking inside the list.
+    listbox.addEventListener('mousedown', (event) => event.preventDefault());
+
+    listbox.addEventListener('click', (event) => {
+      const option = event.target.closest('[role="option"]');
+      if (!option) return;
+      select(options.indexOf(option));
+      close();
+      button.focus();
+    });
+
+    // Close when focus or a click lands outside the component.
+    root.addEventListener('focusout', (event) => {
+      if (!root.contains(event.relatedTarget)) close();
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!root.contains(event.target)) close();
+    });
+  }
+
+  function init() {
+    document.querySelectorAll('.tds-select').forEach(initSelect);
+  }
+
+  init();
+})();

@@ -21,8 +21,8 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'Tallinnlv', // Usually your GitHub org/user name.
+  projectName: 'disain', // Usually your repo name.
 
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
@@ -157,7 +157,9 @@ const config = {
       colorMode: {
         defaultMode: 'light',
         disableSwitch: true,
-        respectPrefersColorScheme: true,
+        // The site has no theme switch, so don't flip visitors with a dark OS
+        // into a dark mode they cannot leave. Example previews keep their own toggle.
+        respectPrefersColorScheme: false,
       },
       prism: {
         theme: prismThemes.github,

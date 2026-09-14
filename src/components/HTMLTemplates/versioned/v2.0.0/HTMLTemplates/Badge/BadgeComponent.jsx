@@ -10,8 +10,9 @@ import { html } from '@site/src/utils/formatHtml';
  * @param {string} [props.iconSvg] - Source URL for an icon to display with the badge
  * @param {string} [props.iconPosition = 'right'] - Position of the badge relative to the icon ('left', 'right', 'top', 'bottom')
  * @param {boolean} [props.badgeWithIcon] - Position of the badge relative to the icon ('left', 'right', 'top', 'bottom')
- * @param {string} [props.ariaLabel] - Accessible label for screen readers
+ * @param {string} [props.ariaLabel] - Text read by screen readers instead of the visible badge text (rendered as visually hidden text)
  * @param {boolean} [props.isHidden = false] - Whether to hide the badge from screen readers
+ * @param {boolean} [props.live = false] - Announce changes of the badge content (adds role="status")
  */
 
 const BadgeComponent = ({
@@ -25,6 +26,7 @@ const BadgeComponent = ({
   badgeWithIcon = false,
   ariaLabel,
   isHidden = false,
+  live = false,
 }) => {
   const fontSize =
     badgeSize === 'xsmall'
@@ -43,26 +45,39 @@ const BadgeComponent = ({
 
   const dotSize = badgeDotSize === 'small' ? ' tds-badge--dot-small' : '';
 
-  const a11yAttributes = ariaLabel
-    ? ` role="status" aria-label="${ariaLabel}"`
-    : isHidden
-      ? ' aria-hidden="true"'
-      : badgeText
-        ? ''
-        : ' aria-hidden="true"';
+  // A static badge is not a live region; role="status" is opt-in. A badge
+  // with neither text nor a screen reader label is decorative.
+  const hidden = isHidden || (!badgeText && !ariaLabel);
+  const a11yAttributes = hidden
+    ? ' aria-hidden="true"'
+    : live
+      ? ' role="status"'
+      : '';
+
+  const badgeClass = `tds-badge tds-badge--${badgeColor}${badgeDot ? ' tds-badge--dot' : ''}${dotSize}${badgeSize ? ` tds-badge--${badgeSize}` : ''}`;
+
+  // Screen reader text: the visible text, or the ariaLabel override rendered
+  // as visually hidden text (aria-label is not allowed on a plain span).
+  const srText = ariaLabel && !hidden
+    ? `<span class="tds-visually-hidden">${ariaLabel}</span>`
+    : '';
+
+  const textHtml = badgeText
+    ? `<span class="tds-badge__text${fontSize}${fontBold}">${srText ? `<span aria-hidden="true">${badgeText}</span>${srText}` : badgeText}</span>`
+    : srText;
 
   const badgeElement = html`
-    <span class="tds-badge tds-badge--${badgeColor}${badgeDot ? ' tds-badge--dot' : ''}${dotSize}${badgeSize ? ` tds-badge--${badgeSize}` : ''}"${a11yAttributes}>${!badgeText ? `</span>` : ''}
-      ${badgeText ? `<span class="tds-badge__text${fontSize}${fontBold}">${badgeText}</span>` : ''}
-    ${badgeText ? `</span>` : ''}`;
+<span class="${badgeClass}"${a11yAttributes}>${textHtml ? `
+  ${textHtml}
+` : ''}</span>`;
 
   if (badgeWithIcon) {
     return html`
-<span class="tds-badge tds-badge--${badgeColor}${badgeDot ? ' tds-badge--dot' : ''}${dotSize}${badgeSize ? ` tds-badge--${badgeSize}` : ''}"${a11yAttributes}>
+<span class="${badgeClass}"${a11yAttributes}>
   ${iconSvg ? `<span class="tds-icon" aria-hidden="true">
     ${iconSvg}
   </span>` : ''}
-  ${badgeText ? `<span class="tds-badge__text${fontSize}${fontBold}">${badgeText}</span>` : ''}
+  ${textHtml}
 </span>
     `;
   }
@@ -73,8 +88,8 @@ const BadgeComponent = ({
 
   return html`
 <div style="position: relative; display: inline-flex; align-items: center;" data-demo-style="">
-  <div style="display: block;" data-demo-style="" aria-hidden="${!!ariaLabel}">${iconSvg}</div>
-  <span style="position: absolute; ${getPositionStyle(iconPosition)}" data-demo-style=""${a11yAttributes}>
+  <div style="display: block;" data-demo-style="">${iconSvg}</div>
+  <span style="position: absolute; ${getPositionStyle(iconPosition)}" data-demo-style="">
     ${badgeElement}
   </span>
 </div>

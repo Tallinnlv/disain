@@ -45,8 +45,11 @@
   margin-bottom: -8px;
 }
 
-.HeaderComponent h2 {
+/* The tagline is a paragraph, not a heading: it is not a section title. */
+.HeaderComponent .tagline {
   color: var(--color-content-static-light);
+  font-size: 1.5rem;
+  line-height: 1.25;
   font-style: normal;
   font-weight: 400;
   margin-bottom: 0;

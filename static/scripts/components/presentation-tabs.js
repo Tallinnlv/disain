@@ -1,129 +1,156 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const tabsContainer = document.querySelector('.tds-tabs__list');
-  const tabs = Array.from(document.querySelectorAll('.tds-tabs__tab-button'));
-  const panels = document.querySelectorAll('.tds-tabs__panel');
-  const leftArrow = document.querySelector('.tds-tabs__scroll-left');
-  const rightArrow = document.querySelector('.tds-tabs__scroll-right');
+/**
+ * Tabs
+ *
+ * Progressive enhancement for `.tds-tabs`: WAI-ARIA tabs with manual
+ * activation (Left/Right/Home/End move focus, Enter/Space/click select), plus
+ * scroll arrows and drag-to-scroll for `.tds-tabs__list--scrollable`.
+ * Tabs with `aria-disabled="true"` stay focusable but cannot be selected.
+ */
+(function () {
+  const VISIBLE = 'tds-tabs__scroll-button--visible';
 
-  if (!tabsContainer || tabs.length === 0) {
-    console.error('Tabs container or buttons not found.');
-    return;
-  }
+  const initTabs = (tabsEl) => {
+    if (tabsEl.dataset.tabsInitialised) return;
+    tabsEl.dataset.tabsInitialised = 'true';
 
-  let isDragging = false;
-  let startX = 0;
-  let scrollLeft = 0;
+    const list = tabsEl.querySelector('.tds-tabs__list');
+    const tabs = list ? Array.from(list.querySelectorAll('[role="tab"]')) : [];
+    if (tabs.length === 0) return;
 
-  const activateTab = (tab) => {
-    const panelId = tab.getAttribute('aria-controls');
+    const isDisabled = (tab) => tab.getAttribute('aria-disabled') === 'true';
+    const panelFor = (tab) =>
+      document.getElementById(tab.getAttribute('aria-controls') || '');
+    const selectedTab = () =>
+      tabs.find((tab) => tab.getAttribute('aria-selected') === 'true');
 
-    tabs.forEach((t) => {
-      t.setAttribute('aria-selected', 'false');
-      t.setAttribute('tabindex', '-1');
+    const selectTab = (tab) => {
+      if (isDisabled(tab)) return;
+      tabs.forEach((other) => {
+        const selected = other === tab;
+        other.setAttribute('aria-selected', selected ? 'true' : 'false');
+        other.tabIndex = selected ? 0 : -1;
+        const panel = panelFor(other);
+        if (panel) panel.hidden = !selected;
+      });
+    };
+
+    // Exactly one tab is in the Tab order (the selected one), without
+    // changing which tab the markup says is selected.
+    const tabbable =
+      selectedTab() ||
+      tabs.find((tab) => tab.getAttribute('tabindex') === '0') ||
+      tabs[0];
+    tabs.forEach((tab) => {
+      tab.tabIndex = tab === tabbable ? 0 : -1;
     });
 
-    panels.forEach((panel) => panel.setAttribute('hidden', ''));
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => selectTab(tab));
 
-    // Select the active tab and show its panel
-    tab.setAttribute('aria-selected', 'true');
-    tab.setAttribute('tabindex', '0');
-    const panel = document.getElementById(panelId);
-    if (panel) panel.removeAttribute('hidden');
-    tab.focus();
-  };
+      tab.addEventListener('keydown', (event) => {
+        let next;
+        switch (event.key) {
+          case 'ArrowRight':
+            next = (index + 1) % tabs.length;
+            break;
+          case 'ArrowLeft':
+            next = (index - 1 + tabs.length) % tabs.length;
+            break;
+          case 'Home':
+            next = 0;
+            break;
+          case 'End':
+            next = tabs.length - 1;
+            break;
+          case 'Enter':
+          case ' ':
+            event.preventDefault();
+            selectTab(tab);
+            return;
+          default:
+            return;
+        }
+        event.preventDefault();
+        tabs[next].focus();
+      });
+    });
 
-  const handleKeydown = (event) => {
-    const { key } = event;
-    const currentTab = event.target;
-    const currentIndex = tabs.indexOf(currentTab);
-    let newIndex;
+    // Scrollable tabs: arrows and drag-to-scroll.
+    if (!list.classList.contains('tds-tabs__list--scrollable')) return;
 
-    if (key === 'ArrowRight') {
-      newIndex = (currentIndex + 1) % tabs.length;
-    } else if (key === 'ArrowLeft') {
-      newIndex = (currentIndex - 1 + tabs.length) % tabs.length;
-    } else if (key === 'Enter' || key === ' ') {
-      activateTab(currentTab);
-      return;
-    } else {
-      return;
-    }
+    const leftArrow = tabsEl.querySelector('.tds-tabs__scroll-left');
+    const rightArrow = tabsEl.querySelector('.tds-tabs__scroll-right');
 
-    event.preventDefault();
-    tabs[newIndex].focus();
-  };
-
-  tabs.forEach((tab) => {
-    tab.addEventListener('click', () => activateTab(tab));
-    tab.addEventListener('keydown', handleKeydown);
-  });
-
-  const firstTab = tabs[0];
-  if (firstTab) {
-    firstTab.setAttribute('aria-selected', 'true');
-    firstTab.setAttribute('tabindex', '0');
-  }
-
-  // Scrollable Tabs with Arrow Buttons
-  if (tabsContainer.classList.contains('tds-tabs__list--scrollable')) {
-    const checkArrows = () => {
-      const isScrollable =
-        tabsContainer.scrollWidth > tabsContainer.clientWidth;
-
-      if (leftArrow && rightArrow) {
-        const scrollLeftMax =
-          tabsContainer.scrollWidth - tabsContainer.clientWidth;
-        const isAtStart = tabsContainer.scrollLeft <= 0;
-        const isAtEnd = tabsContainer.scrollLeft >= scrollLeftMax - 1;
-
-        leftArrow.style.display = isScrollable && !isAtStart ? 'block' : 'none';
-        rightArrow.style.display = isScrollable && !isAtEnd ? 'block' : 'none';
+    const setArrow = (arrow, otherArrow, visible) => {
+      if (!arrow) return;
+      arrow.classList.toggle(VISIBLE, visible);
+      // An arrow that disappears while focused must not drop focus on <body>.
+      if (!visible && document.activeElement === arrow) {
+        const fallback =
+          otherArrow && otherArrow.classList.contains(VISIBLE)
+            ? otherArrow
+            : selectedTab() || tabs[0];
+        fallback.focus();
       }
     };
 
-    tabsContainer.addEventListener('scroll', checkArrows);
+    const updateArrows = () => {
+      const maxScroll = list.scrollWidth - list.clientWidth;
+      const canScroll = maxScroll > 1;
+      setArrow(leftArrow, rightArrow, canScroll && list.scrollLeft > 1);
+      setArrow(
+        rightArrow,
+        leftArrow,
+        canScroll && list.scrollLeft < maxScroll - 1,
+      );
+    };
 
-    checkArrows();
-
-    leftArrow?.addEventListener('click', () => {
-      tabsContainer.scrollTo({
-        left: tabsContainer.scrollLeft - 100,
-        behavior: 'smooth',
-      });
-      checkArrows();
+    // Update once scrolling (including smooth scrolling) has finished.
+    // `scrollend` is not supported everywhere, so a debounced `scroll`
+    // listener is the fallback.
+    let scrollTimer;
+    list.addEventListener('scroll', () => {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(updateArrows, 150);
     });
-
-    rightArrow?.addEventListener('click', () => {
-      tabsContainer.scrollTo({
-        left: tabsContainer.scrollLeft + 100,
-        behavior: 'smooth',
-      });
-      checkArrows();
+    list.addEventListener('scrollend', () => {
+      clearTimeout(scrollTimer);
+      updateArrows();
     });
+    window.addEventListener('resize', updateArrows);
+    updateArrows();
 
-    tabsContainer.addEventListener('mousedown', (e) => {
+    const scrollBy = (delta) => {
+      list.scrollTo({ left: list.scrollLeft + delta, behavior: 'smooth' });
+    };
+    if (leftArrow) leftArrow.addEventListener('click', () => scrollBy(-100));
+    if (rightArrow) rightArrow.addEventListener('click', () => scrollBy(100));
+
+    let isDragging = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+
+    list.addEventListener('mousedown', (event) => {
       isDragging = true;
-      startX = e.pageX - tabsContainer.offsetLeft;
-      scrollLeft = tabsContainer.scrollLeft;
-      tabsContainer.classList.add('dragging');
+      startX = event.pageX - list.offsetLeft;
+      startScrollLeft = list.scrollLeft;
+      list.classList.add('dragging');
     });
 
-    tabsContainer.addEventListener('mouseleave', () => {
+    const stopDragging = () => {
       isDragging = false;
-      tabsContainer.classList.remove('dragging');
-    });
+      list.classList.remove('dragging');
+    };
+    list.addEventListener('mouseleave', stopDragging);
+    list.addEventListener('mouseup', stopDragging);
 
-    tabsContainer.addEventListener('mouseup', () => {
-      isDragging = false;
-      tabsContainer.classList.remove('dragging');
-    });
-
-    tabsContainer.addEventListener('mousemove', (e) => {
+    list.addEventListener('mousemove', (event) => {
       if (!isDragging) return;
-      e.preventDefault();
-      const x = e.pageX - tabsContainer.offsetLeft;
-      const walk = (x - startX) * 2;
-      tabsContainer.scrollLeft = scrollLeft - walk;
+      event.preventDefault();
+      const x = event.pageX - list.offsetLeft;
+      list.scrollLeft = startScrollLeft - (x - startX) * 2;
     });
-  }
-});
+  };
+
+  document.querySelectorAll('.tds-tabs').forEach(initTabs);
+})();

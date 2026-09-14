@@ -1,4 +1,5 @@
 @use './tds-library/scss/components/link' as l;
+@use './tds-library/scss/helpers' as h;
 @use './tds-library/scss/base/color-variables';
 @use './tds-library/scss/base/color-variables-dark';
 @use './tds-library/scss/docs/styles/color-basics';
@@ -82,6 +83,11 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Screen-reader-only text for the docs chrome (icons, "opens in a new tab"). */
+.visually-hidden {
+  @include h.tds-visually-hidden;
 }
 
 .tds-button:hover {

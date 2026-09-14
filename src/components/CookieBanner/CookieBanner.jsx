@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './CookieBanner.module.scss';
 
 const CookieBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const bannerRef = useRef(null);
 
   // Function to get a cookie value by name
   const getCookie = (name) => {
@@ -31,6 +32,14 @@ const CookieBanner = () => {
     }
   }, []);
 
+  // The banner is fixed-positioned and last in DOM order, so keyboard and
+  // screen-reader users would otherwise only reach it after the whole page.
+  useEffect(() => {
+    if (isVisible) {
+      bannerRef.current?.focus();
+    }
+  }, [isVisible]);
+
   const acceptCookies = () => {
     setIsVisible(false);
     setCookie('cookieConsent', 'true', 365); // Store cookie for 1 year
@@ -46,7 +55,13 @@ const CookieBanner = () => {
   }
 
   return (
-    <div className={styles.cookieBanner}>
+    <section
+      className={styles.cookieBanner}
+      role="region"
+      aria-label="Cookie consent"
+      tabIndex={-1}
+      ref={bannerRef}
+    >
       <div className={styles.cookieContent}>
         <p>
           We use cookies on this site to enhance your user experience. You can
@@ -55,9 +70,11 @@ const CookieBanner = () => {
           <a
             className="tds-link tds-link--inline"
             target="_blank"
+            rel="noopener noreferrer"
             href="https://www.tallinn.ee/en/data-protection"
           >
             Data Protection Terms
+            <span className="visually-hidden"> (opens in a new tab)</span>
           </a>
           .
         </p>
@@ -66,12 +83,14 @@ const CookieBanner = () => {
           style={{ display: 'flex', gap: '6px' }}
         >
           <button
+            type="button"
             className="tds-button tds-button--primary tds-button--compact"
             onClick={acceptCookies}
           >
             Accept
           </button>
           <button
+            type="button"
             className="tds-button tds-button--secondary-neutral tds-button--compact "
             onClick={declineCookies}
           >
@@ -79,7 +98,7 @@ const CookieBanner = () => {
           </button>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -36,7 +36,7 @@ export default function Footer() {
       <div className={styles.footerWrapper}>
         <div className={styles.footerTop}>
           <div className={styles.footerTitleContainer}>
-            <h4 className={styles.footerTitle}>Tallinn Design System</h4>
+            <h2 className={styles.footerTitle}>Tallinn Design System</h2>
           </div>
           <p className={styles.footerDescription}>
             If you feel something’s missing or there's room for improvement, please let us know at{' '}
@@ -66,7 +66,9 @@ export default function Footer() {
               to="https://identiteet.tallinn.ee/#/"
               target="_blank"
             >
-              Tallinn's Visual Identity <Outbound />
+              Tallinn's Visual Identity{' '}
+              <Outbound aria-hidden="true" focusable="false" />
+              <span className="visually-hidden">(opens in a new tab)</span>
             </Link>
           </div>
         </div>

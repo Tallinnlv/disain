@@ -31,7 +31,7 @@ Try to keep the content of a popover also as short as possible.
 
 Only one popover can be visible at a time.
 
-<CodePreview
+<CodePreview scriptPath="/scripts/components/feedback-popover.js"
   minHeight="210px"
   code={PopoverComponent({
     title: "Popover title",
@@ -42,7 +42,7 @@ Only one popover can be visible at a time.
 
 Having a title in a popover is recommended, but it may be omitted if needed.
 
-<CodePreview
+<CodePreview scriptPath="/scripts/components/feedback-popover.js"
   minHeight="210px"
   code={PopoverComponent({
     content: "Popover without title. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.",
@@ -60,7 +60,7 @@ This may be reduced or increased if needed, but should not exceed 600px.
 The height of the popover is determined by the content and should never exceed the height of the viewport.
 Try to keep the height below 400px.
 
-<CodePreview
+<CodePreview scriptPath="/scripts/components/feedback-popover.js"
   minHeight="570px"
   svgPath="/img/popoverOverview/size.svg"
   hideCode
@@ -71,7 +71,7 @@ Try to keep the height below 400px.
 By default, popovers should be placed above the referring element.
 When there isn't enough space in the viewport, the popover is moved to the side or below as needed.
 
-<CodePreview
+<CodePreview scriptPath="/scripts/components/feedback-popover.js"
   minHeight="380px"
   code={
     `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 64px" data-demo-style="">` + "\n" + "\n" +
@@ -106,7 +106,7 @@ Popover has a pointer to help show the relationship between the popover and wher
 There are predefined positions for start, center and end.
 Position of the pointer may also be adjusted manually if needed.
 
-<CodePreview
+<CodePreview scriptPath="/scripts/components/feedback-popover.js"
   minHeight="750px"
   code={
     `<div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: auto 1rem auto auto auto 1rem auto; gap: 1rem;" data-demo-style="">` + "\n" + "\n" +
@@ -190,7 +190,7 @@ Position of the pointer may also be adjusted manually if needed.
 
 Popover can contain links and buttons.
 
-<CodePreview
+<CodePreview scriptPath="/scripts/components/feedback-popover.js"
   minHeight="250px"
   code={PopoverComponent({
     title: "Popover title",
@@ -200,7 +200,7 @@ Popover can contain links and buttons.
   })}
 />
 
-<CodePreview
+<CodePreview scriptPath="/scripts/components/feedback-popover.js"
   minHeight="270px"
   code={PopoverComponent({
     title: "Popover title",
@@ -214,7 +214,7 @@ Popover can contain links and buttons.
 
 Popover can also contain custom content.
 
-<CodePreview
+<CodePreview scriptPath="/scripts/components/feedback-popover.js"
   minHeight="560px"
   svgPath="/img/popoverOverview/custom.svg"
   hideCode

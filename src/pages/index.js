@@ -7,7 +7,6 @@ export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
       description="The central digital experience resource of Tallinn. Guidelines, design assets and component libraries for building a consistent and accessible digital brand across the city."
     >
       <main>

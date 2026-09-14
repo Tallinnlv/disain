@@ -1,61 +1,70 @@
 import { html } from '@site/src/utils/formatHtml';
+import { uid } from '@site/src/utils/uid';
 
 const required = `<span class="tds-fieldset__required">*</span>`;
 
-const createCheckbox = (checkbox, columnIndex, index, modifiers) => {
-  const checkboxHasError = checkbox.checkboxHasError
-    ? 'tds-checkboxes__item--error'
-    : '';
-  const isDisabled = checkbox.disabled ? 'is-disabled' : '';
-  const isChecked = checkbox.checked ? 'checked' : '';
-  const isRequired = checkbox.required ? required : '';
-  const isMinusChecked = index === 2 ? 'tds-checkboxes__input--minus' : '';
-  const disabled =
-    checkbox.disabled || modifiers.includes('is-disabled') ? 'disabled' : '';
+const classes = (...names) => names.filter(Boolean).join(' ');
 
-  // Modify to handle aria-label if there's no visible label
+/**
+ * One checkbox item.
+ * @param {object} checkbox - option definition (label, checked, disabled, hint, required,
+ *   checkboxHasError, errorMessage, ariaLabel, selectAll)
+ * @param {string} optionId - id of the input; hint/error ids derive from it
+ * @param {string} name - name attribute
+ * @param {string|string[]} modifiers - group modifiers
+ * @param {boolean} groupHasError - whether the whole group is in error state
+ */
+const createCheckbox = (checkbox, optionId, name, modifiers, groupHasError) => {
+  const hasError = Boolean(checkbox.checkboxHasError);
+  const disabled = checkbox.disabled || modifiers.includes('is-disabled');
+  const hintId = `${optionId}-hint`;
+  const errorId = `${optionId}-error`;
+
   const label = checkbox.label
-    ? `<label for="checkbox${columnIndex}-${index}" class="tds-checkboxes__label">${checkbox.label}${isRequired}</label>`
+    ? `<label for="${optionId}" class="tds-checkboxes__label">${checkbox.label}${checkbox.required ? required : ''}</label>`
     : '';
-  const ariaLabel = !checkbox.label
-    ? `aria-label="${checkbox.ariaLabel || 'Description of checkbox'}"`
-    : '';
-
   const hint = checkbox.hint
-    ? `<div id="checkbox${columnIndex}-${index}-hint" class="tds-item-hint">${checkbox.hint}</div>`
+    ? `<div id="${hintId}" class="tds-item-hint">${checkbox.hint}</div>`
     : '';
-  const errorMessage = checkbox.checkboxHasError
-    ? `<div id="checkbox${columnIndex}-${index}-error" class="tds-fieldset__notice--error-text-below">Error message</div>`
+  const errorMessage = hasError
+    ? `<div id="${errorId}" class="tds-fieldset__notice--error-text-below">${checkbox.errorMessage || 'Error message'}</div>`
     : '';
 
-  const ariaDescribedBy = [
-    hint ? `checkbox${columnIndex}-${index}-hint` : '',
-    checkbox.checkboxHasError ? `checkbox${columnIndex}-${index}-error` : '',
-  ]
+  const describedBy = [checkbox.hint ? hintId : '', hasError ? errorId : '']
     .filter(Boolean)
     .join(' ');
 
+  const attributes = [
+    'type="checkbox"',
+    `id="${optionId}"`,
+    'class="tds-checkboxes__input"',
+    `name="${name}"`,
+    checkbox.checked ? 'checked' : '',
+    disabled ? 'disabled' : '',
+    hasError || groupHasError ? 'aria-invalid="true"' : '',
+    describedBy ? `aria-describedby="${describedBy}"` : '',
+    // A checkbox without a visible label still needs an accessible name
+    !checkbox.label
+      ? `aria-label="${checkbox.ariaLabel || 'Description of checkbox'}"`
+      : '',
+    checkbox.selectAll ? 'data-select-all="true"' : '',
+  ]
+    .filter(Boolean)
+    .join('\n        ');
+
   return html`
-    <div class="tds-checkboxes__item ${checkboxHasError} ${isDisabled}">
+    <div class="${classes('tds-checkboxes__item', hasError && 'tds-checkboxes__item--error', checkbox.disabled && 'is-disabled')}">
       <input
-        type="checkbox"
-        id="checkbox${columnIndex}-${index}"
-        class="tds-checkboxes__input ${isMinusChecked}"
-        ${isChecked}
-        ${disabled}
-        ${checkbox.checkboxHasError ? 'aria-invalid="true"' : ''}
-        ${ariaDescribedBy ? `aria-describedby="${ariaDescribedBy}"` : ''}
-        ${ariaLabel}
-        name="checkboxGroup${columnIndex}"
+        ${attributes}
       />
       ${label} ${hint} ${errorMessage}
     </div>
   `;
 };
 
-const createFieldset = (
+const createFieldset = ({
+  id,
   items,
-  index,
   modifiers,
   title,
   hintTitle,
@@ -63,47 +72,54 @@ const createFieldset = (
   titleRequired,
   compact,
   inline,
-) => {
-  const isError = modifiers.includes('is-error') ? 'tds-fieldset--error' : '';
-  const isCompact = compact ? 'tds-fieldset--compact' : '';
-  const titleText = Array.isArray(title) ? title[index] : title;
-  const hintTitleText = Array.isArray(hintTitle) ? hintTitle[index] : hintTitle;
+}) => {
+  const isError = modifiers.includes('is-error');
+  const titleText = Array.isArray(title) ? title[0] : title;
+  const hintTitleText = Array.isArray(hintTitle) ? hintTitle[0] : hintTitle;
   const errorMessageText = Array.isArray(errorMessage)
-    ? errorMessage[index]
+    ? errorMessage[0]
     : errorMessage;
 
+  const legendId = `${id}-legend`;
+  const hintId = `${id}-hint`;
+  const errorId = `${id}-error`;
+
   const titleHTML = titleText
-    ? html`<legend id="fieldset-title-${index}" class="tds-fieldset__text">
+    ? html`<legend id="${legendId}" class="tds-fieldset__text">
         ${titleText}${titleRequired ? required : ''}
       </legend>`
     : '';
   const hintTitleHTML = hintTitleText
-    ? html`<div id="fieldset-hint-${index}" class="tds-fieldset__text--hint">
+    ? html`<div id="${hintId}" class="tds-fieldset__text--hint">
         ${hintTitleText}
       </div>`
     : '';
   const errorMessageHTML = isError
-    ? html`<div id="fieldset-error-${index}" class="tds-fieldset__notice">
+    ? html`<div id="${errorId}" class="tds-fieldset__notice">
         ${errorMessageText}
       </div>`
     : '';
 
-  const ariaDescribedBy = [
-    hintTitleText ? `fieldset-hint-${index}` : '',
-    isError ? `fieldset-error-${index}` : '',
-  ]
+  const describedBy = [hintTitleText ? hintId : '', isError ? errorId : '']
     .filter(Boolean)
     .join(' ');
 
+  const attributes = [
+    `id="${id}"`,
+    `class="${classes('tds-fieldset', isError && 'tds-fieldset--error', compact && 'tds-fieldset--compact')}"`,
+    titleText ? `aria-labelledby="${legendId}"` : '',
+    describedBy ? `aria-describedby="${describedBy}"` : '',
+  ]
+    .filter(Boolean)
+    .join('\n      ');
+
   return html`
     <fieldset
-      class="tds-fieldset ${isError} ${isCompact}"
-      aria-labelledby="${titleText ? `fieldset-title-${index}` : ''}"
-      ${ariaDescribedBy ? `aria-describedby="${ariaDescribedBy}"` : ''}
+      ${attributes}
     >
       <div class="tds-fieldset__column">
         ${titleHTML} ${hintTitleHTML} ${errorMessageHTML}
-        <div class="tds-checkboxes ${inline ? 'tds-checkboxes--inline' : ''}">
+        <div class="${classes('tds-checkboxes', inline && 'tds-checkboxes--inline')}">
           ${items}
         </div>
       </div>
@@ -113,50 +129,79 @@ const createFieldset = (
 
 /**
  * @param {object} props
- * @param {string} [props.modifiers=''] - Additional CSS classes
+ * @param {string} [props.id] - Id prefix for the group; every option, hint and error id derives from it. Generated when omitted.
+ * @param {string} [props.name] - Name attribute of the inputs (defaults to the id; columns after the first get a numeric suffix)
+ * @param {string|string[]} [props.modifiers=''] - Additional CSS classes
  * @param {string|string[]} [props.title=''] - The title of the checkbox group
  * @param {string|string[]} [props.hintTitle=''] - The hint of the checkbox group
- * @param {array} [props.checkboxes=[]] - The options for the checkboxes
+ * @param {array} [props.checkboxes=[]] - Columns of options. An option with `selectAll: true`
+ *   is rendered with `data-select-all="true"` and controls the column's sub-options via the script.
+ *   For backwards compatibility a first option labelled exactly "Vali kõik" that has sub-options
+ *   is treated as select-all too.
  * @param {string|string[]} [props.errorMessage=''] - The error message for the checkbox group
  * @param {boolean} [props.titleRequired = false] - The required indicator for the checkbox group
  * @param {boolean} [props.compact = false] - The compact size of the checkbox group
  * @param {boolean} [props.inline = false] - The inline layout of the checkbox group
- * @param {array} [props.subCheckboxes=[]] - The sub-options for the checkboxes
+ * @param {array} [props.subCheckboxes=[]] - Columns of sub-options rendered in an indented wrapper
  */
 
-const CheckboxComponent = ({
-  modifiers = '',
-  title = '',
-  hintTitle = '',
-  errorMessage = '',
-  compact = false,
-  checkboxes = [],
-  titleRequired = false,
-  inline = false,
-  subCheckboxes = [],
-}) => {
-  subCheckboxes = Array.isArray(subCheckboxes) ? subCheckboxes : [];
+const CheckboxComponent = (props = {}) => {
+  const {
+    modifiers = '',
+    title = '',
+    hintTitle = '',
+    errorMessage = '',
+    compact = false,
+    checkboxes = [],
+    titleRequired = false,
+    inline = false,
+    name,
+  } = props;
+  const subCheckboxes = Array.isArray(props.subCheckboxes)
+    ? props.subCheckboxes
+    : [];
+
+  const id = props.id ?? uid('checkbox', props);
+  const groupName = name ?? id;
+  const groupHasError = modifiers.includes('is-error');
+  const multiColumn = checkboxes.length > 1;
 
   const checkboxItems = checkboxes
     .map((checkboxColumn, columnIndex) => {
+      const columnName = multiColumn
+        ? `${groupName}-${columnIndex + 1}`
+        : groupName;
+      const optionPrefix = multiColumn ? `${id}-${columnIndex + 1}` : id;
+      const subs = subCheckboxes[columnIndex] || [];
+
       const mainCheckboxes = checkboxColumn
-        .map((checkbox, index) =>
-          createCheckbox(checkbox, columnIndex, index, modifiers),
-        )
+        .map((checkbox, index) => {
+          const isLegacySelectAll =
+            index === 0 &&
+            subs.length > 0 &&
+            typeof checkbox.label === 'string' &&
+            checkbox.label.trim() === 'Vali kõik';
+          return createCheckbox(
+            { ...checkbox, selectAll: checkbox.selectAll || isLegacySelectAll },
+            `${optionPrefix}-option-${index + 1}`,
+            columnName,
+            modifiers,
+            groupHasError,
+          );
+        })
         .join('');
 
-      const subCheckboxItems = subCheckboxes[columnIndex]
-        ? subCheckboxes[columnIndex]
-            .map((subCheckbox, subIndex) =>
-              createCheckbox(
-                subCheckbox,
-                columnIndex,
-                `sub-${subIndex}`,
-                modifiers,
-              ),
-            )
-            .join('')
-        : '';
+      const subCheckboxItems = subs
+        .map((subCheckbox, subIndex) =>
+          createCheckbox(
+            subCheckbox,
+            `${optionPrefix}-sub-${subIndex + 1}`,
+            columnName,
+            modifiers,
+            groupHasError,
+          ),
+        )
+        .join('');
 
       return html`
         ${mainCheckboxes}
@@ -169,19 +214,20 @@ const CheckboxComponent = ({
 
   if (!title && !hintTitle && !errorMessage) {
     // Wrap in tds-checkboxes div only if there are multiple checkbox items
-    const isMultiple = checkboxes.length > 1 || checkboxes[0].length > 1;
+    const isMultiple =
+      checkboxes.length > 1 || (checkboxes[0] || []).length > 1;
     return isMultiple
       ? html`
-          <div class="tds-checkboxes ${inline ? 'tds-checkboxes--inline' : ''}">
+          <div class="${classes('tds-checkboxes', inline && 'tds-checkboxes--inline')}">
             ${checkboxItems}
           </div>
         `
       : checkboxItems; // Return only the checkbox items if there is a single checkbox item
   }
 
-  return createFieldset(
-    checkboxItems,
-    0,
+  return createFieldset({
+    id,
+    items: checkboxItems,
     modifiers,
     title,
     hintTitle,
@@ -189,7 +235,7 @@ const CheckboxComponent = ({
     titleRequired,
     compact,
     inline,
-  );
+  });
 };
 
 export default CheckboxComponent;
