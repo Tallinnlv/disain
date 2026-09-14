@@ -1,7 +1,7 @@
 ## Keyboard
 
 - The tooltip shows when its trigger receives focus and hides when focus leaves it.
-- **Enter** or **Space** on the trigger toggles the tooltip.
+- **Enter** or **Space** on the text trigger toggles the tooltip. On a button trigger they activate the button as usual; its tooltip is already shown by focus.
 - **Escape** hides every open tooltip, including one opened by hovering an element that does not have focus.
 
 ## Screen readers
@@ -17,5 +17,4 @@ The trigger references the tooltip through `aria-describedby`, and the tooltip e
 
 ## Known limits
 
-- The shared script handles Enter and Space on the trigger and cancels their default action, so a button that has a tooltip does not fire its click from the keyboard. Do not put a tooltip on a button whose action matters until this is changed.
-- The tooltip hides when the pointer leaves the trigger, so it cannot be hovered itself (WCAG 1.4.13 "hoverable"). Keep tooltip text short enough to read without moving the pointer onto it.
+The tooltip hides when the pointer leaves the trigger, so it cannot be hovered itself (WCAG 1.4.13 "hoverable"). Keep tooltip text short enough to read without moving the pointer onto it.
