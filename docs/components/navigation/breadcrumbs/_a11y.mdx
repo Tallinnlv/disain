@@ -1,3 +1,15 @@
-## Special cases
+## Keyboard
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio nec nunc
+Breadcrumbs are ordinary links: **Tab** moves from one to the next and **Enter** follows it. There is no script and no custom key handling.
+
+## Screen readers
+
+The breadcrumbs are a `nav` landmark named through `aria-label`, so screen reader users can jump to them from the landmarks list. The links are in an ordered list (`ol`), which announces how many levels there are and where each item sits. The last item is the current page and carries `aria-current="page"`, announced as "current page". The ellipsis shown in the collapsed mobile layout is `aria-hidden="true"`, and the separators come from CSS, so neither is read.
+
+## Using the example
+
+- The landmark name defaults to "breadcrumb". On Estonian pages pass an Estonian name, for example `ariaLabel="Asukoht"`. Do not include the word "navigation", which screen readers already announce.
+- If a page has more than one breadcrumb trail, give each a distinct `ariaLabel`.
+- Keep item labels identical to the titles of the pages they link to, so users recognise where they are.
+- Mark only the current page with `aria-current="page"`. The template does this for the last item.
+- Render breadcrumbs once, before the main content, in the same place on every page.

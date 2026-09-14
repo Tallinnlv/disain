@@ -1,3 +1,20 @@
-## Special cases
+## Keyboard
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio nec nunc
+The notification itself is not focusable. Its action links and the dismiss button are in the normal Tab order: **Enter** follows a link, and **Enter** or **Space** activates the dismiss button.
+
+## Screen readers
+
+Notifications are live regions. A danger notification (`iconDanger`) has `role="alert"` and interrupts the screen reader; all others have `role="status"` and are announced politely once the user is idle. The notification is named by its visible title through `aria-labelledby`. Status icons are `aria-hidden="true"`, so the meaning is carried by the text. The dismiss button is named "Sulge" (`closeLabel`).
+
+## Using the example
+
+- Write the title so it makes sense on its own ("Taotlus on saadetud"). It is what screen readers announce.
+- Use `role="alert"` (the danger variant) only for problems that need attention now. Everything else should stay a polite status.
+- Leave `ariaLabel` empty. It replaces the visible title as the name, and the two must never say different things.
+- Action links are styled as buttons but are links. Use them only for navigation.
+- On Estonian pages the default "Sulge" is fine; on other pages pass a `closeLabel` in the page language.
+
+## Known limits
+
+- A live region is only announced when it is added to the page or its content changes. A notification that is already in the HTML when the page loads is not read out. Insert it into an existing container after the event, or move focus to it.
+- The dismiss button has no script. Your code must remove the notification and move focus to a sensible place, such as the next heading, so keyboard focus is not lost.

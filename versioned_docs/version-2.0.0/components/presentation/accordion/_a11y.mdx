@@ -1,3 +1,22 @@
-## Special cases
+## Keyboard
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio nec nunc
+- **Tab** moves to the next section header; each header is a native `button`.
+- **Enter** or **Space** expands or collapses the focused section.
+- **Arrow Down** / **Arrow Up** move focus to the next or previous header of the same accordion, wrapping at the ends.
+- **Home** / **End** move focus to the first or last header.
+
+The arrow keys only move between the headers of their own accordion, never into a nested one.
+
+## Screen readers
+
+Each header button carries `aria-expanded` ("expanded" / "collapsed") and `aria-controls` pointing at its panel. The panel is a `role="region"` labelled by the header text through `aria-labelledby`, so users who jump by landmark or region hear the section name. Collapsed panels use `hidden="until-found"`: their text is not read while collapsed, but the browser's find-in-page still finds it and the script then expands that section. The chevron SVG is `aria-hidden="true"`.
+
+## Using the example
+
+- Ids (`<id>-heading-N`, `<id>-content-N`) must be unique on the page. The template derives them from the accordion `id`; give every hand-written copy its own.
+- Keep the button inside the heading element, not the other way round, so the section is both a heading and a control.
+- A suffix badge becomes part of the button's name. Keep it short, or give the badge its own screen reader text.
+
+## Known limits
+
+The header is always an `h2`. If the accordion sits under an `h2` or deeper, change the level in your copy so the page outline stays correct.

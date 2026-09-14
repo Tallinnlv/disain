@@ -1,3 +1,21 @@
-## Special cases
+## Keyboard
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio nec nunc
+- The tooltip shows when its trigger receives focus and hides when focus leaves it.
+- **Enter** or **Space** on the trigger toggles the tooltip.
+- **Escape** hides every open tooltip, including one opened by hovering an element that does not have focus.
+
+## Screen readers
+
+The trigger references the tooltip through `aria-describedby`, and the tooltip element has `role="tooltip"`. Its text is read as the trigger's description after the name, whether or not it is visible. The icon-button trigger is named by `buttonLabel` ("Muuda" by default) and its SVG is `aria-hidden="true"`. The text trigger is a `span` with `tabindex="0"` so it can be focused.
+
+## Using the example
+
+- A tooltip adds a short hint to something that already has a name. Never put the only label, essential instructions or interactive content (links, buttons) inside it.
+- Every tooltip `id` must be unique, and the trigger's `aria-describedby` must match it.
+- Prefer a real `button` or link as the trigger. Use the focusable `span` only for inline terms such as abbreviations.
+- Change the default `buttonLabel` to describe what the button does.
+
+## Known limits
+
+- The shared script handles Enter and Space on the trigger and cancels their default action, so a button that has a tooltip does not fire its click from the keyboard. Do not put a tooltip on a button whose action matters until this is changed.
+- The tooltip hides when the pointer leaves the trigger, so it cannot be hovered itself (WCAG 1.4.13 "hoverable"). Keep tooltip text short enough to read without moving the pointer onto it.

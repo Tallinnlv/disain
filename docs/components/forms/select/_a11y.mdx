@@ -1,1 +1,31 @@
-// Accessibility content here...
+## Keyboard
+
+The select is a WAI-ARIA "select-only combobox". Focus always stays on the button.
+
+While closed:
+
+- **Arrow Down**, **Arrow Up**, **Enter** or **Space** open the list with the selected option (or the first) highlighted.
+- **Home** / **End** open the list on the first or last option.
+- Typing a letter opens the list and jumps to the first matching option.
+
+While open:
+
+- **Arrow Down** / **Arrow Up** move the highlight one option (no wrapping); **Page Down** / **Page Up** move it by ten; **Home** / **End** jump to the ends.
+- Typing jumps to the next option starting with the typed text. Repeating one letter cycles through options with that letter.
+- **Enter** or **Space** select the highlighted option and close.
+- **Escape** closes without changing the value.
+- **Tab** selects the highlighted option, closes the list and moves focus on.
+
+## Screen readers
+
+The button has `role="combobox"`, `aria-haspopup="listbox"`, `aria-controls` and `aria-expanded`. Its name comes from the visible label via `aria-labelledby`, and its text is the current value. The highlighted option is announced through `aria-activedescendant`; options carry `aria-selected`. Hint and error text are linked with `aria-describedby`, and the error state sets `aria-invalid="true"`.
+
+## Using the example
+
+- Every option needs a unique `id`, or the highlight cannot be announced.
+- Use `ariaLabel` only when there is no visible label.
+- The required asterisk is visual only. Add `aria-required="true"` to the button yourself.
+
+## Known limits
+
+The component has no native `input` or `select`, so the value is not submitted with a form. Read the option with `aria-selected="true"` (its `data-value`) in your own script.

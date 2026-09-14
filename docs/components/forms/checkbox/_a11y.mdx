@@ -1,1 +1,25 @@
-// Accessibility content here....
+## Keyboard
+
+Checkboxes are native `input type="checkbox"` elements:
+
+- **Tab** moves to each checkbox in turn.
+- **Space** checks or unchecks the focused checkbox.
+
+Clicking the label toggles the checkbox too.
+
+## Screen readers
+
+Each checkbox is labelled by its `label` (`for`/`id`). Per-item hint and error text are linked through `aria-describedby`. A group is a `fieldset` whose `legend` names it, with the group hint and error also referenced from `aria-describedby`. In the error state every affected checkbox has `aria-invalid="true"`. A checkbox without a visible label gets an `aria-label`.
+
+A "select all" checkbox (`data-select-all`) checks or unchecks every enabled checkbox in its group, and follows them back. When only some are checked, the script sets the native `indeterminate` state, which screen readers announce as "mixed" or "partially checked". Disabled checkboxes are left alone.
+
+## Using the example
+
+- Ids must be unique per instance. The template derives all option, hint and error ids from the group `id`; hand-written copies must do the same.
+- Replace the placeholder `aria-label` ("Description of checkbox") whenever a checkbox has no visible label, and prefer a visible label.
+- Use a `fieldset` and `legend` whenever several checkboxes answer one question.
+- The required asterisk is visual only; add `required` or `aria-required="true"` where the input is required.
+
+## Known limits
+
+There is no `:indeterminate` style yet. The minus icon depends on the `tds-checkboxes__input--minus` class, which the script toggles. If you set `indeterminate` from your own code, toggle that class as well.

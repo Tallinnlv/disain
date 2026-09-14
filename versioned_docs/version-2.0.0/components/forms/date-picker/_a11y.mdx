@@ -1,3 +1,25 @@
-## Special cases
+## Keyboard
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio nec nunc
+The calendar is driven from the text input, which keeps focus the whole time.
+
+- **Arrow Down**, **Space** or **Enter** in the input open the calendar.
+- While it is open, the **arrow keys** move the focused day and **Enter** picks it and closes the calendar.
+- **Ctrl+Arrow Up** switches to the month view, then the year view.
+- **Escape** closes the calendar without reopening it.
+- The calendar button opens or closes the calendar and moves focus into the input.
+
+The month, year and previous/next buttons in the calendar header are mouse targets (`tabindex="-1"`). Keyboard users reach the same views with the shortcuts above.
+
+## Screen readers
+
+The input is labelled by its visible label; hint and error are linked with `aria-describedby`, and the error state sets `aria-invalid="true"`. The calendar button is named "Ava kalender" (`buttonLabel`) and has `aria-haspopup="dialog"`, `aria-expanded` and `aria-controls` pointing at the calendar. The calendar is a `role="dialog"` named "Kalender" (`calendarLabel`). The month and year header buttons expose the active view through `aria-pressed`, and the previous/next arrows are named "Eelmine" and "Järgmine". All icons are `aria-hidden="true"`.
+
+## Using the example
+
+- Give the input an `id` that is unique on the page; the calendar id (`<id>-calendar`) is derived from it.
+- Always render a visible label, and state the format ("PP.KK.AAAA") in the hint, not only in the placeholder.
+- The required asterisk is visual only; add `required` or `aria-required="true"` to the input.
+
+## Known limits
+
+The day grid is not announced as the arrow keys move through it. Screen reader users should be able to type the date directly in `dd.mm.yyyy` format, so keep the input editable and validate typed values.

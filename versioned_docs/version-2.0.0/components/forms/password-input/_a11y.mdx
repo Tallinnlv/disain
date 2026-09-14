@@ -1,1 +1,17 @@
-// Accessibility content here...
+## Keyboard
+
+- **Tab** moves to the password field, then to the show/hide button.
+- **Enter** or **Space** on the button shows or hides the password. Focus stays on the button, so the user can toggle again or **Shift+Tab** back to the field.
+
+## Screen readers
+
+The field is labelled by the visible `label`. Hint and error text are linked through `aria-describedby`, and the error state sets `aria-invalid="true"`. The field uses `autocomplete="current-password"` by default (`new-password` when creating one), plus `spellcheck="false"` and `autocapitalize="none"`, so password managers work and the value is not sent to spellcheck services.
+
+The toggle is a `button` with a fixed name ("Show password", `toggleLabel`) and `aria-pressed`: "pressed" means the password is currently shown. It has `aria-controls` pointing at the field. After each toggle a visually hidden `aria-live="polite"` region announces "Password is shown" or "Password is hidden" (`statusShown` / `statusHidden`). Both eye icons are `aria-hidden="true"`.
+
+## Using the example
+
+- Ids must be unique per page; the hint and error ids are derived from the input `id`.
+- All three texts default to English. On Estonian pages pass, for example, `toggleLabel="Näita parooli"`, `statusShown="Parool on nähtav"` and `statusHidden="Parool on peidetud"`.
+- Keep the name of the toggle constant and let `aria-pressed` carry the state. Swapping the name between "Show" and "Hide" as well makes screen readers announce the change twice.
+- Use `autocomplete="new-password"` on registration and password-change forms.

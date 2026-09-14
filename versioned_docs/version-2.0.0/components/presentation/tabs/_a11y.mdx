@@ -1,3 +1,22 @@
-## Special cases
+## Keyboard
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio nec nunc
+The tabs follow the WAI-ARIA tabs pattern with **manual activation**:
+
+- **Tab** moves focus into the tab list, landing on the selected tab, and from there to the visible panel.
+- **Arrow Right** / **Arrow Left** move focus to the next or previous tab, wrapping at the ends. Focus moves; the selection does not change.
+- **Home** / **End** move focus to the first or last tab.
+- **Enter** or **Space** selects the focused tab and shows its panel.
+
+Only the selected tab is in the Tab order (roving `tabindex`). A disabled tab stays focusable so it can be discovered, but it cannot be selected.
+
+## Screen readers
+
+The list is `role="tablist"`, each button is `role="tab"` with `aria-selected` and `aria-controls`, and each panel is `role="tabpanel"` labelled by its tab through `aria-labelledby`. Disabled tabs use `aria-disabled="true"` and are announced as unavailable. Panels have `tabindex="0"` so a panel without focusable content can still be reached and read.
+
+On scrollable tab lists the arrow buttons are named by `scrollLeftLabel` and `scrollRightLabel`. If a focused arrow disappears because the list reached its end, focus moves to the other arrow or to the selected tab instead of being lost.
+
+## Using the example
+
+- Tab and panel ids (`<id>-tab-N`, `<id>-panel-N`) must be unique on the page.
+- The scroll arrow labels default to English ("Scroll left", "Scroll right"). Pass Estonian labels on Estonian pages, and add `lang="et"` to the container if the surrounding page is in another language.
+- With `content` off, the template renders no panels and no `aria-controls`. Only use that when the tabs control content elsewhere that you wire up yourself.

@@ -1,3 +1,23 @@
-## Special cases
+## Keyboard
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio nec nunc
+Buttons are native `button type="button"` elements: **Tab** focuses them, and **Enter** or **Space** activate them.
+
+## Screen readers
+
+A button is announced as "button" followed by its visible text, which is its name. Decorative left and right icons are `aria-hidden="true"` and `focusable="false"`.
+
+- **Icon-only buttons** (`tds-button--icon`) have no visible text, so they get an `aria-label` from `iconAriaLabel`. It defaults to "Sulge".
+- **Disabled buttons** (`is-disabled`) use `aria-disabled="true"` instead of the native `disabled` attribute. They stay focusable and are announced as unavailable, so keyboard and screen reader users can still find them.
+- **Loading buttons** (`is-loading`) get `aria-busy="true"` and the name "Laadimine, palun oodake".
+
+## Using the example
+
+- Always set `iconAriaLabel` to what the icon button does ("Muuda", "Kustuta"). The "Sulge" default is only right for close buttons.
+- Because `aria-disabled` does not block clicks, your handler must ignore activation while the button has `is-disabled` or `is-loading`.
+- Use a button for actions and a link for navigation.
+- Use `type="submit"` in your copy for the button that submits a form; the template always renders `type="button"`.
+- On a page in another language, pass `iconAriaLabel` in that language, or wrap Estonian UI in `lang="et"`.
+
+## Known limits
+
+While loading, the fixed `aria-label` replaces the button's visible text, so a screen reader hears "Laadimine, palun oodake" instead of, for example, "Salvesta". The label is always Estonian. On other pages, or where the action name matters, change it in your copy, for example to "Salvesta, laadimine".
