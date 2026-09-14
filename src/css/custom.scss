@@ -26,8 +26,8 @@
   --ifm-color-red-50: #cc1925;
   --ifm-color-red-40: #f97a76;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
-  --doc-sidebar-width: 368px !important;
-  --ifm-navbar-height: 112px;
+  --doc-sidebar-width: 280px !important;
+  --ifm-navbar-height: 72px;
   --ifm-container-width-xl: 1024px;
   --ifm-font-family-base: 'Lab Grotesque';
   --color-content-brand: var(--ifm-color-primary);
@@ -89,13 +89,14 @@ body {
 }
 
 .navbar {
-  padding: 0px 64px 0px 16px;
+  padding: 0px 32px 0px 16px;
   align-items: center;
   border-bottom: 1px solid var(--general-border-neutral-subtle, #c4c7ca);
 }
 
 .navbar__logo {
-  height: auto;
+  // The SVG is 398x64; capping the height keeps the bar at --ifm-navbar-height.
+  height: 40px;
 
   &-with-badge {
     @media screen and (max-width: 768px) {
@@ -110,10 +111,10 @@ body {
 
 .navbar__link {
   font-family: 'Lab Grotesque';
-  font-size: 18px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 27px;
+  line-height: 24px;
   color: var(--color-content-action-neutral-default);
 
   &:hover {
@@ -175,8 +176,8 @@ header h1 {
 }
 
 .navbar__items {
-  gap: var(--dimensions-button-height-medium, 48px);
-  height: 112px;
+  gap: 32px;
+  height: var(--ifm-navbar-height);
 
   @media screen and (max-width: 768px) {
     gap: 8px;
@@ -195,22 +196,22 @@ header h1 {
 
 .theme-doc-sidebar-menu {
   display: flex;
-  padding: var(--padding-button-medium, 32px);
+  padding: 24px 16px;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   align-self: stretch;
 }
 
 .theme-doc-sidebar-item-category-level-1 {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
 }
 
 .menu__link--sublist {
   color: var(--color-content-subtle);
 
-  font-size: 20px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 700;
   line-height: 24px;
@@ -238,7 +239,7 @@ header h1 {
 .theme-doc-sidebar-item-link-level-2 .menu__link {
   color: var(--color-content-default);
 
-  font-size: 20px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
   line-height: 24px;
@@ -265,7 +266,7 @@ nav.menu.thin-scrollbar {
 }
 
 main .container {
-  margin: 0 80px 192px 80px;
+  margin: 0 32px 128px 32px;
 
   @media screen and (max-width: 768px) {
     margin: 16px 6px 82px 6px;
