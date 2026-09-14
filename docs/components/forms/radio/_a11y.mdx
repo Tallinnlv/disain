@@ -1,1 +1,22 @@
-// Accessibility content here...
+## Keyboard
+
+Radios are native `input type="radio"` elements that share a `name`:
+
+- **Tab** moves into the group, landing on the checked radio, or the first one if none is checked. **Tab** again leaves the group.
+- **Arrow Down** / **Arrow Right** and **Arrow Up** / **Arrow Left** move to the next or previous radio and check it.
+- **Space** checks the focused radio if it is not yet checked.
+
+## Screen readers
+
+Each radio is labelled by its `label` (`for`/`id`) and announced with its position ("2 of 4"). The group is a `fieldset` named by its `legend`, with the group hint and error referenced from `aria-describedby`. Per-item hints and errors are linked to their radio the same way. In the error state the radios carry `aria-invalid="true"`.
+
+## Using the example
+
+- Ids must be unique per instance. The template derives option, hint and error ids from the group `id`; hand-written copies must too.
+- Every radio needs a visible label. Unlike the checkbox, the template has no `aria-label` fallback.
+- Keep one question per `fieldset`, and put the question in the `legend`, not in a heading before it.
+- The required asterisk is visual only; add `required` to one radio of the group, or `aria-required="true"` on a `role="radiogroup"` wrapper.
+
+## Known limits
+
+Sub-options share the `name` of their column, so they belong to the same radio group as the main options. Arrow keys move across main and sub-options alike, and checking a sub-option unchecks its parent. If the sub-options answer a separate follow-up question, give them their own `name` and `fieldset` in your copy.

@@ -1,4 +1,22 @@
-## Accessibility
+## Keyboard
 
-* Popovers take focus on appearance, and the tab order is constrained to the popover’s controls until the popover is closed by choosing one of the buttons or links with Enter or Space, or is dismissed by pressing Esc.
-* When the popover is closed, the focus should return to the element that triggered the popover. This allows keyboard and screen reader users to continue where they originally opened the popover.
+- Activating the toggle button (`data-popover-toggle`) opens the popover and moves focus to its first focusable element, usually the close button.
+- **Tab** moves through the popover's controls and then on to the rest of the page. The popover is not modal, so focus is not trapped, and the popover stays open.
+- **Escape** closes the popover and returns focus to the toggle.
+- The close button also closes it and returns focus to the toggle.
+- Clicking outside the popover closes it without moving focus.
+
+## Screen readers
+
+The popover has `role="dialog"` and is named by its title, or by its content when there is no title, through `aria-labelledby`. The toggle's `aria-expanded` announces whether it is open, and the script adds `aria-controls` pointing at the popover. The close button is named by `closeLabel` ("Close popover"). The pointer arrow and close icon are `aria-hidden="true"`.
+
+## Using the example
+
+- Popover ids must be unique, and each toggle's `data-popover-toggle` must match its popover's id.
+- `closeLabel` defaults to English; pass an Estonian name, such as "Sulge", on Estonian pages.
+- Keep popovers short and non-blocking. When the user must answer before continuing, use a dialog.
+- The documentation examples have no toggle, so they stay visible until closed. Always give real popovers a toggle, or keyboard users cannot reopen them.
+
+## Known limits
+
+The footer buttons ("Cancel", "Action") have no behaviour. Your code must perform the action, close the popover and return focus to the toggle.

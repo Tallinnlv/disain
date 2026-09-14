@@ -1,3 +1,20 @@
-## Special cases
+## Keyboard
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio nec nunc
+A badge is static text in a `span`. It is not focusable and has no keyboard behaviour. If a badge sits inside a button or link, that control provides the interaction.
+
+## Screen readers
+
+By default the badge's visible text is read inline with the content around it. A badge inside a button or link becomes part of that control's name ("Messages 3").
+
+- With `ariaLabel`, the visible text is hidden from screen readers (`aria-hidden="true"`) and the label is rendered as visually hidden text instead. For example "3" is read as "3 unread messages".
+- A badge with neither text nor `ariaLabel`, such as a dot, is treated as decorative and gets `aria-hidden="true"`. `isHidden` does the same for a badge with text.
+- With `live`, the badge gets `role="status"`, so changes to its content are announced politely.
+
+Icons inside a badge are `aria-hidden="true"`.
+
+## Using the example
+
+- Colour must not be the only way the badge carries meaning (WCAG 1.4.1). A red dot next to "Messages" means nothing to a screen reader or colour-blind user; add text or an `ariaLabel`.
+- Use `ariaLabel` to add context to a bare number, not to replace the visible text with something different.
+- Use `live` only for badges that actually change while the page is open, such as a cart count. A page full of `role="status"` badges makes announcements noisy.
+- A badge in the initial page markup is not announced even with `live`; only later changes are.

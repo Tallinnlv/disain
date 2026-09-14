@@ -1,49 +1,25 @@
-# Accessibility
+## Keyboard
 
-Switches are interactive elements that allow users to turn settings on or off. Proper accessibility implementation ensures that all users, including those with disabilities, can interact with switches effectively.
+A switch is a native checkbox with `role="switch"`:
 
-## ARIA Attributes
+- **Tab** moves to the switch.
+- **Space** turns it on or off. **Enter** does nothing, as with any checkbox.
 
-The Switch component implements the following ARIA attributes:
+Clicking anywhere on the label also toggles it.
 
-- `role="switch"` - Identifies the element as a switch control
-- `aria-checked` - Indicates the current state of the switch (true/false)
-- `aria-label` - Provides an accessible name when no visible label is present
-- `aria-labelledby` - References the ID of a visible label element
-- `aria-describedby` - References the ID of hint text that provides additional description
+## Screen readers
 
-## Keyboard Interaction
+The switch is announced as "switch" with its state ("on" / "off"). The state comes from the native `checked` property, so no `aria-checked` is needed. The name comes from the visible label text through `aria-labelledby`, and hint text is linked with `aria-describedby`. A disabled switch uses the native `disabled` attribute: it leaves the Tab order and is announced as unavailable.
 
-The Switch component supports the following keyboard interactions:
+A master switch has `aria-controls` pointing at the container of its nested switches (`<id>-group`). The shared script disables the nested switches while the master is off and enables them when it is turned on.
 
-- **Space** or **Enter**: Toggle the state of the switch
-- **Tab**: Move focus to the next focusable element
-- **Shift+Tab**: Move focus to the previous focusable element
+## Using the example
 
-## Focus Management
+- Ids must be unique per page; the label, hint and group ids are derived from the switch `id`.
+- Use `ariaLabel` only when there is no visible label, and never with wording that differs from a visible label.
+- A switch acts immediately. For choices that are only applied after submitting a form, use a checkbox.
+- Put the nested switches right after their master in the DOM, as the template does, so users reach them next.
 
-- The switch has a visible focus indicator when focused through keyboard navigation
-- Focus states are visually distinct from other states
+## Known limits
 
-## Labels and Hints
-
-- Every switch has a clear, descriptive label
-- Labels are programmatically associated with the switch using `for` attributes
-- Optional hint text provides additional context and is programmatically associated with the switch
-
-## Special Cases
-
-### Master-Child Relationship
-
-For master switches that control nested switches:
-- The master switch uses `aria-controls` to indicate its relationship with child switches
-- Child switches are automatically disabled when the master switch is off
-- This relationship is communicated visually and programmatically
-
-### Disabled State
-
-Disabled switches:
-- Are visually distinct from enabled switches
-- Cannot receive keyboard focus
-- Are programmatically marked as disabled
-- Communicate their disabled state visually through reduced opacity
+Turning the master on or off changes the nested switches silently. Screen reader users only notice when they move to them. If the effect is not obvious from the master's label, say it in the hint ("Lülitab sisse kõik teavitused").

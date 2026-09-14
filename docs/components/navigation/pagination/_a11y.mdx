@@ -1,3 +1,18 @@
-## Special cases
+## Keyboard
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio nec nunc
+Every page number and the previous and next controls are links: **Tab** moves through them in order and **Enter** follows one. There is no script.
+
+## Screen readers
+
+The pagination is a `nav` landmark named by `ariaLabel` ("Pagination"). Page numbers are links in a list, each named "Page N" through `aria-label`, and the current page carries `aria-current="page"`. The "…" gaps are `aria-hidden="true"`. The previous and next links are named by `previousLabel` and `nextLabel` ("Previous page", "Next page") and use `rel="prev"` / `rel="next"`. Their arrow icons are `aria-hidden="true"`. They need an `aria-label` because their visible text is hidden on small screens.
+
+## Using the example
+
+- Pass an Estonian `ariaLabel`, `previousLabel` and `nextLabel` on Estonian pages, for example "Lehekülgede navigeerimine", "Eelmine leht" and "Järgmine leht".
+- Use `href` with a `{page}` placeholder so every page number is a real, bookmarkable URL.
+- After the user moves to another page, move focus to the start of the new results or to the results heading, especially if the list is updated without a full page load.
+
+## Known limits
+
+- The page link names ("Page N") and the visible previous/next text ("Previous", "Next") are hard-coded in English. Change them in Estonian copies.
+- An `aria-label` must contain the visible text (WCAG 2.5.3). If you translate `previousLabel` and `nextLabel`, translate the visible text as well, so that, for example, "Eelmine leht" still contains "Eelmine".

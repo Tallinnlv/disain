@@ -1,1 +1,26 @@
-// Accessibility content here...
+## Keyboard
+
+The country-code selector is a "select-only combobox" on the flag button. Focus stays on the button while the list is open.
+
+- **Arrow Down**, **Arrow Up**, **Enter** or **Space** open the list on the selected country; **Home** / **End** open it on the first or last country.
+- Typing a letter opens the list and jumps to the next country whose name starts with it. Repeating the letter cycles.
+- While open, **Arrow Down** / **Arrow Up** move the highlight, **Home** / **End** jump to the ends, and **Enter** or **Space** select and close.
+- **Escape** closes without changing the country; **Tab** selects the highlighted country and moves on to the number field.
+
+The number field is a native `input type="tel"`.
+
+## Screen readers
+
+The flag button has `role="combobox"`, `aria-haspopup="listbox"`, `aria-expanded` and `aria-controls`, and is named by `countryLabel` through `aria-label` because it shows only a flag. The selected country ("Estonia (+372)") is in a visually hidden span inside the button, and the script updates it together with the flag and the visible prefix. The highlighted country is exposed through `aria-activedescendant`. Flag SVGs are `aria-hidden="true"`.
+
+The number field is labelled by the visible label. Hint and error are linked with `aria-describedby`, and the error state sets `aria-invalid="true"`. It uses `autocomplete="tel-national"`.
+
+## Using the example
+
+- `countryLabel` defaults to English ("Country code"). Pass an Estonian name on Estonian pages.
+- Option ids (`<id>-option-N`) must be unique per instance.
+
+## Known limits
+
+- The visible prefix ("+372") is not referenced from the number field, so focusing the field does not announce the country code. Add `<id>-prefix` to its `aria-describedby` if that matters in your form.
+- The template hard-codes `name="phone"` and `required`. Change both in copies that need a different name or an optional field.

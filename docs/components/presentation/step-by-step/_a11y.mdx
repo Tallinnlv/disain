@@ -1,3 +1,15 @@
-## Special cases
+## Keyboard
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio nec nunc
+Step-by-step is static content with no focusable parts of its own. Links inside a step's description are reached with **Tab** as usual.
+
+## Screen readers
+
+The steps are an ordered list (`ol`), so screen readers announce "list, 4 items" and the position of each step. The large visible number is `aria-hidden="true"` to avoid reading "1, 1". Each step title is a heading (`h3` by default, set with `headingLevel`), so users can move from step to step with the heading shortcut. The connecting line is decorative and has no content.
+
+## Using the example
+
+- Set `headingLevel` to one level below the heading that introduces the steps, so the page outline stays correct.
+- Keep the steps in the order they happen. The announced position comes from the list order, and the hidden `number` must match it.
+- Start every title with a verb ("Täida taotlus", "Lisa dokumendid") so each heading makes sense when read on its own from a headings list.
+- Do not use step-by-step for a process the user is currently going through in a form. That is what the progress tracker is for, with `aria-current="step"`.
+- Put an Estonian process on a page in another language inside a container with `lang="et"`.

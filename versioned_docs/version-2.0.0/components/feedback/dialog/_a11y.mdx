@@ -1,3 +1,22 @@
-## Special cases
+## Keyboard
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio nec nunc
+- Activating a trigger with `data-dialog-open` opens the dialog and moves focus to the first focusable element inside it, or to the dialog itself if it has none.
+- **Tab** and **Shift+Tab** cycle through the dialog's controls. Focus cannot leave while the dialog is open; focus that lands outside, for example from browser UI, is pulled back in.
+- **Escape** closes the dialog, as does clicking the scrim, unless the dialog is not dismissible.
+- Buttons with `data-dialog-close` (the secondary button and the "X") close it.
+- On close, focus returns to the element that opened the dialog.
+
+## Screen readers
+
+The dialog has `role="dialog"` and `aria-modal="true"`. It is named by its title through `aria-labelledby` and described by its body text through `aria-describedby`, so both are read when it opens. The close button is named "Sulge" (`closeLabel`) and its icon is `aria-hidden="true"`. With `scrollType="body"` the body is focusable (`tabindex="0"`), so keyboard users can scroll long content.
+
+## Using the example
+
+- The dialog `id` must be unique; the title and content ids are derived from it.
+- Open dialogs through a `data-dialog-open` button, or call `window.tdsDialog.open(id, opener)` with the opener element, so focus can return to it.
+- Use `dismissible={false}` (`data-dialog-static`) only when closing by accident would lose data. The dialog must then still have a visible way to close.
+- Keep the title short and specific. It is the first thing a screen reader user hears.
+
+## Known limits
+
+The primary button (`data-modal-accept`) does not close the dialog; your code must perform the action, close the dialog and move focus somewhere sensible. The page behind is not made `inert`, so hiding it from assistive technology relies on `aria-modal` support.

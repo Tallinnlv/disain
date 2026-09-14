@@ -1,3 +1,25 @@
-## Special cases
+## Keyboard
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio nec nunc
+A non-interactive tracker has no focusable parts. In an interactive tracker:
+
+- **Tab** reaches the label of each completed step (a `button`), the mobile back button, and the info buttons of steps that have a tooltip.
+- **Enter** or **Space** activate them.
+- An info button shows its tooltip on focus; **Escape** hides it.
+
+Upcoming steps and the current step are not buttons, since users can only go back to steps they have finished.
+
+## Screen readers
+
+The tracker is a `role="group"` named by `progressLabel` (by default "Progress: Step 2 of 4"). The steps are a list (`role="list"` / `role="listitem"`), and the current step carries `aria-current="step"`. Completed-step buttons start with visually hidden text, "Go back to" (`backToLabel`), so they are read as "Go back to Personal details". Info buttons are named "Info about" plus the step label (`infoLabel`) and point at their tooltip with `aria-describedby`. All step icons are `aria-hidden="true"`.
+
+## Using the example
+
+- `progressLabel`, `backToLabel` and `infoLabel` default to English; pass Estonian texts on Estonian pages.
+- Update `progressLabel` and `aria-current="step"` whenever the step changes, and move focus to the heading of the new step.
+- The step buttons only carry `data-step-index`. Your code does the navigation.
+- Tooltips need the shared tooltip script on the page.
+- Tooltip ids (`<id>-tooltip-N`) are derived from the tracker `id`, which must be unique.
+
+## Known limits
+
+Completed steps are marked only with a check icon. Outside the interactive variant, where the "Go back to" text implies it, screen readers do not hear which steps are done. If that matters, add visually hidden text such as "(tehtud)" to completed labels in your copy.

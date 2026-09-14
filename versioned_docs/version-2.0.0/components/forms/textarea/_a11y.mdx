@@ -1,1 +1,21 @@
-// Accessibility content here...
+## Keyboard
+
+The textarea is a native `textarea`: **Tab** focuses it and **Enter** adds a new line. Nothing else is changed by script.
+
+## Screen readers
+
+The textarea is labelled by the visible `label` (`for`/`id`). Hint, error and the visible counter are linked through `aria-describedby`, so the limit ("0/200 characters") is read when the field gets focus. In the error state the textarea has `aria-invalid="true"`.
+
+While the user types, the visible counter updates on every keystroke. A separate, visually hidden `aria-live="polite"` region repeats it only after a second without typing, or immediately when the limit is reached. Screen reader users hear the count when they pause, not after every character.
+
+## Using the example
+
+- Ids must be unique per page. The hint, error, counter and live region ids are derived from the textarea `id`.
+- Always pass a `label`; the template renders an empty `label` element otherwise.
+- Keep the live region right after the counter. The script uses the one with id `<id>-counter-status` and only creates its own if it is missing.
+- The required asterisk is visual only; add `required` or `aria-required="true"` yourself.
+
+## Known limits
+
+- In character mode the native `maxlength` stops input at the limit. In word mode (`wordCount`) the limit is only a `data-max-words` attribute, because the browser cannot enforce words. Validate the word count yourself and show an error.
+- The counter unit ("characters", "words") is hard-coded in English. Change it in Estonian copies.

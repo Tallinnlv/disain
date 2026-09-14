@@ -1,3 +1,19 @@
-## Special cases
+## Keyboard
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio nec nunc
+Cards are not focusable themselves; their link is. **Tab** moves to the link in each card and **Enter** follows it.
+
+- **Link card**: the title is the link.
+- **Transparent content card**: the whole card is one link.
+- **Outlined content card**: only the "Action" link is focusable.
+
+## Screen readers
+
+Titles of content cards are real headings (`h3` by default, set with `headingLevel`), so users can jump between cards by heading. The arrow icon of the link card is `aria-hidden="true"`. In the transparent card the link contains the image, heading and description, so its accessible name is all three read together, starting with the image `alt`. The transparent card is wrapped in an `article`.
+
+## Using the example
+
+- Set `headingLevel` to fit the page outline: one level below the heading of the section the cards are in.
+- In the transparent card, give the image `alt=""` when it only decorates the card. The example's "Tallinn Old Town" otherwise becomes the first words of every link name.
+- Replace the generic "Action" link text with text that says where the link goes ("Loe lähemalt parkimisest"), or add visually hidden context. A page of identical "Action" links is unusable from a links list (WCAG 2.4.4).
+- Do not put another link or button inside a card that is already one big link. Nested interactive elements are invalid and unreachable.
+- The "New" badge is read before the heading. If that order sounds wrong, move the badge after the title in your copy.

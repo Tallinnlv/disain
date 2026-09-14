@@ -1,3 +1,18 @@
-## Special cases
+## Keyboard
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio nec nunc
+Links are native `a` elements with an `href`: **Tab** focuses them and **Enter** follows them. **Space** does not activate a link; it scrolls the page, as users expect.
+
+## Screen readers
+
+A link is announced as "link" followed by its text, and that text is its accessible name. Left and right icons, built-in or custom, are `aria-hidden="true"` and `focusable="false"`, so they add nothing to the name.
+
+A disabled link is rendered without `href` and with `aria-disabled="true"`. It is no longer a link: it drops out of the Tab order, and screen readers in reading mode announce it as unavailable text.
+
+## Using the example
+
+- Link text must say where the link goes, even when read on its own from a links list. Avoid "Loe edasi" or "Siit" without context (WCAG 2.4.4).
+- Use a link for navigation and a button for actions. `asButton` only changes the styling: the element is still a link and still activates on Enter only.
+- If a link opens a new tab or downloads a file, say so in the link text ("Juhend (PDF, 2 MB)"). The template uses `target="_self"`.
+- Custom icons passed as `customIconLeft` or `customIconRight` must include `aria-hidden="true"` and `focusable="false"` themselves.
+- Never add an `aria-label` that differs from the visible text; speech-input users say what they see.
+- Prefer hiding a link that does not apply over disabling it. A disabled link cannot be focused, so keyboard users cannot find out why it is unavailable.

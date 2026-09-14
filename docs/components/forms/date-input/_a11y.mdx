@@ -1,1 +1,18 @@
-// Accessibility content here...
+## Keyboard
+
+Each part of the date is a separate native text field. **Tab** moves from day to month to year, and typing enters digits. The fields use `inputmode="numeric"`, so phones show a number keypad. Nothing is added by script: focus does not jump automatically when a field is full, which keeps editing predictable.
+
+## Screen readers
+
+The fields are grouped in a `fieldset` whose `legend` is the title ("Date of birth"), so the question is read when entering the group. Each field is named by its own visible label ("Päev", "Kuu", "Aasta"). The group hint and error are referenced from the `fieldset` through `aria-describedby`. When there is an error, only the fields flagged by `errorDay`, `errorMonth` and `errorYear` get `aria-invalid="true"` and the red border, so users can tell which part is wrong.
+
+## Using the example
+
+- Ids must be unique per page. The field, hint and error ids (`<id>-day`, `<id>-month`, `<id>-year`, `<id>-hint`, `<id>-error`) are derived from the base `id`.
+- Put an example in the hint ("Näiteks 27 3 2007"), and name the wrong part in the error message ("Kuu peab olema 1 kuni 12").
+- The field labels default to Estonian. Pass `labelDay`, `labelMonth` and `labelYear` on pages in other languages, or add `lang="et"` to the container.
+- The required asterisk is visual only; add `required` or `aria-required="true"` to the fields yourself.
+
+## Known limits
+
+The fields have `autocomplete="off"`. When you ask for the user's own date of birth, change it to `bday-day`, `bday-month` and `bday-year` in your copy so browsers can fill it in (WCAG 1.3.5).

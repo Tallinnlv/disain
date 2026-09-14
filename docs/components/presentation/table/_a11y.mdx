@@ -1,3 +1,23 @@
-## Special cases
+## Keyboard
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec odio nec nunc
+A table is not interactive by default, and screen reader users move through it with their own table commands. Interactive parts:
+
+- **Sortable column headers** are made focusable by the script. **Tab** reaches them, and **Enter** or **Space** sort by that column; activating it again reverses the order.
+- **Row checkboxes** in the multi-select variant are native checkboxes: **Tab** to them and **Space** to toggle.
+
+## Screen readers
+
+Column headers are `th` elements with `scope="col"`, so each cell is announced with its column name. Row checkboxes are named "Select row N", and the header checkbox "Select all rows". Colour swatches in the colour tables are `role="img"` with an `aria-label` naming the colour. The empty state ("Andmed puuduvad") is a `role="status"` region.
+
+## Using the example
+
+- Give every table a caption that says what it contains. Use a real `caption` element, or point the table's `aria-labelledby` at the caption text.
+- Use a table only for tabular data, never for layout.
+- Replace the generic "Select row N" names with the row's content, for example "Vali Mari Maasikas".
+
+## Known limits
+
+- The caption is rendered as a `div` outside the `table`, so it is not associated with the table. Fix this in your copy as described above.
+- Sortable headers are not buttons and have no `aria-sort`. Screen readers do not announce them as sortable or report the current order, which is shown only by the icon. Put a `button` inside the `th` and set `aria-sort="ascending"` or `"descending"` on the sorted header.
+- The sort script only handles the table with the id `table-component`, so it supports one sortable table per page.
+- The header checkbox in the multi-select example is static: it always shows the minus icon and does not select rows. Wire it up yourself, for example with `data-select-all` from the checkbox component.
