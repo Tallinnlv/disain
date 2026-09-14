@@ -34,6 +34,46 @@
   transform: rotate(180deg);
 }
 
+// HTML / JavaScript switcher shown above the code block when the example
+// loads component scripts. Deliberately not the global `.tabs` class, which
+// custom.scss styles at 20px for page-level tabs.
+.codeTabs {
+  display: flex;
+  gap: 4px;
+  padding: 0 16px;
+  background: var(--color-surface-faint);
+  border-left: 2px solid #dcdfe0;
+  border-right: 2px solid #dcdfe0;
+}
+
+.codeTab {
+  padding: 10px 12px 8px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: none;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--color-content-action-neutral-default);
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-content-action-neutral-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-border-focus-default);
+    outline-offset: -2px;
+  }
+}
+
+.codeTabActive {
+  font-weight: 700;
+  color: var(--color-content-highlight-moderate);
+  border-bottom-color: var(--color-border-highlight-moderate);
+}
+
 .codePreview_iframeButtons {
   display: flex;
 }
