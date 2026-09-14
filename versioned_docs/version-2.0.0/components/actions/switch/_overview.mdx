@@ -155,9 +155,10 @@ In a nested group, one master switch enables or disables a group of related swit
         isMaster: true,
         checked: true,
         withDivider: true,
+        controls: 'notification-options',
       })}
       </div>
-      <div class="tds-switch-nested">
+      <div class="tds-switch-nested" id="notification-options">
         ${SwitchComponent({
           label: 'Push notifications',
           align: 'right',
@@ -198,9 +199,10 @@ Sub switches are displayed in a disabled state when the master switch is off.
         isMaster: true,
         checked: false,
         withDivider: true,
+        controls: 'notification-options-disabled',
       })}
       </div>
-      <div class="tds-switch-nested">
+      <div class="tds-switch-nested" id="notification-options-disabled">
         ${SwitchComponent({
           label: 'Push notifications',
           align: 'right',

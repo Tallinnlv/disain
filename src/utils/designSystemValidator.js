@@ -1,6 +1,15 @@
 import { dsConsole } from './validationConsole';
-import { enableW3CValidation, disableW3CValidation } from './html';
-import { enableA11yScan, disableA11yScan, loadAxeIfNeeded } from './a11yScanner';
+import {
+  enableW3CValidation,
+  disableW3CValidation,
+  validateWithW3C,
+} from './html';
+import {
+  enableA11yScan,
+  disableA11yScan,
+  loadAxeIfNeeded,
+  scanForA11y,
+} from './_a11yScanner';
 
 /**
  * Initialize the design system validator with the specified options

@@ -190,7 +190,13 @@ function runBasicA11yChecks(container) {
   }
   
   // Check 7: Check for ARIA roles, states and properties
-  const elementsWithARIA = container.querySelectorAll('[role], [aria-*]');
+  // `[aria-*]` is not a valid CSS selector (it threw and aborted every scan),
+  // so filter on attribute names instead.
+  const elementsWithARIA = Array.from(container.querySelectorAll('*')).filter(
+    (el) =>
+      el.hasAttribute('role') ||
+      Array.from(el.attributes).some((attr) => attr.name.startsWith('aria-')),
+  );
   elementsWithARIA.forEach(el => {
     const role = el.getAttribute('role');
     if (role) {

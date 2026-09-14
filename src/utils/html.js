@@ -1,4 +1,5 @@
 import { validateDesignSystem } from './designValidator';
+import { loadAxeIfNeeded, scanForA11y } from './_a11yScanner';
 
 // Enhanced environment detection
 const isClient = typeof window !== 'undefined';
@@ -394,7 +395,8 @@ export {
   enableW3CValidation,
   disableW3CValidation,
   enableHTMLFormatting,
-  disableHTMLFormatting
+  disableHTMLFormatting,
+  validateWithW3C
 };
 
 export default html;

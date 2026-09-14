@@ -1,7 +1,9 @@
 import { html } from '@site/src/utils/formatHtml';
+import { uid } from '@site/src/utils/uid';
 
 /**
  * @param {object} props
+ * @param {string} [props.id] - Id of the accordion; derived from the props when omitted
  * @param {Array} props.sections - The sections of the accordion
  * @param {object} props.sections[] - A section of the accordion
  * @param {string} props.sections[].heading - The heading of the section
@@ -11,11 +13,9 @@ import { html } from '@site/src/utils/formatHtml';
  * @param {boolean} [props.showSuffix] - Whether to show icons in the accordion
  */
 
-const AccordionComponent = ({
-  sections,
-  showSuffix = false
-}) => {
-  const id = 'accordion-default';
+const AccordionComponent = (props) => {
+  const { sections = [], showSuffix = false } = props;
+  const id = props.id ?? uid('accordion', props);
 
   const renderSuffix = (suffix) => {
     if (!suffix) return '';
@@ -34,34 +34,35 @@ const AccordionComponent = ({
   sections.forEach((section, index) => {
     const headingId = `${id}-heading-${index + 1}`;
     const contentId = `${id}-content-${index + 1}`;
+    const expanded = section.expanded === true;
+
     sectionsHtml += `
-  <div class="tds-accordion__section${section.expanded ? ` tds-accordion__section--expanded` : ''}">
+  <div class="tds-accordion__section${expanded ? ' tds-accordion__section--expanded' : ''}">
     <div class="tds-accordion__section-header">
       <h2 class="tds-accordion__section-heading">
         <button
           type="button"
-          aria-controls="${contentId}"
           class="tds-accordion__section-button"
-          aria-expanded="false"
-          aria-label="${section.heading}, Show this section"
+          aria-controls="${contentId}"
+          aria-expanded="${expanded ? 'true' : 'false'}"
         >
           <span class="tds-accordion__section-toggle" data-nosnippet="">
             <span class="tds-accordion__section-toggle-focus">
-              <span class="tds-accordion-nav__chevron ${section.expanded ? `tds-accordion-nav__chevron--up` : `tds-accordion-nav__chevron--down`}">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <span class="tds-accordion-nav__chevron ${expanded ? 'tds-accordion-nav__chevron--up' : 'tds-accordion-nav__chevron--down'}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true" focusable="false">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M5.69189 11.5764L7.64137 9.7569L16 18.7125L24.3586 9.7569L26.308 11.5764L16 22.6208L5.69189 11.5764Z" fill="#131416"/>
                 </svg>
               </span>
             </span>
             <span class="tds-accordion__section-heading-text" id="${headingId}">
-            <span class="tds-accordion__section-heading-text-focus">${section.heading}</span>
-          </span>
-          ${showSuffix ? renderSuffix(section.suffix) : ''}
+              <span class="tds-accordion__section-heading-text-focus">${section.heading}</span>
+            </span>
+            ${showSuffix ? renderSuffix(section.suffix) : ''}
           </span>
         </button>
       </h2>
     </div>
-    <div id="${contentId}" class="tds-accordion__section-content"${section.expanded ? `` : ` hidden="until-found"`}>
+    <div id="${contentId}" class="tds-accordion__section-content" role="region" aria-labelledby="${headingId}"${expanded ? '' : ' hidden="until-found"'}>
       <p class="tds-body">${section.content}</p>
     </div>
   </div>

@@ -9,9 +9,14 @@
   gap: 8px;
   justify-content: space-between;
   transition: background-color 0.3s;
+  // Reset native button chrome; the control is now a real <button>.
+  border: none;
+  background: transparent;
+  font: inherit;
 
-  &:focus {
-    outline: none;
+  &:focus-visible {
+    outline: 2px solid var(--color-border-focus-default, #0072ce);
+    outline-offset: 2px;
   }
 }
 

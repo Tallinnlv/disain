@@ -1,7 +1,10 @@
 import { html } from '@site/src/utils/formatHtml';
+import { uid } from '@site/src/utils/uid';
 
 /**
  * @param {object} props
+ * @param {string} [props.id] - Id of the input; hint and error ids derive from it. Generated when omitted.
+ * @param {string} [props.name] - Name attribute of the input (defaults to the id)
  * @param {array} [props.modifiers] - Additional CSS classes
  * @param {boolean} [props.compact = false] - The compact state
  * @param {string} [props.errorMessage] - The error message
@@ -11,37 +14,66 @@ import { html } from '@site/src/utils/formatHtml';
  * @param {string} [props.filledArea] - The optional label of the text input
  * @param {string} [props.placeholder] - The optional placeholder of the text input
  * @param {boolean} [props.disabled] - The disabled state
+ * @param {string} [props.autocomplete] - Autocomplete token (e.g. 'name', 'email'). Omitted when not given.
  */
 
-const TextInputComponent = ({
-  modifiers = [],
-  title,
-  hint,
-  titleRequired,
-  compact = false,
-  errorMessage,
-  filledArea = '',
-  placeholder = '',
-  disabled = false,
-}) => {
+const TextInputComponent = (props = {}) => {
+  const {
+    modifiers = [],
+    title,
+    hint,
+    titleRequired,
+    compact = false,
+    errorMessage,
+    filledArea = '',
+    placeholder = '',
+    disabled = false,
+    name,
+    autocomplete,
+  } = props;
+
+  const id = props.id ?? uid('text-input', props);
+  const hintId = `${id}-hint`;
+  const errorId = `${id}-error`;
+
   const required = `<span class="tds-fieldset__required">*</span>`;
-  const errorClass = errorMessage ? ' tds-form-group--error' : '';
+  const hasError = modifiers.includes('is-error') || Boolean(errorMessage);
+  const showError = hasError && Boolean(errorMessage);
+
+  const describedBy = [hint ? hintId : '', showError ? errorId : '']
+    .filter(Boolean)
+    .join(' ');
+
+  const inputAttributes = [
+    `class="tds-input${hasError ? ' tds-input--error' : ''}"`,
+    `id="${id}"`,
+    `name="${name ?? id}"`,
+    'type="text"',
+    autocomplete ? `autocomplete="${autocomplete}"` : '',
+    describedBy ? `aria-describedby="${describedBy}"` : '',
+    hasError ? 'aria-invalid="true"' : '',
+    placeholder ? `placeholder="${placeholder}"` : '',
+    filledArea ? `value="${filledArea}"` : '',
+    disabled ? 'disabled' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
 
   return html`
-<div class="tds-form-group${compact ? ' tds-form-group--compact' : ''}${errorClass}">
+<div class="tds-form-group${compact ? ' tds-form-group--compact' : ''}${hasError ? ' tds-form-group--error' : ''}">
   ${title
-    ? `<label class="tds-label${compact ? ' tds-label--compact' : ''}" for="event-name">
+    ? `<label class="tds-label${compact ? ' tds-label--compact' : ''}" for="${id}">
     ${title}
     ${titleRequired ? required : ''}
   </label>`
     : ''}
   ${hint
-    ? `<div id="event-name-hint" class="tds-label__hint${compact ? ' tds-hint--compact' : ''}">${hint}</div>`
+    ? `<div id="${hintId}" class="tds-label__hint${compact ? ' tds-hint--compact' : ''}">${hint}</div>`
     : ''}
-  ${modifiers.includes('is-error')
-    ? `<div class="tds-error-message${compact ? ' tds-error-message--compact' : ''}">${errorMessage}</div>`
+  ${showError
+    ? `<div id="${errorId}" class="tds-error-message${compact ? ' tds-error-message--compact' : ''}">${errorMessage}</div>`
     : ''}
-  <input autocomplete="off" class="tds-input${modifiers.includes('is-error') ? ' tds-input--error' : ''}" id="event-name" name="eventName" type="text" aria-describedby="event-name-hint"${placeholder ? ` placeholder="${placeholder}"` : ''}${filledArea ? ` value="${filledArea}"` : ''}${disabled ? ' disabled' : ''} />
+  <input ${inputAttributes} />
 </div>
   `;
 };

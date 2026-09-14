@@ -6,13 +6,19 @@ import MoonSvg from '@site/static/img/icons/moon.svg';
 import MobileSvg from '@site/static/img/icons/phone-mobile-svg.svg';
 import DesktopSvg from '@site/static/img/icons/desktop-svg.svg';
 
+const LABELS = {
+  theme: 'Dark preview theme',
+  view: 'Mobile preview width',
+};
+
 /**
  * @param {object} props
  * @param {'theme'|'view'} props.toggleType - The type of toggle: 'theme' (dark/light) or 'view' (mobile/desktop)
  * @param {boolean} [props.isActive] - External state to control toggle (default: `false`)
  * @param {Function} [props.onChange] - Callback to handle state change
+ * @param {string} [props.label] - Accessible name; defaults per toggleType
  */
-const Toggle = ({ toggleType = 'theme', isActive = false, onChange }) => {
+const Toggle = ({ toggleType = 'theme', isActive = false, onChange, label }) => {
   const [isToggled, setIsToggled] = useState(isActive);
 
   // Sync internal state with external isActive prop
@@ -30,21 +36,24 @@ const Toggle = ({ toggleType = 'theme', isActive = false, onChange }) => {
 
   const icons = {
     theme: {
-      active: <MoonSvg />,
-      inactive: <SunSvg />,
+      active: <MoonSvg aria-hidden="true" focusable="false" />,
+      inactive: <SunSvg aria-hidden="true" focusable="false" />,
     },
     view: {
-      active: <MobileSvg />,
-      inactive: <DesktopSvg />,
+      active: <MobileSvg aria-hidden="true" focusable="false" />,
+      inactive: <DesktopSvg aria-hidden="true" focusable="false" />,
     },
   };
 
+  // A real button gives us Enter/Space activation and focus for free;
+  // aria-pressed exposes the on/off state that the circle position conveys visually.
   return (
-    <div
+    <button
+      type="button"
       className={styles.toggleContainer}
       onClick={handleToggle}
-      role="button"
-      tabIndex={0}
+      aria-pressed={isToggled}
+      aria-label={label ?? LABELS[toggleType]}
     >
       <span
         className={clsx(styles.icon, styles.iconLeft, {
@@ -53,13 +62,13 @@ const Toggle = ({ toggleType = 'theme', isActive = false, onChange }) => {
       >
         {icons[toggleType]?.inactive}
       </span>
-      <div
+      <span
         className={clsx(styles.toggleSwitch, {
           [styles.active]: isToggled,
         })}
       >
-        <div className={styles.toggleCircle}></div>
-      </div>
+        <span className={styles.toggleCircle}></span>
+      </span>
       <span
         className={clsx(styles.icon, styles.iconRight, {
           [styles.hidden]: !isToggled,
@@ -67,7 +76,7 @@ const Toggle = ({ toggleType = 'theme', isActive = false, onChange }) => {
       >
         {icons[toggleType]?.active}
       </span>
-    </div>
+    </button>
   );
 };
 

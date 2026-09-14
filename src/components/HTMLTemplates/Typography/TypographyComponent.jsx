@@ -1,14 +1,15 @@
+import { html } from '@site/src/utils/formatHtml';
+
 /**
  * @param {object} props
  * @param {string} [props.content] - The content before the link
  * @param {string} [props.bodySize] - Size of body text
  * @param {string} [props.uiSize] - Size of UI text
  * @param {string} [props.headingSize] - Size of heading text
+ * @param {number} [props.headingLevel] - Explicit heading level (1-6); overrides the level implied by headingSize
  */
 
-function TypographyComponent({ bodySize, uiSize, headingSize, content }) {
-  const html = String.raw;
-
+function TypographyComponent({ bodySize, uiSize, headingSize, headingLevel, content }) {
   const className = headingSize
     ? headingSize === 'dp'
       ? 'tds-heading-dp'
@@ -39,17 +40,26 @@ function TypographyComponent({ bodySize, uiSize, headingSize, content }) {
               : 'tds-ui-text-md'
         : 'tds-body-md';
 
-  // Render appropriate HTML tag based on headingSize
-  const Tag =
-    headingSize === 'lg'
-      ? 'h1'
+  // Heading styles map to semantic heading levels (display and lg are page
+  // titles); headingLevel overrides the mapping. Non-headings render as div.
+  const impliedLevel =
+    headingSize === 'dp' || headingSize === 'lg'
+      ? 1
       : headingSize === 'md'
-        ? 'h2'
+        ? 2
         : headingSize === 'sm'
-          ? 'h3'
+          ? 3
           : headingSize === 'xs'
-            ? 'h4'
-            : 'div'; // Default to div if no headingSize is provided
+            ? 4
+            : headingSize
+              ? 2
+              : 0;
+
+  const level = headingLevel
+    ? Math.min(6, Math.max(1, Number(headingLevel) || impliedLevel || 2))
+    : impliedLevel;
+
+  const Tag = level ? `h${level}` : 'div';
 
   return html`<${Tag} class="${className} tds-color-content-default">
     ${content ? html`<span>${content}</span>` : ''}

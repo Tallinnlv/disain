@@ -42,6 +42,8 @@ function HeaderCardItem({ title, description, link, svg, external = false }) {
       height="25"
       viewBox="0 0 24 25"
       fill="none"
+      aria-hidden="true"
+      focusable="false"
     >
       <path
         fillRule="evenodd"
@@ -59,6 +61,8 @@ function HeaderCardItem({ title, description, link, svg, external = false }) {
       height="24"
       viewBox="0 0 24 24"
       fill="none"
+      aria-hidden="true"
+      focusable="false"
     >
       <path
         fillRule="evenodd"
@@ -69,35 +73,36 @@ function HeaderCardItem({ title, description, link, svg, external = false }) {
     </svg>
   ) : null;
 
+  // The heading holds the only link; a ::after pseudo-element on that link
+  // (see .HeaderCard in the stylesheet) stretches the click target over the
+  // whole card, so the card stays clickable without nesting a heading in a link.
   return (
     <div className={clsx(styles.layout, { [styles.fullWidth]: external })}>
-      {external ? (
-        <a href={link} target="_blank" rel="noopener noreferrer">
-          <div className={styles.HeaderCard}>
-            <img src={svg} alt={`${title} image`} className={styles.svgImage} />
-            <div className={styles.textContainer}>
-              <h2 className="tds-link tds-link--inline">
+      <div className={styles.HeaderCard}>
+        <img src={svg} alt="" className={styles.svgImage} />
+        <div className={styles.textContainer}>
+          <h2>
+            {external ? (
+              <a
+                className="tds-link tds-link--inline"
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {title}
                 {linkIcon}
-              </h2>
-              <p>{description}</p>
-            </div>
-          </div>
-        </a>
-      ) : (
-        <Link to={link}>
-          <div className={styles.HeaderCard}>
-            <img src={svg} alt={`${title} image`} className={styles.svgImage} />
-            <div className={styles.textContainer}>
-              <h2 className="tds-link tds-link--inline">
+                <span className="visually-hidden"> (opens in a new tab)</span>
+              </a>
+            ) : (
+              <Link className="tds-link tds-link--inline" to={link}>
                 {arrowRight}
                 {title}
-              </h2>
-              <p>{description}</p>
-            </div>
-          </div>
-        </Link>
-      )}
+              </Link>
+            )}
+          </h2>
+          <p>{description}</p>
+        </div>
+      </div>
     </div>
   );
 }

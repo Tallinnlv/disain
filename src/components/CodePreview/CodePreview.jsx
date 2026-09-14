@@ -10,6 +10,7 @@ import UsageGuideline from '@site/src/components/UsageGuideline';
 import CodePreviewIframe from '@site/src/components/CodePreviewIframe';
 import { useCurrentVersion } from '@site/src/hooks/useCurrentVersion';
 import { useLatestVersion } from '@site/src/hooks/useLatestVersion';
+import { useDocTitle } from '@site/src/hooks/useDocTitle';
 import { useScriptSources } from './useScriptSources';
 
 const CODE_TABS = [
@@ -33,6 +34,8 @@ const CODE_TABS = [
  * @param {string} [props.lang = html] - The language of the code
  * @param {boolean} [props.hideCode = false] - Whether to hide the code block
  * @param {boolean} [props.hideScriptCode = false] - Hide the JavaScript tab (for demo-only scripts that are not part of the component)
+ * @param {string} [props.title] - Accessible name of the example iframe; defaults to the caption or "Component example"
+ * @param {string} [props.htmlLang = 'en'] - Language of the example markup ('et' for Estonian examples, WCAG 3.1.2)
  * @param {boolean} [props.darkBg = false] - Whether to use a dark background on showcase
  * @param {string} [props.minHeight] - Min height for iFrame container
  * @param {object} [props.style] - Inline style for the showcase container
@@ -59,6 +62,8 @@ export function CodePreview({
   lang = 'html',
   hideCode = false,
   hideScriptCode = false,
+  title,
+  htmlLang = 'en',
   darkBg,
   minHeight = '130px',
   scriptPath,
@@ -86,6 +91,7 @@ export function CodePreview({
 
   const currentVersion = useCurrentVersion();
   const latestVersion = useLatestVersion();
+  const docTitle = useDocTitle();
   const [isCodeVisible, setIsCodeVisible] = React.useState(false);
   const [isMobile, setIsMobile] = React.useState(mobilePreview);
   const [isDarkTheme, setIsDarkTheme] = React.useState(colorMode === 'dark');
@@ -142,6 +148,15 @@ export function CodePreview({
   const iframe = (
     <CodePreviewIframe
       isMobile={isMobile}
+      title={
+        title ??
+        (caption
+          ? `${caption} example`
+          : docTitle
+            ? `${docTitle} example`
+            : 'Component example')
+      }
+      htmlLang={htmlLang}
       theme={isDarkTheme ? 'dark' : 'light'}
       minHeight={minHeight}
       width={width}
@@ -177,6 +192,8 @@ export function CodePreview({
         scriptPath,
         scriptPaths,
         hideScriptCode,
+        title,
+        htmlLang,
         width,
         customGap,
         showDimensions,
@@ -205,11 +222,16 @@ export function CodePreview({
             {!hideCode && (
               <div className={styles.codePreviewFooter}>
                 <button
+                  type="button"
                   className={styles.codePreview_iframeButton}
                   onClick={() => setIsCodeVisible(!isCodeVisible)}
+                  aria-expanded={isCodeVisible}
+                  aria-controls={`${tabIdPrefix}-code`}
                 >
                   {isCodeVisible ? 'Hide Code' : 'Show Code'}
                   <ArrowDownSvg
+                    aria-hidden="true"
+                    focusable="false"
                     className={clsx(styles.arrowIcon, {
                       [styles.arrowDown]: isCodeVisible,
                     })}
@@ -221,6 +243,7 @@ export function CodePreview({
                       <div className={styles.codePreview_screenSizes}>
                         <Toggle
                           toggleType="view"
+                          isActive={isMobile}
                           onChange={(isMobileView) => {
                             setIsMobile(isMobileView);
                           }}
@@ -238,9 +261,9 @@ export function CodePreview({
 
                   {showOpenFullWidth && (
                     <button
+                      type="button"
                       onClick={openFullWidthPreview}
                       className={styles.codePreview_iframeButton}
-                      formTarget="_blank"
                     >
                       View full screen
                     </button>
@@ -249,25 +272,34 @@ export function CodePreview({
               </div>
             )}
             {isCodeVisible && !hideCode && !showScriptTab && (
-              <CodeBlock language={lang} className="code-block">
-                {codeArr[0]?.code}
-              </CodeBlock>
+              <div id={`${tabIdPrefix}-code`}>
+                <CodeBlock language={lang} className="code-block">
+                  {codeArr[0]?.code}
+                </CodeBlock>
+              </div>
             )}
             {isCodeVisible && !hideCode && showScriptTab && (
-              <>
+              <div id={`${tabIdPrefix}-code`}>
                 <div
                   className={styles.codeTabs}
                   role="tablist"
                   aria-label="Example code"
                   onKeyDown={(event) => {
-                    if (
-                      event.key !== 'ArrowLeft' &&
-                      event.key !== 'ArrowRight'
-                    ) {
+                    const index = CODE_TABS.findIndex(
+                      (tab) => tab.id === activeCodeTab,
+                    );
+                    const last = CODE_TABS.length - 1;
+                    const nextIndex = {
+                      ArrowRight: index === last ? 0 : index + 1,
+                      ArrowLeft: index === 0 ? last : index - 1,
+                      Home: 0,
+                      End: last,
+                    }[event.key];
+                    if (nextIndex === undefined) {
                       return;
                     }
                     event.preventDefault();
-                    const next = activeCodeTab === 'html' ? 'js' : 'html';
+                    const next = CODE_TABS[nextIndex].id;
                     setActiveCodeTab(next);
                     document.getElementById(`${tabIdPrefix}-tab-${next}`)?.focus();
                   }}
@@ -294,6 +326,7 @@ export function CodePreview({
                   id={`${tabIdPrefix}-panel`}
                   role="tabpanel"
                   aria-labelledby={`${tabIdPrefix}-tab-${activeCodeTab}`}
+                  tabIndex={0}
                 >
                   {activeCodeTab === 'html' ? (
                     <CodeBlock language={lang} className="code-block">
@@ -305,7 +338,7 @@ export function CodePreview({
                     </CodeBlock>
                   )}
                 </div>
-              </>
+              </div>
             )}
           </div>
         </>
