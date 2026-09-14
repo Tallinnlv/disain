@@ -48,6 +48,7 @@ export default function FullPreview() {
     showElementButtons,
     scriptPath,
     scriptPaths,
+    hideScriptCode,
     currentVersion,
     latestVersion,
   } = iframeData;
@@ -77,6 +78,7 @@ export default function FullPreview() {
             showElementButtons={true}
             scriptPath={scriptPath}
             scriptPaths={scriptPaths}
+            hideScriptCode={hideScriptCode}
             cssPath={recalculatedCssPath} // Pass recalculated value
           />
         </ColorModeProvider>
