@@ -49,6 +49,7 @@ const getText = (content, truncated, customTextStyle) => {
  * @param {string} [props.customTextStyle] - Custom style to be used on the tds-chip--text element
  * @param {string} [props.content] - The content/label/title of the Chip
  * @param {string} [props.removeLabel = 'Eemalda'] - Accessible name prefix of the input chip's remove button
+ * @param {string} [props.ariaLabel] - Accessible name of an icon-only selection chip (chips should normally have visible text)
  */
 
 const ChipComponent = (props) => {
@@ -62,6 +63,7 @@ const ChipComponent = (props) => {
     customTextStyle,
     content = '',
     removeLabel = 'Eemalda',
+    ariaLabel,
   } = props;
 
   const id = props.id ?? uid('chip', props);
@@ -70,7 +72,7 @@ const ChipComponent = (props) => {
 
   if (variant === 'selection') {
     return html`
-<button type="button" class="tds-chip tds-chip--selection tds-chip--selection-${chipSize}${selected ? ' tds-chip--selected' : ''}${tooltipId ? ' tooltip-target' : ''}" aria-pressed="${selected ? 'true' : 'false'}"${tooltipId ? ` aria-describedby="${tooltipId}" data-position="top"` : ''}>
+<button type="button" class="tds-chip tds-chip--selection tds-chip--selection-${chipSize}${selected ? ' tds-chip--selected' : ''}${tooltipId ? ' tooltip-target' : ''}" aria-pressed="${selected ? 'true' : 'false'}"${ariaLabel ? ` aria-label="${ariaLabel}"` : ''}${tooltipId ? ` aria-describedby="${tooltipId}" data-position="top"` : ''}>
   ${iconLeft && customIcon && chipSize !== 'small' ? customIcon : ''}
   ${content ? getText(content, truncated, customTextStyle) : ''}
 </button>
