@@ -41,15 +41,10 @@ Do not automatically tab users between the fields of the date input because this
       title: 'Sünniaeg',
       hint: 'Vajadusel abitekst',
       showDay: true,
-      labelDay: 'Sünnipäev',
-      labelMonth: 'Sünnikuu',
-      labelYear: 'Sünniaasta',
     }) + "\n" + "\n" +
     DateInputComponent({
       title: 'Dokumendi kehtivusaeg',
       hint: 'Vajadusel abitekst',
-      labelMonth: 'Kehtivusaja kuu',
-      labelYear: 'Kehtivusaja aasta',
     }) + "\n" + "\n" +
     `</div>`
   }
@@ -70,9 +65,6 @@ If there's an error with the whole entered date, highlight all fields.
     valueDay: '01',
     valueMonth: '01',
     valueYear: '2035',
-    labelDay: 'Sünnipäev',
-    labelMonth: 'Sünnikuu',
-    labelYear: 'Sünniaasta',
   })}
 />
 
@@ -91,8 +83,5 @@ The error message should specify which field(s) has an error.
     valueMonth: '01',
     errorDay: false,
     errorMonth: false,
-    labelDay: 'Sünnipäev',
-    labelMonth: 'Sünnikuu',
-    labelYear: 'Sünniaasta',
   })}
 />
