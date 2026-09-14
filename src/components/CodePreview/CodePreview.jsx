@@ -81,22 +81,20 @@ export function CodePreview({
   const [isCodeVisible, setIsCodeVisible] = React.useState(false);
   const [isMobile, setIsMobile] = React.useState(mobilePreview);
   const [isDarkTheme, setIsDarkTheme] = React.useState(colorMode === 'dark');
-  const [computedCssPath, setCssPath] = React.useState(cssPath);
-
-  React.useEffect(() => {
-    if (cssPath) {
-      return; // Skip recalculation if cssPath is provided
-    }
-    const newCssPath = `/tds${
+  // Derive the stylesheet path synchronously so the very first srcDoc already
+  // links the right CSS. Computing it in an effect meant the first render
+  // produced href="undefined" and relied on the browser re-navigating the
+  // iframe when srcDoc changed; on a normal reload Chrome sometimes drops that
+  // second navigation, leaving the example unstyled.
+  const computedCssPath =
+    cssPath ??
+    `/tds${
       currentVersion
         ? currentVersion === 'Canary 🚧'
           ? '-next'
           : `-${currentVersion}`
         : `-${latestVersion}`
     }.min.css`;
-
-    setCssPath(newCssPath);
-  }, [currentVersion, latestVersion]);
 
   React.useEffect(() => {
     const updateThemeFromSystem = () => {
