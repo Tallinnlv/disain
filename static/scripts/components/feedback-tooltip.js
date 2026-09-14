@@ -52,8 +52,19 @@
     element.addEventListener('focusin', showTooltip);
     element.addEventListener('focusout', hideTooltip);
     
-    // Add keyboard accessibility - show/hide tooltip on Enter or Space key
+    // Add keyboard accessibility - show/hide tooltip on Enter or Space key.
+    // Only for triggers without a native keyboard action (e.g. a span with
+    // tabindex="0"). Buttons and links already show the tooltip on focus, and
+    // cancelling their Enter/Space would stop them from activating. Keys from
+    // controls inside the trigger (an input chip's remove button) are left
+    // alone for the same reason.
+    const hasNativeActivation = element.matches(
+      'button, a[href], input, select, textarea, summary',
+    );
+
     element.addEventListener('keydown', (event) => {
+      if (hasNativeActivation || event.target !== element) return;
+
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
         if (tooltip.classList.contains('tds-tooltip--visible')) {
