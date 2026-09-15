@@ -3,6 +3,8 @@ import styles from './CodePreviewIframe.module.scss';
 import { useCurrentVersion } from '@site/src/hooks/useCurrentVersion';
 import { useLatestVersion } from '@site/src/hooks/useLatestVersion';
 import { html as htmlCode } from '@site/src/utils/html';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { withBuildId } from '@site/src/utils/withBuildId';
 
 const IFRAME_WIDTH = {
   MOBILE: '590px',
@@ -71,6 +73,12 @@ const CodePreviewIframe = ({
   // Merge single scriptPath into scriptPaths for backward compatibility
   const allScripts = [...(scriptPath ? [scriptPath] : []), ...scriptPaths];
 
+  // Local CSS and scripts keep the same URL across deploys; version them so a
+  // cached old copy is never paired with new markup.
+  const { siteConfig } = useDocusaurusContext();
+  const versioned = (url) =>
+    withBuildId(url, siteConfig.customFields?.buildId);
+
   return (
     <div
       style={{
@@ -98,10 +106,11 @@ const CodePreviewIframe = ({
                 content="width=device-width, initial-scale=1.0"
               />
               <title>Sandbox</title>
-              <link href="${cssPath}" rel="stylesheet" />
+              <link href="${versioned(cssPath)}" rel="stylesheet" />
               ${allScripts
                 .map(
-                  (scriptUrl) => `<script defer src="${scriptUrl}"></script>`,
+                  (scriptUrl) =>
+                    `<script defer src="${versioned(scriptUrl)}"></script>`,
                 )
                 .join('\n')}
               <style>
