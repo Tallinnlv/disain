@@ -20,7 +20,7 @@
     @include tds-link-hover-decoration;
   }
 
-  &:focus {
+  &:focus-visible {
     @include focused.tds-focused-text;
   }
 }
@@ -95,7 +95,7 @@
 
   // When focussed, the text colour needs to be darker to ensure that colour
   // contrast is still acceptable
-  &:focus {
+  &:focus-visible {
     color: s.$tds-focus-text-colour;
   }
 }
@@ -132,7 +132,7 @@
 
   // When focussed, the text colour needs to be darker to ensure that colour
   // contrast is still acceptable
-  &:focus {
+  &:focus-visible {
     color: $tds-focus-text-colour;
   }
 }
@@ -169,7 +169,7 @@
 
   // When focussed, the text colour needs to be darker to ensure that colour
   // contrast is still acceptable
-  &:focus {
+  &:focus-visible {
     color: $tds-focus-text-colour;
   }
 }
@@ -203,7 +203,7 @@
 
   // When focussed, the text colour needs to be darker to ensure that colour
   // contrast is still acceptable
-  &:focus {
+  &:focus-visible {
     color: $tds-focus-text-colour;
   }
 }
@@ -239,7 +239,7 @@
   }
 
   &:active,
-  &:focus {
+  &:focus-visible {
     @include tds-text-colour;
   }
 }
@@ -273,7 +273,7 @@
     color: rgba(c.tds-colour('white'), 0.99);
   }
 
-  &:focus {
+  &:focus-visible {
     color: s.$tds-focus-text-colour;
   }
 }
@@ -317,7 +317,7 @@
 
   // When focussed, the text colour needs to be darker to ensure that colour
   // contrast is still acceptable
-  &:focus {
+  &:focus-visible {
     color: s.$tds-focus-text-colour;
   }
 }
@@ -385,7 +385,7 @@
   // Don't render an underline
   text-decoration: none;
 
-  &:focus {
+  &:focus-visible {
     @include tds-focused-box;
   }
 }

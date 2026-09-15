@@ -18,7 +18,7 @@ $check-size: 32px;
   $bg-color: inherit,
   $border-color: var(--color-border-focus-contrast)
 ) {
-  &:focus:not(.is-disabled):not([disabled]) {
+  &:focus-visible:not(.is-disabled):not([disabled]) {
     color: $color;
     background-color: $bg-color;
     box-shadow:

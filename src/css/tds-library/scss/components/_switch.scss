@@ -214,7 +214,7 @@
 }
 
 // Adds the focus outline with multiple box shadows to the switch container
-.tds-switch-container:focus-within {
+.tds-switch-container:has(:focus-visible) {
   .tds-switch:not(.tds-switch--disabled) .tds-switch__track {
     /* First shadow creates the black outline, second shadow creates the yellow outline */
     box-shadow: 0 0 0 3px var(--color-border-focus-default), 0 0 0 6px var(--color-border-focus-contrast);
