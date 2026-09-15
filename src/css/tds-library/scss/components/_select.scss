@@ -173,4 +173,173 @@
   @include h.tds-media-query($until: desktop) {
     padding: 16px 12px;
   }
+
+  // `display: flex` above would otherwise override the attribute.
+  &[hidden] {
+    display: none;
+  }
+}
+
+// Searchable select: while focus is in the panel, keep the focus ring on the
+// trigger (as in the design) so there is a visible indicator.
+.tds-select--searchable:focus-within .tds-form-control {
+  outline: s.$tds-focus-width solid var(--color-border-focus-contrast);
+  outline-offset: 0;
+  border: 0.125rem solid var(--color-border-focus-default);
+  box-shadow: inset 0 0 0 0.0625rem var(--color-border-focus-default);
+
+  &.tds-form-control--error {
+    border-color: var(--color-border-feedback-negative);
+    box-shadow: 0 0 0 0.0625rem var(--color-border-feedback-negative) inset;
+  }
+}
+
+// Searchable select: the panel holds the search field and the options list.
+.tds-select__panel {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + -3px);
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 11.25em;
+  overflow: hidden;
+  border-radius: 4px;
+  border: 2px solid var(--color-border-strong);
+  color: var(--color-content-default);
+  background: var(--color-surface-default);
+  box-shadow: 0 24px 48px -16px rgba(0, 0, 0, 0.2);
+
+  &[hidden] {
+    display: none;
+  }
+
+  .tds-dropdown {
+    position: static;
+    min-width: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+.tds-select__search {
+  display: flex;
+  align-items: center;
+  height: t.tds-px-to-rem(48px);
+  padding-left: 16px;
+  border-bottom: 1px solid var(--color-border-subtle);
+
+  @include h.tds-media-query($until: desktop) {
+    padding-left: 12px;
+  }
+
+  .tds-select__panel--compact & {
+    height: t.tds-px-to-rem(32px);
+    padding-left: 8px;
+  }
+}
+
+.tds-select__search-input {
+  @include h.tds-font($size: 18);
+
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  color: var(--color-content-default);
+  background: transparent;
+
+  &::placeholder {
+    color: var(--color-content-subtle);
+    opacity: 1;
+  }
+
+  // The caret and the open panel show where focus is (as in the design).
+  &:focus {
+    outline: none;
+  }
+
+  .tds-select__panel--compact & {
+    @include h.tds-font($size: 16);
+  }
+}
+
+.tds-select__search-clear {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  padding: 0 0 0 12px;
+  border: 0;
+  color: var(--color-content-default);
+  background: transparent;
+  cursor: pointer;
+
+  // Divider between the clear and search icons.
+  &::after {
+    content: '';
+    width: 1px;
+    height: 24px;
+    background: var(--color-border-subtle);
+  }
+
+  &[hidden] {
+    display: none;
+  }
+
+  .tds-select__panel--compact & {
+    gap: 8px;
+    padding-left: 8px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    &::after {
+      height: 16px;
+    }
+  }
+}
+
+.tds-select__search-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 48px;
+  height: 100%;
+
+  .tds-select__panel--compact & {
+    width: 32px;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.tds-select__no-results {
+  @include h.tds-font($size: 18);
+
+  padding: 1rem;
+  color: var(--color-content-subtle);
+
+  &[hidden] {
+    display: none;
+  }
+
+  .tds-select__panel--compact & {
+    @include h.tds-font($size: 16);
+
+    padding: 0.5rem;
+  }
+
+  @include h.tds-media-query($until: desktop) {
+    padding: 16px 12px;
+  }
 }
