@@ -20,7 +20,3 @@ For text longer than 20 characters, the shortened visible text is `aria-hidden="
 - Group related selection chips in a `fieldset` with a `legend`, or in a `role="group"` with an `aria-label`.
 - Tooltip ids (`<id>-tooltip`) must be unique; they are derived from the chip `id`.
 - Pass `removeLabel` in the page language on non-Estonian pages.
-
-## Known limits
-
-A truncated chip currently loses keyboard activation. Its tooltip is attached to the selection chip button itself, or to the wrapper around the input chip's remove button, and the shared tooltip script cancels **Enter** and **Space** there (see the Tooltip page). So a truncated selection chip cannot be toggled, and a truncated input chip cannot be removed, from the keyboard. Until the script is fixed, set `truncate={false}` on chips that users must operate by keyboard.
