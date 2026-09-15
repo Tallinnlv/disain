@@ -1,4 +1,6 @@
 import * as React from 'react';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { withBuildId } from '@site/src/utils/withBuildId';
 
 // Script text is cached per URL for the lifetime of the page, so a doc page
 // with a dozen previews of the same component fetches its script once.
@@ -34,6 +36,10 @@ const fetchScript = (url) => {
 export function useScriptSources(urls, enabled) {
   const key = urls.join('\n');
   const [state, setState] = React.useState({ status: 'idle', text: '' });
+  // Fetch the same versioned URL the iframe loads (see CodePreviewIframe), but
+  // keep showing the clean path in the snippet.
+  const { siteConfig } = useDocusaurusContext();
+  const buildId = siteConfig.customFields?.buildId;
 
   React.useEffect(() => {
     if (!enabled || urls.length === 0) {
@@ -48,7 +54,7 @@ export function useScriptSources(urls, enabled) {
 
     Promise.all(
       locals.map((url) =>
-        fetchScript(url)
+        fetchScript(withBuildId(url, buildId))
           .then((text) => ({ url, text: text.trimEnd(), ok: true }))
           .catch(() => ({ url, ok: false })),
       ),
@@ -83,7 +89,7 @@ export function useScriptSources(urls, enabled) {
     return () => {
       cancelled = true;
     };
-  }, [key, enabled]);
+  }, [key, enabled, buildId]);
 
   return state;
 }

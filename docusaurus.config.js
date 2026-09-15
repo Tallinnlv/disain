@@ -6,9 +6,25 @@
 
 import { themes as prismThemes } from 'prism-react-renderer';
 import path from 'path';
+import { execSync } from 'child_process';
+
+// Appended as ?v= to the design-system CSS and component scripts loaded by
+// examples. Those files keep the same URL on every deploy and IIS sends no
+// Cache-Control, so without it browsers can pair new markup with an old
+// cached script.
+const buildId = (() => {
+  try {
+    return execSync('git rev-parse --short HEAD').toString().trim();
+  } catch {
+    return String(Date.now());
+  }
+})();
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
+  customFields: {
+    buildId,
+  },
   title: 'Tallinn Design System',
   tagline: 'Documentation for the Tallinn Design System',
   favicon: 'img/favicon.ico',
