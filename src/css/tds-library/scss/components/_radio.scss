@@ -157,7 +157,7 @@ $tds-radios-focus-width: s.$tds-focus-width;
 }
 
 // Focused state
-.tds-radios__input:focus + .tds-radios__label::before {
+.tds-radios__input:focus-visible + .tds-radios__label::before {
   outline: s.$tds-focus-width solid transparent;
   outline-offset: 1px;
 
@@ -308,7 +308,7 @@ $tds-radios-focus-width: s.$tds-focus-width;
     }
 
     .tds-radios__item:hover
-      .tds-radios__input:focus
+      .tds-radios__input:focus-visible
       + .tds-radios__label::before {
       @media screen and (forced-colors: active), (-ms-high-contrast: active) {
         outline-color: Highlight;
@@ -327,7 +327,7 @@ $tds-radios-focus-width: s.$tds-focus-width;
       }
 
       .tds-radios__item:hover
-        .tds-radios__input:focus
+        .tds-radios__input:focus-visible
         + .tds-radios__label::before {
         box-shadow: 0 0 0 $tds-radios-focus-width
           var(--color-border-focus-contrast);

@@ -176,7 +176,7 @@
     background: var(--color-surface-faint);
   }
 
-  &:focus {
+  &:focus-visible {
     outline: 0;
     border: none;
     margin-top: 2px;

@@ -95,7 +95,7 @@
         background-color: var(--color-surface-subtle);
       }
 
-      &:focus {
+      &:focus-visible {
         position: relative;
         z-index: 10;
         outline-offset: -3px;

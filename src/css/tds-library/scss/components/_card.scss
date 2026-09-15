@@ -64,21 +64,18 @@
         }
       }
 
-      &:focus:not(:active):not(:hover) {
+      &:focus-visible {
         color: var(--color-content-focus-default);
         background: var(--color-surface-focus-default);
         text-decoration-line: underline;
         text-decoration-thickness: 3px;
         text-underline-offset: 4px;
+        border: none;
+        outline: none;
 
         svg > path {
           fill: var(--color-surface-contrast);
         }
-      }
-
-      &:focus-visible {
-        border: none;
-        outline: none;
       }
     }
 
@@ -115,7 +112,7 @@
         object-fit: cover;
       }
 
-      &:focus:not(:active):not(:hover) {
+      &:focus-visible {
         border-radius: .25rem;
         border: none;
         outline: .125rem solid var(--color-border-focus-contrast);

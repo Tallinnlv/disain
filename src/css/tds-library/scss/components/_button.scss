@@ -161,9 +161,9 @@ $button-icon-padding: 0.5rem;
   $bg-color: transparent,
   $border-color: var(--color-border-focus-default)
 ) {
-  &:focus:not(:active):not(:hover):not(.is-disabled):not([disabled]):not(
-      .is-loading
-    ):not([loading]) {
+  &:focus-visible:not(.is-disabled):not([disabled]):not(.is-loading):not(
+      [loading]
+    ) {
     color: $color;
     background-color: $bg-color;
     box-shadow: 0 0 0 0.1875rem $shadow-color;
@@ -176,9 +176,9 @@ $button-icon-padding: 0.5rem;
     }
   }
 
-  &.tds-button--tertiary:focus:not(:active):not(:hover):not(.is-disabled):not(
-      [disabled]
-    ):not(.is-loading):not([loading]) {
+  &.tds-button--tertiary:focus-visible:not(.is-disabled):not([disabled]):not(
+      .is-loading
+    ):not([loading]) {
     text-decoration: none;
     box-shadow:
       0 -0.1875rem var(--color-surface-focus-default),
@@ -193,9 +193,9 @@ $button-icon-padding: 0.5rem;
   $bg-color: transparent,
   $border-color: var(--color-border-focus-default)
 ) {
-  &:focus:not(:active):not(:hover):not(.is-disabled):not([disabled]):not(
-      .is-loading
-    ):not([loading]) {
+  &:focus-visible:not(.is-disabled):not([disabled]):not(.is-loading):not(
+      [loading]
+    ) {
     color: $color;
     background-color: $bg-color;
     box-shadow:
@@ -210,9 +210,9 @@ $button-icon-padding: 0.5rem;
     }
   }
 
-  &.tds-button--tertiary:focus:not(:active):not(:hover):not(.is-disabled):not(
-      [disabled]
-    ):not(.is-loading):not([loading]) {
+  &.tds-button--tertiary:focus-visible:not(.is-disabled):not([disabled]):not(
+      .is-loading
+    ):not([loading]) {
     text-decoration: none;
     box-shadow:
       0 -0.1875rem var(--color-surface-focus-default),
@@ -649,7 +649,7 @@ $button-icon-padding: 0.5rem;
       text-decoration-thickness: 0.1875rem;
     }
 
-    &:focus:not(.is-disabled):not([disabled]) {
+    &:focus-visible:not(.is-disabled):not([disabled]) {
       border: none;
     }
 

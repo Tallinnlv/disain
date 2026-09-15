@@ -74,7 +74,7 @@
     }
 
     &.in-edit,
-    &:focus {
+    &:focus-visible {
       border: .125rem solid var(--color-border-focus-default);
       background: var(--color-surface-focus-default);
       outline: .1875rem solid var(--color-border-focus-contrast);
@@ -90,7 +90,7 @@
     &.tds-input--error {
       border: .125rem solid var(--color-border-feedback-negative);
 
-      &:focus {
+      &:focus-visible {
         border: .125rem solid var(--color-border-feedback-negative);
         box-shadow: 0 0 0 .0625rem var(--color-border-feedback-negative) inset;
       }
@@ -250,7 +250,7 @@
               text-underline-position: from-font;
             }
 
-            &:focus, &.focused:not(.selected) {
+            &:focus-visible, &.focused:not(.selected) {
               color: var(--color-content-focus-default);
               background: var(--color-surface-focus-default);
               box-shadow: 0 0 0 3px var(--color-border-focus-contrast),
@@ -350,7 +350,7 @@
                   text-underline-position: from-font;
                 }
 
-                &:focus, &.focused:not(.selected) {
+                &:focus-visible, &.focused:not(.selected) {
                   color: var(--color-content-focus-default);
                   background: var(--color-surface-focus-default);
                   box-shadow: 0 0 0 3px var(--color-border-focus-contrast),

@@ -118,9 +118,9 @@ $link-svgSize-compact-m: t.tds-px-to-rem(16px);
   $bg-color: default,
   $border-color: var(--color-border-focus-default)
 ) {
-  &:focus:not(:active):not(:hover):not(.is-disabled):not([disabled]):not(
-      .is-loading
-    ):not([loading]) {
+  &:focus-visible:not(.is-disabled):not([disabled]):not(.is-loading):not(
+      [loading]
+    ) {
     color: $color;
     background-color: $bg-color;
     @if $shadow-color == 'none' or $shadow-color == none {
@@ -136,9 +136,9 @@ $link-svgSize-compact-m: t.tds-px-to-rem(16px);
     }
   }
 
-  &.tds-link:focus:not(:active):not(:hover):not(.is-disabled):not(
-      [disabled]
-    ):not(.is-loading):not([loading]) {
+  &.tds-link:focus-visible:not(.is-disabled):not([disabled]):not(
+      .is-loading
+    ):not([loading]) {
     text-decoration: none;
     box-shadow:
       0 -3px var(--color-border-focus-contrast),
