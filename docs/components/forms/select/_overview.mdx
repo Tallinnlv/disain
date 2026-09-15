@@ -161,3 +161,62 @@ If you use the component for questions, you should not pre-select any of the opt
 
 })}
 />
+
+## Search
+
+Add a search field to the list when there are many options, so users can type to narrow them down. Options that contain the typed text stay visible; a clear button appears once something is typed. If nothing matches, the list shows a "no results" message.
+
+<CodePreview
+  minHeight="480px"
+  scriptPath="/scripts/components/forms-select.js"
+  width="60%"
+  caption="Regular size"
+  code={SelectComponent({
+    title: 'Linnaosa',
+    searchable: true,
+    selectCustomText: 'Vali linnaosa',
+    searchPlaceholder: 'Otsi linnaosa',
+    clearSearchLabel: 'Tühjenda otsing',
+    noResultsText: 'Tulemusi ei leitud',
+    resultText: '1 tulemus',
+    resultsText: '{count} tulemust',
+    selectOptions: [
+      { value: 'haabersti', label: 'Haabersti' },
+      { value: 'kesklinn', label: 'Kesklinn' },
+      { value: 'kristiine', label: 'Kristiine' },
+      { value: 'lasnamae', label: 'Lasnamäe' },
+      { value: 'mustamae', label: 'Mustamäe' },
+      { value: 'nomme', label: 'Nõmme' },
+      { value: 'pirita', label: 'Pirita' },
+      { value: 'pohja-tallinn', label: 'Põhja-Tallinn' },
+    ],
+  })}
+/>
+
+<CodePreview
+  minHeight="400px"
+  scriptPath="/scripts/components/forms-select.js"
+  width="60%"
+  caption="Compact size"
+  code={SelectComponent({
+    title: 'Linnaosa',
+    compact: true,
+    searchable: true,
+    selectCustomText: 'Vali linnaosa',
+    searchPlaceholder: 'Otsi linnaosa',
+    clearSearchLabel: 'Tühjenda otsing',
+    noResultsText: 'Tulemusi ei leitud',
+    resultText: '1 tulemus',
+    resultsText: '{count} tulemust',
+    selectOptions: [
+      { value: 'haabersti', label: 'Haabersti' },
+      { value: 'kesklinn', label: 'Kesklinn' },
+      { value: 'kristiine', label: 'Kristiine' },
+      { value: 'lasnamae', label: 'Lasnamäe' },
+      { value: 'mustamae', label: 'Mustamäe' },
+      { value: 'nomme', label: 'Nõmme' },
+      { value: 'pirita', label: 'Pirita' },
+      { value: 'pohja-tallinn', label: 'Põhja-Tallinn' },
+    ],
+  })}
+/>
