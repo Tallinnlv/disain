@@ -1,4 +1,5 @@
 @use '../../helpers/' as h;
+@use '../../settings' as s;
 
 .flex-wrapper {
   display: flex;
@@ -31,7 +32,7 @@
 
   p {
     display: flex;
-    font-family: 'Lab Grotesque';
+    font-family: s.$tds-font-family;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 0px !important;
@@ -57,7 +58,7 @@
 }
 
 .blue-50 {
-  font-family: 'Lab Grotesque';
+  font-family: s.$tds-font-family;
   background-color: #0072ce;
   color: #fff;
   font-size: 1.2em;

@@ -1,18 +1,61 @@
-$lab-grotesque-included: false !default;
+$tallinn-sans-included: false !default;
 
-@mixin tds-font-face-lab-grotesque {
-  @if not $lab-grotesque-included {
-    $lab-grotesque-included: true !global;
+/// Tallinn Sans @font-face declarations
+///
+/// Tallinn Sans is the city's own typeface (Tallinn Design System uses the
+/// regular and bold weights and their italics). Declaring all four faces means
+/// browsers use the real bold and italic cuts instead of synthesising them.
+///
+/// @access public
+
+@mixin tds-font-face-tallinn-sans {
+  @if not $tallinn-sans-included {
+    $tallinn-sans-included: true !global;
     @at-root {
       @font-face {
-        font-family: 'Lab Grotesque';
+        font-family: 'Tallinn Sans';
         src:
-          url('/assets/fonts/LabGrotesqueRegularWeb/LabGrotesque-Regular.woff2')
+          url('/assets/fonts/TallinnSans/TallinnSans-Regular.woff2')
             format('woff2'),
-          url('/assets/fonts/LabGrotesqueRegularWeb/LabGrotesque-Regular.woff')
+          url('/assets/fonts/TallinnSans/TallinnSans-Regular.woff')
             format('woff');
         font-weight: normal;
         font-style: normal;
+        font-display: fallback;
+      }
+
+      @font-face {
+        font-family: 'Tallinn Sans';
+        src:
+          url('/assets/fonts/TallinnSans/TallinnSans-Italic.woff2')
+            format('woff2'),
+          url('/assets/fonts/TallinnSans/TallinnSans-Italic.woff')
+            format('woff');
+        font-weight: normal;
+        font-style: italic;
+        font-display: fallback;
+      }
+
+      @font-face {
+        font-family: 'Tallinn Sans';
+        src:
+          url('/assets/fonts/TallinnSans/TallinnSans-Bold.woff2')
+            format('woff2'),
+          url('/assets/fonts/TallinnSans/TallinnSans-Bold.woff') format('woff');
+        font-weight: bold;
+        font-style: normal;
+        font-display: fallback;
+      }
+
+      @font-face {
+        font-family: 'Tallinn Sans';
+        src:
+          url('/assets/fonts/TallinnSans/TallinnSans-BoldItalic.woff2')
+            format('woff2'),
+          url('/assets/fonts/TallinnSans/TallinnSans-BoldItalic.woff')
+            format('woff');
+        font-weight: bold;
+        font-style: italic;
         font-display: fallback;
       }
     }

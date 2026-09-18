@@ -133,7 +133,7 @@ const CodePreviewIframe = ({
                   ? `.dimension-display {
                   position: absolute;
                   margin-top: -40px;
-                  font-family: 'Lab Grotesque';
+                  font-family: 'Tallinn Sans', arial, sans-serif;
                   font-size: 16px;
                   color: var(--color-content-default);
                   }`
