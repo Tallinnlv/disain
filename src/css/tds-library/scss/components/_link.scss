@@ -156,7 +156,7 @@ $link-svgSize-compact-m: t.tds-px-to-rem(16px);
   font-size: inherit;
   cursor: pointer;
   gap: $link-padding-x;
-  font-family: 'Lab Grotesque', arial, sans-serif;
+  font-family: s.$tds-font-family;
   -webkit-font-smoothing: antialiased;
 
   &--inline {

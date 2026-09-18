@@ -19,10 +19,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  // If the user is using the default Lab Grotesque font we need to include
+  // If the user is using the default Tallinn Sans font we need to include
   // the font-face declarations.
   @if s.$tds-include-default-font-face {
-    @include ff.tds-font-face-lab-grotesque;
+    @include ff.tds-font-face-tallinn-sans;
   }
 
   @include mq.tds-media-query($media-type: print) {

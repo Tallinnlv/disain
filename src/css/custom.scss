@@ -30,7 +30,7 @@
   --doc-sidebar-width: 280px !important;
   --ifm-navbar-height: 72px;
   --ifm-container-width-xl: 1024px;
-  --ifm-font-family-base: 'Lab Grotesque';
+  --ifm-font-family-base: 'Tallinn Sans', arial, sans-serif;
   --color-content-brand: var(--ifm-color-primary);
   --color-border-brand: var(--ifm-color-primary);
   --color-border-feedback-positive: var(--ifm-color-green-50);
@@ -61,13 +61,9 @@
   --color-content-default: var(--color-neutral-10);
 }
 
-@font-face {
-  font-family: 'Lab Grotesque';
-  src:
-    url('/fonts/LabGrotesqueRegularWeb/LabGrotesque-Regular.eot') format('eot'),
-    url('/fonts/LabGrotesqueRegularWeb/LabGrotesque-Regular.woff')
-      format('woff');
-}
+/* Tallinn Sans for the docs shell. Component examples render in iframes and
+   get the same faces from the compiled tds-*.min.css. */
+@include h.tds-font-face-tallinn-sans;
 
 .tabItem:nth-of-type(0) pre[class*='language-html'] {
   .button {
@@ -116,7 +112,7 @@ body {
 }
 
 .navbar__link {
-  font-family: 'Lab Grotesque';
+  font-family: var(--ifm-font-family-base);
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
