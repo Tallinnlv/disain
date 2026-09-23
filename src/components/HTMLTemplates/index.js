@@ -3,6 +3,7 @@ import { useLatestVersion } from '@site/src/hooks/useLatestVersion';
 import * as CanaryComponents from './canary'; // Import Canary components from canary.js
 import * as VersionedV1_0_0Components from './versioned/v1.0.0/HTMLTemplates'; // Import versioned components
 import * as VersionedV2_0_0Components from './versioned/v2.0.0/HTMLTemplates'; // Import versioned components
+import * as VersionedV2_1_0Components from './versioned/v2.1.0/HTMLTemplates'; // Import versioned components
 
 // NB! Currently, HTMLTemplates versioning is done manually, dynamic rendering is not supported yet
 
@@ -20,6 +21,8 @@ export const useResolvedComponents = () => {
     return VersionedV1_0_0Components;
   } else if (resolvedVersion === '2.0.0') {
     return VersionedV2_0_0Components;
+  } else if (resolvedVersion === '2.1.0') {
+    return VersionedV2_1_0Components;
   } else {
     console.error(`Version ${resolvedVersion} is not recognized.`);
     throw new Error(`Version ${resolvedVersion} is not recognized.`);

@@ -1,0 +1,42 @@
+import { CodePreview, CodePreviewGroup, ChipComponent } from '@site/src/components';
+
+# Usage guidelines
+
+## Labels
+
+Make sure that the label is clear and concise and describes the effect that will happen when the switch is set to “On” position.
+
+<CodePreviewGroup>
+  <CodePreview
+    hideCode
+    minHeight="192px"
+    guideline='permitted'
+    svgPath="/img/switchUsage/content.svg"
+
+  />
+  <CodePreview
+    hideCode
+    minHeight="192px"
+    guideline='prohibited'
+    svgPath="/img/switchUsage/content-1.svg"
+/>
+</CodePreviewGroup>
+
+## Switch vs checkbox
+
+Do not use a switch as a replacement for a checkbox. Switches act as instant-save control for boolean settings, while checkboxes are for selections requiring explicit save actions.
+
+<CodePreviewGroup>
+  <CodePreview
+    hideCode
+    minHeight="352px"
+    guideline='permitted'
+    svgPath="/img/switchUsage/content-2.svg"
+  />
+  <CodePreview
+    hideCode
+    minHeight="352px"
+    guideline='prohibited'
+    svgPath="/img/switchUsage/content-3.svg"
+/>
+</CodePreviewGroup>

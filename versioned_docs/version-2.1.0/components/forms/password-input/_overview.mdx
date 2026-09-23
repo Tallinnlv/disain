@@ -1,0 +1,50 @@
+import {
+  CodePreview,
+  PasswordInputComponent,
+  CodePreviewGroup,
+  UsageAdvice,
+} from '@site/src/components';
+
+# Overview
+
+<UsageAdvice permitted>
+  Use this component whenever you need users to create or enter a password.
+</UsageAdvice>
+
+<UsageAdvice permitted={false}>
+  Do not use this component to ask for any information other than a password.
+</UsageAdvice>
+
+## Principles
+
+Hide passwords by default until the user chooses to show it using the “show” button.
+
+Use the autocomplete attribute on password inputs to help users complete forms faster. Set the autocomplete attribute to
+new-password if the user is creating a password. Otherwise, use current-password.
+
+Always allow users to copy and paste in password fields.
+
+<CodePreview
+  scriptPath="/scripts/components/forms-password-input.js"
+  minHeight="220px"
+  code={PasswordInputComponent({
+    error: false,
+    hint: true,
+  })}
+/>
+
+## Error messages
+
+If the user enters their account details incorrectly, do not reveal whether they got the username or password wrong. Clear any information entered into the password input.
+
+Revealing the source of the error can help fraudsters break into people’s accounts.
+
+<CodePreview
+  scriptPath="/scripts/components/forms-password-input.js"
+  minHeight="250px"
+  code={PasswordInputComponent({
+    error: true,
+    hint: true,
+    passwordFilled: '12345678',
+  })}
+/>

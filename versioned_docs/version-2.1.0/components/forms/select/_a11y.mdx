@@ -1,0 +1,52 @@
+## Keyboard
+
+The select is a WAI-ARIA "select-only combobox". Without search, focus always stays on the button (see [Select with search](#select-with-search) for the searchable variant).
+
+While closed:
+
+- **Arrow Down**, **Arrow Up**, **Enter** or **Space** open the list with the selected option (or the first) highlighted.
+- **Home** / **End** open the list on the first or last option.
+- Typing a letter opens the list and jumps to the first matching option.
+
+While open:
+
+- **Arrow Down** / **Arrow Up** move the highlight one option (no wrapping); **Page Down** / **Page Up** move it by ten; **Home** / **End** jump to the ends.
+- Typing jumps to the next option starting with the typed text. Repeating one letter cycles through options with that letter.
+- **Enter** or **Space** select the highlighted option and close.
+- **Escape** closes without changing the value.
+- **Tab** selects the highlighted option, closes the list and moves focus on.
+
+## Screen readers
+
+The button has `role="combobox"`, `aria-haspopup="listbox"`, `aria-controls` and `aria-expanded`. Its name comes from the visible label via `aria-labelledby`, and its text is the current value. The highlighted option is announced through `aria-activedescendant`; options carry `aria-selected`. Hint and error text are linked with `aria-describedby`, and the error state sets `aria-invalid="true"`.
+
+## Select with search
+
+The searchable select works differently: opening the list moves focus into the search field, which is a WAI-ARIA editable combobox with list autocomplete.
+
+While closed (focus on the button):
+
+- **Arrow Down**, **Arrow Up**, **Enter** or **Space** open the list and move focus to the search field.
+- Typing a character opens the list and starts the search with that character.
+
+While open (focus in the search field):
+
+- Typing filters the options to those that contain the text (not case-sensitive). The first match is highlighted.
+- **Arrow Down** / **Arrow Up** move the highlight through the visible options; **Page Down** / **Page Up** move it by ten. **Home** / **End** move the text cursor.
+- **Enter** selects the highlighted option, closes the list and returns focus to the button.
+- **Escape** closes without changing the value and returns focus to the button.
+- **Tab** closes without changing the value and moves focus on.
+
+The button is a plain button with `aria-haspopup="listbox"` and `aria-expanded`; its name is the label followed by the current value. The search field has `role="combobox"`, `aria-autocomplete="list"` and `aria-controls` pointing to the listbox, and announces the highlighted option through `aria-activedescendant`. After typing, the number of results (or the "no results" text) is announced through a polite live region. The clear button is reachable by mouse or touch only; keyboard users can delete the text as usual.
+
+Set `searchPlaceholder`, `clearSearchLabel`, `noResultsText`, `resultText` and `resultsText` in the language of the page.
+
+## Using the example
+
+- Every option needs a unique `id`, or the highlight cannot be announced.
+- Use `ariaLabel` only when there is no visible label.
+- The required asterisk is visual only. Add `aria-required="true"` to the button yourself.
+
+## Known limits
+
+The component has no native `input` or `select`, so the value is not submitted with a form. Read the option with `aria-selected="true"` (its `data-value`) in your own script.

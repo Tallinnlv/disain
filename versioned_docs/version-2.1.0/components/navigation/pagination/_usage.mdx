@@ -1,0 +1,104 @@
+import {
+  CodePreview,
+  CodePreviewGroup,
+  PaginationComponent,
+} from '@site/src/components';
+
+# Usage guidliness
+
+## Previous and next
+
+Do not show the previous page link on the first page and the next page link on the last page.
+
+<CodePreview
+  guideline="permitted"
+  minHeight="210px"
+  hideCode
+  orientationVertical
+  code={
+    PaginationComponent({
+      page: 1,
+      total: 3,
+      pages: [1, 2, 3],
+      activePage: 1,
+      showPrev: false,
+    }) +
+    PaginationComponent({
+      page: 1,
+      total: 3,
+      pages: [1, 2, 3],
+      activePage: 3,
+      showNext: false,
+    })
+  }
+/>
+
+<CodePreview
+  guideline="prohibited"
+  minHeight="210px"
+  hideCode
+  orientationVertical
+  code={
+    PaginationComponent({
+      page: 1,
+      total: 3,
+      pages: [1, 2, 3],
+      activePage: 1,
+      showPrev: true,
+    }) +
+    PaginationComponent({
+      page: 1,
+      total: 3,
+      pages: [1, 2, 3],
+      activePage: 3,
+      showNext: true,
+    })
+  }
+/>
+
+## Truncation
+
+Use truncation when the page numbers do not fit in the available space. Avoid multiple rows of page numbers.
+
+<CodePreview
+  minHeight="180px"
+  guideline="permitted"
+  code={PaginationComponent({
+    truncated: true,
+    page: 1,
+    total: 22,
+    activePage: 9,
+  })}
+/>
+
+<CodePreview
+  minHeight="200px"
+  guideline="prohibited"
+  code={PaginationComponent({
+    truncated: false,
+    page: 1,
+    pages: [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+      22,
+    ],
+    total: 22,
+    activePage: 9,
+  })}
+/>
+
+## Single page
+
+Do not show pagination if there’s only one page of content.
+
+<CodePreview
+  minHeight="100px"
+  guideline="prohibited"
+  code={PaginationComponent({
+    truncated: false,
+    page: 1,
+    pages: [1],
+    total: 1,
+    showPrev: false,
+    activePage: 1,
+  })}
+/>

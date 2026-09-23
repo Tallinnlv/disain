@@ -1,0 +1,78 @@
+import { CodePreview, CodePreviewGroup } from '@site/src/components';
+
+## Usage guidelines
+
+### Content
+
+Keep the content of the tooltip as clear and concise as possible.
+
+<CodePreviewGroup>
+
+<CodePreview
+  hideCode
+  guideline="permitted"
+  minHeight="370px"
+  svgPath="/img/tooltipUsage/content-length--do.svg"
+/>
+
+<CodePreview
+  hideCode
+  guideline="prohibited"
+  minHeight="370px"
+  svgPath="/img/tooltipUsage/content-length--dont.svg"
+/>
+
+</CodePreviewGroup>
+
+Avoid restating visible UI text.
+
+<CodePreviewGroup>
+
+<CodePreview
+  hideCode
+  guideline="permitted"
+  minHeight="230px"
+  svgPath="/img/tooltipUsage/restate-visible--do.svg"
+/>
+
+<CodePreview
+  hideCode
+  guideline="prohibited"
+  minHeight="230px"
+  svgPath="/img/tooltipUsage/restate-visible--dont.svg"
+/>
+
+</CodePreviewGroup>
+
+### Placement
+
+For tooltips that are inline with other text, like a definition tooltip, do not obstruct words to the left and right of the trigger word.
+
+<CodePreviewGroup>
+
+<CodePreview
+  hideCode
+  guideline="permitted"
+  minHeight="370px"
+  svgPath="/img/tooltipUsage/inline-placement--do.svg"
+/>
+
+<CodePreview
+  hideCode
+  guideline="prohibited"
+  minHeight="370px"
+  svgPath="/img/tooltipUsage/inline-placement--dont.svg"
+/>
+
+</CodePreviewGroup>
+
+### Interactive elements
+
+Avoid placing interactive elements, such as buttons and links, inside tooltips.
+
+<CodePreview
+  hideCode
+  guideline="prohibited"
+  minHeight="230px"
+  svgPath="/img/tooltipUsage/interactive--dont1.svg"
+/>

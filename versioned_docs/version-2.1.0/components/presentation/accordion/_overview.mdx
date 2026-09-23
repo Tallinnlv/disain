@@ -1,0 +1,103 @@
+import {
+  CodePreview,
+  CodePreviewGroup,
+  AccordionComponent,
+  UsageAdvice,
+} from '@site/src/components';
+
+# Overview
+
+<UsageAdvice permitted>
+  Use an accordion if it’s helpful for the user to see an overview of multiple,
+  related sections of content and choose to show and hide sections that are
+  relevant to them.
+</UsageAdvice>
+
+<UsageAdvice permitted={false}>
+  Do not use an accordion for critical information or content that all users will need to see.
+
+Test your content without an accordion first. Consider if it’s better to:
+
+- simplify and reduce the amount of content
+- split the content across multiple pages
+- keep the content on a single page, separated by headings
+- use a list of links to let users navigate quickly to specific sections of content.
+
+Do not put accordions inside accordions, as it will make content difficult to find.
+
+Do not use accordions to create step-by-step forms.
+
+</UsageAdvice>
+
+## Accordions vs Tabs
+
+If you decide to use one of these components, consider if:
+
+- the user needs to look at more than one section at a time – an accordion can show multiple sections at a time, unlike tabs
+- the user needs to switch quickly between sections – tabs can show content without pushing other sections down the page, unlike accordions
+- there are many sections of content – accordions can fit more sections as they’re arranged vertically, unlike tabs which are arranged horizontally.
+
+## Principles
+
+An accordion will usually start with all sections hidden. To show a section, the user can interact anywhere in the heading area.
+
+Write the title like any other button text. Use sentence case, describe the content that will show, and keep it short. Users of screen readers might find it difficult to navigate the accordion if the title is too long.
+
+Do not auto-close or auto-open accordions an do not auto-scroll the opened accordion to the top of the screen.
+
+<CodePreview
+  minHeight="500px"
+  width="80%"
+  code={AccordionComponent({
+    sections: [
+      {
+        heading: 'Accordion 1',
+        content: 'Content 1',
+      },
+      {
+        heading: 'Accordion 2',
+        content:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat. Duis aute irure dolor in reprehenderit in voluptate  velit esse cillum dolore eu fugiat nulla pariatur.',
+      },
+      {
+        heading: 'Accordion 3',
+        content: 'Content 3',
+      },
+    ],
+  })}
+  scriptPath="/scripts/components/presentation-accordion.js"
+/>
+
+### Suffix
+
+<CodePreview
+  minHeight="500px"
+  width="80%"
+  code={AccordionComponent({
+    showSuffix: true,
+    sections: [
+      {
+        heading: 'Accordion 1',
+        content: 'Content 1',
+        suffix: () => `<span class="tds-badge tds-badge--primary tds-badge--small tds-badge--align-left" role="status" aria-label="22 new notifications">
+            <span class="tds-badge__text tds-badge__text--small tds-badge__text--bold">22</span>
+          </span>`,
+      },
+      {
+        heading: 'Accordion 2',
+        content:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim  veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea  commodo consequat. Duis aute irure dolor in reprehenderit in voluptate  velit esse cillum dolore eu fugiat nulla pariatur.',
+        suffix: () =>`<span class="tds-badge tds-badge--green tds-badge--medium tds-badge--align-left" role="status" aria-label="UUS!">
+            <span class="tds-badge__text tds-badge__text--medium">UUS!</span>
+          </span>`,
+      },
+      {
+        heading: 'Accordion 3',
+        content: 'Content 3',
+        suffix: () =>
+          `<span class="tds-ui-text-sm tds-color-content-subtle tds-badge--align-left">Viimati muudetud 08.10.2024</span>`,
+      },
+    ],
+  })}
+  scriptPath="/scripts/components/presentation-accordion.js"
+/>
