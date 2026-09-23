@@ -1,0 +1,136 @@
+import {
+  CodePreview,
+  CodePreviewGroup,
+  ButtonComponent,
+} from '@site/src/components';
+
+# Usage guidelines
+
+### Button text should describe what it does
+
+Be specific about what the button does, while keeping it short and concise. Aim for a maximum of 3 words or 20 characters. Avoid unnecessary words and don’t include punctuation in button text.
+
+<CodePreviewGroup>
+<CodePreview
+hideCode
+guideline="permitted"
+minHeight='270px'
+orientationVertical
+code={ButtonComponent({
+buttonModifiers: 'tds-button--primary',
+content: 'Sisene',
+iconLeft: false,
+iconRight: false,
+}) +
+ButtonComponent({
+buttonModifiers: 'tds-button--primary',
+content: 'Salvesta',
+iconLeft: false,
+iconRight: false,
+}) +
+ButtonComponent({
+buttonModifiers: 'tds-button--primary',
+content: 'Saada',
+iconLeft: false,
+iconRight: false,
+})
+}
+/>
+<CodePreview
+hideCode
+minHeight='270px'
+guideline='prohibited'
+orientationVertical
+code={
+ButtonComponent({
+buttonModifiers: 'tds-button--primary',
+content: 'Logi sisse e-teenindusse',
+iconLeft: false,
+iconRight: false,
+}) +
+ButtonComponent({
+buttonModifiers: 'tds-button--primary',
+content: 'Salvesta andmebaasi',
+iconLeft: false,
+iconRight: false,
+}) +
+ButtonComponent({
+buttonModifiers: 'tds-button--primary',
+content: 'Saada kohe!',
+iconLeft: false,
+iconRight: false,
+})
+}
+/>
+
+</CodePreviewGroup>
+
+### Use sentence case
+
+Only capitalize the first letter of the button and any proper nouns.
+
+<CodePreviewGroup>
+  <CodePreview
+    hideCode
+    guideline="permitted"
+    code={ButtonComponent({
+      buttonModifiers: 'tds-button--secondary',
+      content: 'Muudan andmeid',
+      iconLeft: false,
+      iconRight: false,
+    })}
+  />
+  <CodePreview
+    hideCode
+    guideline="prohibited"
+    code={ButtonComponent({
+      buttonModifiers: 'tds-button--secondary',
+      content: 'MUUDAN ANDMEID',
+      iconLeft: false,
+      iconRight: false,
+    })}
+  />
+</CodePreviewGroup>
+
+### Use one primary call to action
+
+Only include one primary button in a page or section. Having multiple primary buttons in one area can be confusing or visually overwhelming.
+
+<CodePreviewGroup>
+  <CodePreview
+    hideCode
+    guideline="permitted"
+    code={
+      ButtonComponent({
+        buttonModifiers: 'tds-button--primary',
+        content: 'Saada',
+        iconLeft: false,
+        iconRight: false,
+      }) +
+      ButtonComponent({
+        buttonModifiers: 'tds-button--secondary',
+        content: 'Katkesta',
+        iconLeft: false,
+        iconRight: false,
+      })
+    }
+  />
+  <CodePreview
+    hideCode
+    guideline="prohibited"
+    code={
+      ButtonComponent({
+        buttonModifiers: 'tds-button--primary',
+        content: 'Saada',
+        iconLeft: false,
+        iconRight: false,
+      }) +
+      ButtonComponent({
+        buttonModifiers: 'tds-button--primary',
+        content: 'Katkesta',
+        iconLeft: false,
+        iconRight: false,
+      })
+    }
+  />
+</CodePreviewGroup>

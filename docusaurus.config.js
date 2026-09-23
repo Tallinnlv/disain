@@ -74,8 +74,11 @@ const config = {
             '2.0.0': {
               label: '2.0.0',
             },
+            '2.1.0': {
+              label: '2.1.0',
+            },
           },
-          lastVersion: '2.0.0', // Set this to the version you want as default (e.g., "1.0.0")
+          lastVersion: '2.1.0', // Set this to the version you want as default (e.g., "1.0.0")
         },
         theme: {
           customCss: [require.resolve('./src/css/custom.scss')],

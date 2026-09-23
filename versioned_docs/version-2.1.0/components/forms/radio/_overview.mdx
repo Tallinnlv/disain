@@ -1,0 +1,270 @@
+import {
+  CodePreview,
+  RadioComponent,
+  CodePreviewGroup,
+  UsageAdvice,
+} from '@site/src/components';
+
+# Overview
+
+<UsageAdvice permitted>
+  Use the radios component when users can only select one option from a list.
+</UsageAdvice>
+
+<UsageAdvice permitted={false}>
+  Do not use the radio component if users might need to select more than one
+  option. In this case, you should use the checkboxes component instead.
+</UsageAdvice>
+
+## Principles
+
+Radio buttons always have a minimum of two options.
+
+Always position radios to the left of their labels.
+This makes them easier to find, especially for users of screen magnifiers.
+
+Make the label clickable. Users should be able to click on either the text label or the radio button to select or deselect an option.
+
+Unlike with checkboxes, users can only select one option from a list of radios.
+Do not assume that users will know how many options they can select based on the visual difference between radios and checkboxes alone.
+If needed, add a hint explaining this, for example, ‘Select one option’.
+
+Do not pre-select radio options as this makes it more likely that users will:
+
+- not realise they’ve missed a question
+- submit the wrong answer
+
+## Size
+
+Regular should be used in most cases.
+Compact could be used for example in large and dense data tables.
+
+<CodePreview
+  showToggle={false}
+  minHeight="300px"
+  caption="Regular size"
+  code={RadioComponent({
+    title: 'Label',
+    radios: [
+      [
+        {
+          label: 'Label',
+          checked: true,
+        },
+        {
+          label: 'Label',
+          checked: false,
+        },
+        {
+          label: 'Label',
+          checked: false,
+        },
+      ],
+    ],
+  })}
+/>
+
+<CodePreview
+  showToggle={false}
+  minHeight="300px"
+  caption="Compact size"
+  code={RadioComponent({
+    title: 'Label',
+    compact: true,
+    radios: [
+      [
+        {
+          label: 'Label',
+          checked: true,
+        },
+        {
+          label: 'Label',
+          checked: false,
+        },
+        {
+          label: 'Label',
+          checked: false,
+        },
+      ],
+    ],
+  })}
+/>
+
+## Inline state
+
+<CodePreview
+  showToggle={false}
+  minHeight="100px"
+  code={RadioComponent({
+    inline: true,
+    radios: [
+      [
+        {
+          label: 'Label',
+          checked: true,
+        },
+        {
+          label: 'Label',
+          checked: false,
+        },
+      ],
+    ],
+  })}
+/>
+
+## Hint text
+
+Hint text can be added to the legend and also to individual radios.
+
+<CodePreview
+  showToggle={false}
+  minHeight="300px"
+  code={RadioComponent({
+    title: 'Label',
+    hintTitle: 'Hint text',
+    radios: [
+      [
+        {
+          label: 'Label',
+          checked: true,
+        },
+        {
+          label: 'Label',
+          checked: false,
+        },
+        {
+          label: 'Label',
+          checked: false,
+        },
+      ],
+    ],
+  })}
+/>
+
+<CodePreview
+  showToggle={false}
+  minHeight="350px"
+  code={RadioComponent({
+    title: 'Label',
+    hintTitle: 'Hint text',
+    radios: [
+      [
+        {
+          label: 'Label',
+          checked: true,
+          hint: 'Hint text',
+        },
+        {
+          label: 'Label',
+          checked: false,
+        },
+        {
+          label: 'Label',
+          checked: false,
+        },
+      ],
+    ],
+  })}
+/>
+
+## Required indicator
+
+<CodePreview
+  showToggle={false}
+  minHeight="350px"
+  caption="Single line legend"
+  code={RadioComponent({
+    title: 'Label',
+    titleRequired: true,
+    radios: [
+      [
+        {
+          label: 'Label',
+          checked: true,
+          hint: 'Hint text',
+        },
+        {
+          label: 'Label',
+          checked: false,
+        },
+        {
+          label: 'Label',
+          checked: false,
+        },
+      ],
+    ],
+  })}
+/>
+
+<CodePreview
+  showToggle={false}
+  minHeight="350px"
+  width="35%"
+  caption="Multiple line legend"
+  code={RadioComponent({
+    title: 'Very long label that spans multiple lines and just keeps on going',
+    titleRequired: true,
+    radios: [
+      [
+        {
+          label: 'Label',
+          checked: true,
+        },
+        {
+          label: 'Label',
+          checked: false,
+        },
+        {
+          label: 'Label',
+          checked: false,
+        },
+      ],
+    ],
+  })}
+/>
+
+## Error messages
+
+<CodePreview
+  showToggle={false}
+  minHeight="350px"
+  code={RadioComponent({
+    title: 'Radio group',
+    modifiers: 'is-error',
+    errorMessage: 'Error message',
+    titleRequired: true,
+    radios: [
+      [
+        {
+          label: 'Label',
+          checked: true,
+        },
+        {
+          label: 'Label',
+          checked: false,
+        },
+        {
+          label: 'Label',
+          checked: false,
+        },
+      ],
+    ],
+  })}
+/>
+
+## Disabled state
+
+Use this state when the user doesn’t have permission to edit the field.
+
+<CodePreview
+  minHeight="220px"
+  code={RadioComponent({
+    modifiers: 'is-disabled',
+    radios: [
+      [
+        { label: 'Label', checked: true },
+        { label: 'Label', checked: false },
+      ],
+    ],
+  })}
+/>

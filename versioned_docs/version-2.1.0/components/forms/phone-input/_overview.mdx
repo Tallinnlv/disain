@@ -1,0 +1,73 @@
+import {
+  CodePreview,
+  PhoneInputComponent,
+  CodePreviewGroup,
+  UsageAdvice,
+} from '@site/src/components';
+
+# Overview
+
+<UsageAdvice permitted>
+  Use this component whenever you need users to enter a phone number.
+
+As with all personal information, consider whether you need to collect it at all. Clearly explain why you're asking for the phone number and what will be done to ensure the user's privacy.
+
+</UsageAdvice>
+
+<UsageAdvice permitted={false}>
+  Do not use this component to ask for any information other than a phone
+  number.
+</UsageAdvice>
+
+## Principles
+
+Tell users why you need their phone number, why and when you might contact them.
+
+<CodePreview
+  scriptPath="/scripts/components/forms-phone-input.js"
+  minHeight="400px"
+  code={PhoneInputComponent({
+    title: 'Phone number',
+    hint: 'Used only to contact you if there are any problems with your application',
+  })}
+/>
+
+## Country code
+
+Hide the country code selector if only a single code is allowed.
+
+<CodePreview
+  scriptPath="/scripts/components/forms-phone-input.js"
+  minHeight="240px"
+  code={PhoneInputComponent({
+    showCountryCodeOnly: true,
+    title: 'Phone number',
+    hint: 'Used only to contact you if there are any problems with your application',
+  })}
+/>
+
+## Error messages
+
+<CodePreview
+  scriptPath="/scripts/components/forms-phone-input.js"
+  minHeight="420px"
+  code={PhoneInputComponent({
+    title: 'Phone number',
+    titleRequired: true,
+    hint: 'Used only to contact you if there are any problems with your application',
+    modifiers: ['is-error'],
+    errorMessage: 'Enter your phone number',
+  })}
+/>
+
+## Disabled state
+
+<CodePreview
+  scriptPath="/scripts/components/forms-phone-input.js"
+  minHeight="240px"
+  code={PhoneInputComponent({
+    isDisabled: true,
+    title: 'Phone number',
+    hint: 'Used only to contact you if there are any problems with your application',
+  })}
+/>
