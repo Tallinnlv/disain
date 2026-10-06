@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './HeaderComponent.module.scss';
 import { Link } from 'react-router-dom';
+import { useHistory } from '@docusaurus/router';
+import SearchField from '../SiteSearch/SearchField';
+import { addRecentSearch } from '../SiteSearch/recentSearches';
 
 export default function HeaderComponent() {
+  const history = useHistory();
+  const [query, setQuery] = useState('');
+
+  const submit = (value) => {
+    const q = value.trim();
+    if (!q) return;
+    addRecentSearch(q);
+    history.push(`/search?q=${encodeURIComponent(q)}`);
+  };
+
   return (
     <div>
       <img
@@ -19,6 +32,17 @@ export default function HeaderComponent() {
             design assets and component libraries for building a consistent and
             accessible digital brand across the city.
           </p>
+
+          <div className={styles.search}>
+            <SearchField
+              variant="hero"
+              inputId="home-search-query"
+              value={query}
+              onChange={setQuery}
+              onSubmit={submit}
+              onClear={() => setQuery('')}
+            />
+          </div>
 
           <Link
             className="tds-button tds-button--primary"
