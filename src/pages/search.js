@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '@theme/Layout';
+import useIsBrowser from '@docusaurus/useIsBrowser';
 import { useHistory, useLocation } from '@docusaurus/router';
 import SearchField from '@site/src/components/SiteSearch/SearchField';
 import SearchResults from '@site/src/components/SiteSearch/SearchResults';
@@ -15,7 +16,10 @@ export default function SearchPage() {
   const location = useLocation();
   const history = useHistory();
   const latestVersion = useLatestVersionName();
-  const params = new URLSearchParams(location.search);
+  // The static build renders this page without a query string, so the
+  // first client render must match that or React drops the server HTML.
+  const isBrowser = useIsBrowser();
+  const params = new URLSearchParams(isBrowser ? location.search : '');
   const query = (params.get('q') || '').trim();
   const version = params.get('v') || latestVersion;
   const [draft, setDraft] = useState(query);
