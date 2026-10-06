@@ -33,7 +33,7 @@ export default function SearchPage() {
 
   return (
     <Layout
-      title={query ? `Search: ${query}` : 'Search'}
+      title="Search"
       description="Search the Tallinn Design System documentation"
     >
       <main>
