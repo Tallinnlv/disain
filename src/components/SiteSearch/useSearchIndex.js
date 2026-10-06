@@ -85,7 +85,11 @@ export function useSearchIndex(version) {
     return (query) => {
       const q = query.trim();
       if (!q) return [];
-      return miniSearch.search(q);
+      // Require every word first; if nothing has all of them, fall back to
+      // any of them so "focus ring" still finds the focus-state guidance.
+      const strict = miniSearch.search(q);
+      if (strict.length || !/\s/.test(q)) return strict;
+      return miniSearch.search(q, { combineWith: 'OR' });
     };
   }, [miniSearch]);
 }
