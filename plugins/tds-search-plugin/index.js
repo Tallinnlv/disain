@@ -136,6 +136,21 @@ module.exports = function tdsSearchPlugin(context) {
       const docsContent = docsPlugin && docsPlugin.default;
       if (!docsContent) return;
 
+      // A static import per version keeps webpack's code splitting simple
+      // (one lazy chunk per index) and avoids a dynamic-request context.
+      const loaders = docsContent.loadedVersions
+        .map(
+          (version) =>
+            `  ${JSON.stringify(version.versionName)}: () => import(` +
+            `/* webpackChunkName: "search-index-${version.versionName}" */ ` +
+            `${JSON.stringify(`./index-${version.versionName}.json`)}),`,
+        )
+        .join('\n');
+      await actions.createData(
+        'loaders.js',
+        `export default {\n${loaders}\n};\n`,
+      );
+
       await Promise.all(
         docsContent.loadedVersions.map(async (version) => {
           const records = version.docs
