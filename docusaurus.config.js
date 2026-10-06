@@ -24,6 +24,20 @@ const buildId = (() => {
 const config = {
   customFields: {
     buildId,
+    // Chips shown in the site search panel before a query is typed.
+    searchQuickLinks: [
+      { label: 'Getting started', to: '/docs/getting-started' },
+      { label: 'Color', to: '/docs/foundations/color/color-overview' },
+      {
+        label: 'Typography',
+        to: '/docs/foundations/typography/typography-overview',
+      },
+      { label: 'Button', to: '/docs/components/actions/button' },
+      {
+        label: 'Form inputs',
+        to: '/docs/patterns/forms/choosing-the-right-component',
+      },
+    ],
   },
   title: 'Tallinn Design System',
   tagline: 'Documentation for the Tallinn Design System',
@@ -195,6 +209,7 @@ const config = {
   plugins: [
     '@docusaurus/theme-live-codeblock',
     'docusaurus-plugin-sass',
+    path.resolve(__dirname, './plugins/tds-search-plugin'),
     [
       path.resolve(__dirname, './plugins/tds-watcher-plugin'),
       {
