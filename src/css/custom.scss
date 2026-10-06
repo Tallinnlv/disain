@@ -1,4 +1,6 @@
 @use './tds-library/scss/components/link' as l;
+@use './tds-library/scss/components/chip';
+@use './tds-library/scss/components/badge';
 @use './tds-library/scss/helpers' as h;
 @use './tds-library/scss/base/color-variables';
 @use './tds-library/scss/base/color-variables-dark';
@@ -94,6 +96,11 @@ body {
   padding: 0px 32px 0px 16px;
   align-items: center;
   border-bottom: 1px solid var(--general-border-neutral-subtle, #c4c7ca);
+
+  @media screen and (max-width: 996px) {
+    // The search trigger sits at the right edge on phones (16px gutter).
+    padding-right: 16px;
+  }
 }
 
 .navbar__logo {
@@ -192,8 +199,19 @@ header h1 {
 
 .navbar__inner .navbar__items.navbar__items--right {
   @media screen and (max-width: 996px) {
-    display: none;
+    // The links and the version dropdown live in the mobile sidebar; the
+    // site search trigger stays in the bar.
+    > .navbar__item {
+      display: none;
+    }
   }
+}
+
+// Docusaurus pads its search slot and, on mobile, takes it out of flow.
+// Keep it in flow so the search panel can span the whole navbar.
+.navbar [class*='navbarSearchContainer'] {
+  position: static;
+  padding: 0;
 }
 
 .theme-doc-sidebar-menu {
