@@ -1,0 +1,88 @@
+import { useEffect, useMemo, useState } from 'react';
+import MiniSearch from 'minisearch';
+import {
+  useActiveVersion,
+  useLatestVersion,
+} from '@docusaurus/plugin-content-docs/client';
+import { useDocsPreferredVersion } from '@docusaurus/theme-common';
+
+const DOCS_PLUGIN_ID = 'default';
+
+// Which docs version a search should cover: the version of the page being
+// read, else the one the visitor picked in the version dropdown, else the
+// default (lastVersion in docusaurus.config.js).
+export function useSearchVersion() {
+  const active = useActiveVersion(DOCS_PLUGIN_ID);
+  const { preferredVersion } = useDocsPreferredVersion(DOCS_PLUGIN_ID);
+  const latest = useLatestVersion(DOCS_PLUGIN_ID);
+  return (active || preferredVersion || latest).name;
+}
+
+export function useLatestVersionName() {
+  return useLatestVersion(DOCS_PLUGIN_ID).name;
+}
+
+const SEARCH_OPTIONS = {
+  prefix: true,
+  fuzzy: 0.2,
+  combineWith: 'AND',
+  boost: { title: 4, headings: 2, description: 1.5 },
+};
+
+const indexCache = new Map();
+
+function loadIndex(version) {
+  if (!indexCache.has(version)) {
+    const promise = import(
+      /* webpackChunkName: "search-index-[request]" */
+      `@generated/tds-search-plugin/default/index-${version}.json`
+    ).then((mod) => {
+      const records = mod.default || mod;
+      const miniSearch = new MiniSearch({
+        fields: ['title', 'headings', 'description', 'text'],
+        storeFields: [
+          'title',
+          'description',
+          'permalink',
+          'category',
+          'breadcrumb',
+          'text',
+        ],
+        extractField: (doc, field) =>
+          Array.isArray(doc[field]) ? doc[field].join(' ') : doc[field],
+        searchOptions: SEARCH_OPTIONS,
+      });
+      miniSearch.addAll(records);
+      return miniSearch;
+    });
+    indexCache.set(version, promise);
+  }
+  return indexCache.get(version);
+}
+
+// Loads the index for a version on first use and returns a search function
+// (null until loaded). The index is a lazy chunk, so pages that never open
+// search never download it.
+export function useSearchIndex(version) {
+  const [miniSearch, setMiniSearch] = useState(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    setMiniSearch(null);
+    loadIndex(version).then((index) => {
+      if (!cancelled) setMiniSearch(index);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [version]);
+
+  return useMemo(() => {
+    if (!miniSearch) return null;
+    return (query) => {
+      const q = query.trim();
+      if (!q) return [];
+      return miniSearch.search(q);
+    };
+  }, [miniSearch]);
+}
