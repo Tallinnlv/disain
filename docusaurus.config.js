@@ -88,6 +88,10 @@ const config = {
             '2.0.0': {
               label: '2.0.0',
             },
+            // 2.1.0 is "the latest" until 3.0.0: patch releases (2.1.1, 2.1.2, …)
+            // are changelog entries edited into this snapshot, not new docs
+            // versions. The label doubles as the key for tds-<label>.min.css and
+            // the HTMLTemplates set, so keep it as is.
             '2.1.0': {
               label: '2.1.0',
             },
