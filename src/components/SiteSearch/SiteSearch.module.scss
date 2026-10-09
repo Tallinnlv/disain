@@ -232,7 +232,7 @@ $focus-ring:
 
   &:hover,
   &[aria-selected="true"] {
-    background: var(--color-surface-subtle);
+    background: var(--color-surface-faint);
   }
 }
 
@@ -265,6 +265,10 @@ $focus-ring:
     align-items: flex-start;
     padding: 20px;
   }
+}
+
+.quickLinks .chip:hover {
+  background: var(--color-surface-subtle);
 }
 
 .quickLinksBody {
