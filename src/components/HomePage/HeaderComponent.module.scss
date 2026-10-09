@@ -3,13 +3,18 @@
 
 .layout {
   display: flex;
+  width: 100%;
   max-width: 1248px;
-  padding: var(--component-button-bare-regular-padding-x, 0px) 432px
-    var(--component-button-bare-regular-padding-x, 0px) 16px;
+  padding: 0 16px;
   flex-direction: column;
   align-items: flex-start;
   margin: auto;
   gap: 20px;
+
+  > * {
+    width: 100%;
+    max-width: 800px;
+  }
 
   @media screen and (max-width: 768px) {
     padding: 8px;
@@ -58,5 +63,5 @@
 .search {
   margin-top: 20px;
   width: 100%;
-  max-width: 784px;
+  max-width: 800px;
 }
