@@ -1,5 +1,5 @@
-@use '../../css/tds-library/scss/base/color-variables';
-@use '../../css/tds-library/scss/base/color-variables-dark';
+@use "../../css/tds-library/scss/base/color-variables";
+@use "../../css/tds-library/scss/base/color-variables-dark";
 
 // Site search for the docs shell (navbar panel, homepage hero, /search).
 // Design: Figma "Otsing disain.tallinn.ee". Uses the global tds-button,
@@ -150,7 +150,7 @@ $focus-ring:
     background: var(--color-surface-action-neutral-subtle-hover);
   }
 
-  &[aria-expanded='true'] {
+  &[aria-expanded="true"] {
     background: var(--color-surface-subtle);
   }
 
@@ -231,7 +231,7 @@ $focus-ring:
   }
 
   &:hover,
-  &[aria-selected='true'] {
+  &[aria-selected="true"] {
     background: var(--color-surface-faint);
   }
 }
@@ -300,7 +300,7 @@ $focus-ring:
     color: var(--color-content-default);
   }
 
-  &[aria-pressed='true'] {
+  &[aria-pressed="true"] {
     background: var(--color-surface-subtle);
   }
 }
@@ -427,4 +427,34 @@ $focus-ring:
   margin: 0;
   font-size: 18px;
   line-height: 1.5;
+}
+
+.inlineSearch {
+  position: relative;
+  width: 100%;
+  color: var(--color-content-default);
+  text-align: left;
+}
+
+.inlineDropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: var(--color-surface-default);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 16px 32px rgb(0 0 0 / 20%);
+
+  &[hidden] {
+    display: none;
+  }
+
+  .quickLinks {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
