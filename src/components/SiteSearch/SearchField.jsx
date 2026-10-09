@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { useWindowSize } from '@docusaurus/theme-common';
 import SearchIcon from '@site/static/img/icons/search-24.svg';
@@ -25,10 +25,28 @@ const SearchField = forwardRef(function SearchField(
     inputId,
     comboboxProps,
     autoFocus = false,
+    keyboardFocusOnly = false,
   },
   ref,
 ) {
   const windowSize = useWindowSize();
+  const [keyboardFocus, setKeyboardFocus] = useState(true);
+
+  useEffect(() => {
+    if (!keyboardFocusOnly) return undefined;
+    // Text inputs match :focus-visible even after a click. Track navigation
+    // separately so typing into a clicked field does not turn its ring on.
+    const onPointerDown = () => setKeyboardFocus(false);
+    const onKeyDown = (event) => {
+      if (event.key === 'Tab') setKeyboardFocus(true);
+    };
+    document.addEventListener('pointerdown', onPointerDown, true);
+    document.addEventListener('keydown', onKeyDown, true);
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDown, true);
+      document.removeEventListener('keydown', onKeyDown, true);
+    };
+  }, [keyboardFocusOnly]);
   const placeholder =
     windowSize === 'mobile' ? 'Search components' : SEARCH_PLACEHOLDER;
 
@@ -44,7 +62,9 @@ const SearchField = forwardRef(function SearchField(
       <label htmlFor={inputId} className="visually-hidden">
         {label}
       </label>
-      <div className={styles.fieldRow}>
+      <div className={clsx(styles.fieldRow, {
+        [styles.pointerFocus]: keyboardFocusOnly && !keyboardFocus,
+      })}>
         <span className={styles.fieldIcon} aria-hidden="true">
           <SearchIcon />
         </span>
