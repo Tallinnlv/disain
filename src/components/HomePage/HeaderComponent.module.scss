@@ -9,7 +9,7 @@
   flex-direction: column;
   align-items: flex-start;
   margin: auto;
-  gap: var(--component-button-contained-regular-padding-x, 24px);
+  gap: 20px;
 
   @media screen and (max-width: 768px) {
     padding: 8px;
@@ -42,7 +42,7 @@
   font-style: normal;
   font-weight: 700;
   line-height: 110%; /* 52.8px */
-  margin-bottom: -8px;
+  margin-bottom: 0;
 }
 
 /* The tagline is a paragraph, not a heading: it is not a section title. */
@@ -56,6 +56,7 @@
 }
 
 .search {
+  margin-top: 20px;
   width: 100%;
   max-width: 784px;
 }
