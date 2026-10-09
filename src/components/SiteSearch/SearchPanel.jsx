@@ -27,7 +27,15 @@ export function searchUrl(query, version, latestVersion) {
 // The dropdown under the navbar: search field, page suggestions, recent
 // searches, quick links. One listbox (suggestions + recents) is driven by
 // the field's aria-activedescendant so arrow keys work from the input.
-export default function SearchPanel({ id, onClose, inputRef, inline = false }) {
+export default function SearchPanel({
+  id,
+  onClose,
+  inputRef,
+  inline = false,
+  initialQuery = "",
+  searchVersion,
+  inputId = `${id}-input`,
+}) {
   const rootRef = useRef(null);
   const localInputRef = useRef(null);
   const fieldRef = inputRef || localInputRef;
@@ -48,10 +56,11 @@ export default function SearchPanel({ id, onClose, inputRef, inline = false }) {
   const history = useHistory();
   const { siteConfig } = useDocusaurusContext();
   const quickLinks = siteConfig.customFields.searchQuickLinks || [];
-  const version = useSearchVersion();
+  const activeVersion = useSearchVersion();
+  const version = searchVersion || activeVersion;
   const latestVersion = useLatestVersionName();
   const search = useSearchIndex(version);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(initialQuery);
   const [activeIndex, setActiveIndex] = useState(-1);
   const [recents, setRecents] = useState([]);
   const listboxId = `${id}-listbox`;
@@ -162,7 +171,7 @@ export default function SearchPanel({ id, onClose, inputRef, inline = false }) {
           <SearchField
             ref={fieldRef}
             variant={inline ? "hero" : "panel"}
-            inputId={`${id}-input`}
+            inputId={inputId}
             value={query}
             onChange={(value) => {
               setQuery(value);

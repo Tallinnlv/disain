@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Layout from '@theme/Layout';
 import useIsBrowser from '@docusaurus/useIsBrowser';
-import { useHistory, useLocation } from '@docusaurus/router';
-import SearchField from '@site/src/components/SiteSearch/SearchField';
+import { useLocation } from '@docusaurus/router';
+import SearchPanel from '@site/src/components/SiteSearch/SearchPanel';
 import SearchResults from '@site/src/components/SiteSearch/SearchResults';
-import { searchUrl } from '@site/src/components/SiteSearch/SearchPanel';
 import { useLatestVersionName } from '@site/src/components/SiteSearch/useSearchIndex';
-import { addRecentSearch } from '@site/src/components/SiteSearch/recentSearches';
 import styles from '@site/src/components/SiteSearch/SiteSearch.module.scss';
 
 // /search?q=<query>[&v=<docs version>] — the version defaults to the one
@@ -14,7 +12,6 @@ import styles from '@site/src/components/SiteSearch/SiteSearch.module.scss';
 // search was started from another version's pages.
 export default function SearchPage() {
   const location = useLocation();
-  const history = useHistory();
   const latestVersion = useLatestVersionName();
   // The static build renders this page without a query string, so the
   // first client render must match that or React drops the server HTML.
@@ -22,19 +19,6 @@ export default function SearchPage() {
   const params = new URLSearchParams(isBrowser ? location.search : '');
   const query = (params.get('q') || '').trim();
   const version = params.get('v') || latestVersion;
-  const [draft, setDraft] = useState(query);
-
-  useEffect(() => {
-    setDraft(query);
-  }, [query]);
-
-  const submit = (value) => {
-    const q = value.trim();
-    if (!q) return;
-    addRecentSearch(q);
-    history.push(searchUrl(q, version, latestVersion));
-  };
-
   return (
     <Layout
       title="Search"
@@ -46,13 +30,13 @@ export default function SearchPage() {
             <h1 className={styles.heroTitle}>
               Search components, foundations, patterns
             </h1>
-            <SearchField
-              variant="hero"
+            <SearchPanel
+              key={`${version}:${query}`}
+              id="results-search"
               inputId="search-page-query"
-              value={draft}
-              onChange={setDraft}
-              onSubmit={submit}
-              onClear={() => setDraft('')}
+              inline
+              initialQuery={query}
+              searchVersion={version}
             />
           </div>
         </div>
