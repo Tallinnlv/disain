@@ -24,6 +24,20 @@ const buildId = (() => {
 const config = {
   customFields: {
     buildId,
+    // Chips shown in the site search panel before a query is typed.
+    searchQuickLinks: [
+      { label: 'Getting started', to: '/docs/getting-started' },
+      { label: 'Color', to: '/docs/foundations/color/color-overview' },
+      {
+        label: 'Typography',
+        to: '/docs/foundations/typography/typography-overview',
+      },
+      { label: 'Button', to: '/docs/components/actions/button' },
+      {
+        label: 'Form inputs',
+        to: '/docs/patterns/forms/choosing-the-right-component',
+      },
+    ],
   },
   title: 'Tallinn Design System',
   tagline: 'Documentation for the Tallinn Design System',
@@ -74,6 +88,10 @@ const config = {
             '2.0.0': {
               label: '2.0.0',
             },
+            // 2.1.0 is "the latest" until 3.0.0: patch releases (2.1.1, 2.1.2, …)
+            // are changelog entries edited into this snapshot, not new docs
+            // versions. The label doubles as the key for tds-<label>.min.css and
+            // the HTMLTemplates set, so keep it as is.
             '2.1.0': {
               label: '2.1.0',
             },
@@ -195,6 +213,7 @@ const config = {
   plugins: [
     '@docusaurus/theme-live-codeblock',
     'docusaurus-plugin-sass',
+    path.resolve(__dirname, './plugins/tds-search-plugin'),
     [
       path.resolve(__dirname, './plugins/tds-watcher-plugin'),
       {
