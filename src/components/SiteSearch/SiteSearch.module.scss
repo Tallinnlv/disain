@@ -267,6 +267,10 @@ $focus-ring:
   }
 }
 
+.quickLinks .chip:hover {
+  background: var(--color-surface-subtle);
+}
+
 .quickLinksBody {
   display: flex;
   flex: 1 1 auto;

@@ -268,6 +268,7 @@ export default function SearchPanel({ id, onClose, inputRef, inline = false }) {
                       to={link.to}
                       className={clsx(
                         "tds-chip",
+                        "tds-chip--selection",
                         "tds-chip--selection-medium",
                         styles.chip,
                       )}
