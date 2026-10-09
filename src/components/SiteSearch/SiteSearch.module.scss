@@ -232,7 +232,7 @@ $focus-ring:
 
   &:hover,
   &[aria-selected="true"] {
-    background: var(--color-surface-faint);
+    background: var(--color-surface-subtle);
   }
 }
 
