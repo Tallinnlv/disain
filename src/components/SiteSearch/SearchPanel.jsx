@@ -32,6 +32,7 @@ export default function SearchPanel({
   onClose,
   inputRef,
   inline = false,
+  keyboardFocusOnly = false,
   initialQuery = "",
   searchVersion,
   inputId = `${id}-input`,
@@ -169,6 +170,7 @@ export default function SearchPanel({
       >
         <div className={inline ? undefined : styles.panelField}>
           <SearchField
+            keyboardFocusOnly={keyboardFocusOnly}
             ref={fieldRef}
             variant={inline ? "hero" : "panel"}
             inputId={inputId}

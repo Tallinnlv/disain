@@ -21,7 +21,7 @@ export default function HeaderComponent() {
           </p>
 
           <div className={styles.search}>
-            <SearchPanel id="home-search" inline />
+            <SearchPanel id="home-search" inline keyboardFocusOnly />
           </div>
         </div>
       </div>
