@@ -28,6 +28,12 @@ $focus-ring:
   background: var(--color-surface-default);
 }
 
+// While the inline dropdown is open it sits flush under the box.
+.field--attached {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
 .fieldRow {
   display: flex;
   flex: 1 1 auto;

@@ -173,6 +173,7 @@ export default function SearchPanel({
             keyboardFocusOnly={keyboardFocusOnly}
             ref={fieldRef}
             variant={inline ? "hero" : "panel"}
+            attached={inline && expanded}
             inputId={inputId}
             value={query}
             onChange={(value) => {

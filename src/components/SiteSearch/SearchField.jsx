@@ -10,7 +10,8 @@ export const SEARCH_PLACEHOLDER = 'Search components, foundations, patterns';
 // The 48px search row: magnifier, text input, clear button and the primary
 // "Search" button. `variant="hero"` wraps it in the white rounded box used
 // on the homepage and the results page; "panel" is the bare row for the
-// navbar panel.
+// navbar panel. `attached` squares the bottom corners while a dropdown
+// hangs directly under the box, so the two read as one shape.
 const SearchField = forwardRef(function SearchField(
   {
     value,
@@ -26,6 +27,7 @@ const SearchField = forwardRef(function SearchField(
     comboboxProps,
     autoFocus = false,
     keyboardFocusOnly = false,
+    attached = false,
   },
   ref,
 ) {
@@ -53,7 +55,11 @@ const SearchField = forwardRef(function SearchField(
   return (
     <form
       role="search"
-      className={clsx(styles.field, styles[`field--${variant}`])}
+      className={clsx(
+        styles.field,
+        styles[`field--${variant}`],
+        attached && styles['field--attached'],
+      )}
       onSubmit={(event) => {
         event.preventDefault();
         onSubmit?.(value);
